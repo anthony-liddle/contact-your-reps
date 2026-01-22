@@ -1,0 +1,132 @@
+.fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.legend {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.selectedCount {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.controls {
+  margin-bottom: 1rem;
+}
+
+.selectAllButton {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--button-secondary-text);
+  background-color: var(--button-secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.selectAllButton:hover {
+  background-color: var(--button-secondary-hover);
+}
+
+.selectAllButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.issueList {
+  display: grid;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .issueList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.issueItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.issueItem:hover {
+  border-color: var(--border-hover);
+  background-color: var(--card-hover);
+}
+
+.issueItem:focus-within {
+  border-color: var(--focus-color);
+  box-shadow: 0 0 0 2px var(--focus-ring);
+}
+
+.issueItem.selected {
+  border-color: var(--selected-color);
+  background-color: var(--selected-bg);
+}
+
+.checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkboxCustom {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--border-color);
+  border-radius: 0.25rem;
+  background-color: var(--input-bg);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.issueItem.selected .checkboxCustom {
+  border-color: var(--selected-color);
+  background-color: var(--selected-color);
+  color: white;
+}
+
+.checkIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.issueContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.issueTitle {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.issueDescription {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}

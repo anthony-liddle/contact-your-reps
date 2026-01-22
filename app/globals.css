@@ -1,42 +1,243 @@
+/**
+ * Global CSS Variables and Base Styles
+ * Designed for accessibility with WCAG 2.1 AA compliance
+ */
+
 :root {
+  /* Colors - Light Mode */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1a1a2e;
+
+  /* Text colors */
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a4a6a;
+  --text-muted: #7a7a9a;
+
+  /* UI colors */
+  --card-bg: #ffffff;
+  --card-hover: #f8f9fa;
+  --input-bg: #ffffff;
+  --input-readonly-bg: #f5f5f7;
+  --border-color: #d1d5db;
+  --border-hover: #9ca3af;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
+  /* Interactive colors */
+  --button-bg: #2563eb;
+  --button-hover: #1d4ed8;
+  --button-text: #ffffff;
+  --button-secondary-bg: #f3f4f6;
+  --button-secondary-hover: #e5e7eb;
+  --button-secondary-text: #374151;
+
+  /* Link colors */
+  --link-color: #2563eb;
+  --link-hover: #1d4ed8;
+
+  /* Focus states - high visibility for accessibility */
+  --focus-color: #2563eb;
+  --focus-ring: rgba(37, 99, 235, 0.35);
+
+  /* Selection states */
+  --selected-color: #2563eb;
+  --selected-bg: rgba(37, 99, 235, 0.08);
+
+  /* Status colors */
+  --error-color: #dc2626;
+  --error-ring: rgba(220, 38, 38, 0.35);
+  --error-bg: #fef2f2;
+  --error-text: #991b1b;
+  --success-bg: #f0fdf4;
+  --success-text: #166534;
+
+  /* Trust badges */
+  --trust-badge-bg: #f0fdf4;
+  --trust-badge-border: #bbf7d0;
+  --trust-badge-text: #166534;
+
+  /* Instructions */
+  --instructions-bg: #f8fafc;
+
+  /* Typography */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
 }
 
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0f0f1a;
+    --foreground: #f0f0f5;
+
+    --text-primary: #f0f0f5;
+    --text-secondary: #a0a0b5;
+    --text-muted: #707085;
+
+    --card-bg: #1a1a2e;
+    --card-hover: #252540;
+    --input-bg: #1a1a2e;
+    --input-readonly-bg: #252540;
+    --border-color: #3a3a5a;
+    --border-hover: #5a5a7a;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+
+    --button-bg: #3b82f6;
+    --button-hover: #2563eb;
+    --button-secondary-bg: #252540;
+    --button-secondary-hover: #3a3a5a;
+    --button-secondary-text: #e0e0ef;
+
+    --link-color: #60a5fa;
+    --link-hover: #93c5fd;
+
+    --focus-color: #60a5fa;
+    --focus-ring: rgba(96, 165, 250, 0.4);
+
+    --selected-color: #3b82f6;
+    --selected-bg: rgba(59, 130, 246, 0.15);
+
+    --error-color: #f87171;
+    --error-ring: rgba(248, 113, 113, 0.4);
+    --error-bg: rgba(220, 38, 38, 0.15);
+    --error-text: #fca5a5;
+    --success-bg: rgba(22, 163, 74, 0.15);
+    --success-text: #86efac;
+
+    --trust-badge-bg: rgba(22, 163, 74, 0.15);
+    --trust-badge-border: rgba(34, 197, 94, 0.3);
+    --trust-badge-text: #86efac;
+
+    --instructions-bg: #1a1a2e;
   }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-* {
+/* Reset and base styles */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--foreground);
+  background-color: var(--background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus visible styles for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+/* Remove focus outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Links */
 a {
-  color: inherit;
+  color: var(--link-color);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: var(--link-hover);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+/* Lists */
+ul, ol {
+  list-style-position: outside;
+  padding-left: 1.5rem;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Form elements base */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  padding: 1rem;
+  background: var(--button-bg);
+  color: var(--button-text);
+  z-index: 1000;
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+.skip-link:focus {
+  top: 0;
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
