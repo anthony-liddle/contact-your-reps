@@ -41,13 +41,10 @@ export default function Home() {
 
     setRepresentatives(result.representatives);
 
-    // Build location info string
-    if (result.normalizedInput) {
-      const { city, state, zip } = result.normalizedInput;
-      const parts = [city, state, zip].filter(Boolean);
-      if (parts.length > 0) {
-        setLocationInfo(parts.join(', '));
-      }
+    // Build location info string from 5calls response
+    if (result.location) {
+      const parts = [result.location, result.state].filter(Boolean);
+      setLocationInfo(parts.join(', '));
     }
 
     setAppState('representatives');
@@ -135,7 +132,7 @@ export default function Home() {
 
               <div className={styles.representativesGrid}>
                 {representatives.map((rep) => (
-                  <RepresentativeCard key={`${rep.name}-${rep.office}`} representative={rep} />
+                  <RepresentativeCard key={rep.id} representative={rep} />
                 ))}
               </div>
             </section>
@@ -168,7 +165,7 @@ export default function Home() {
           </p>
           <p className={styles.footerLinks}>
             <a
-              href="https://github.com"
+              href="https://github.com/anthony-liddle/contact-your-reps"
               target="_blank"
               rel="noopener noreferrer"
             >

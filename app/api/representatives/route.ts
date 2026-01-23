@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const API_BASE = 'https://whoismyrepresentative.com';
+const API_BASE = 'https://api.5calls.org/v1'
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -15,10 +15,11 @@ export async function GET(request: NextRequest) {
 
   try {
     const response = await fetch(
-      `${API_BASE}/getall_mems.php?zip=${zip}&output=json`,
+      `${API_BASE}/representatives?location=${zip}`,
       {
         headers: {
           'Accept': 'application/json',
+          'X-5Calls-Token': process.env.FIVE_CALLS_TOKEN || ''
         },
       }
     );

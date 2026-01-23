@@ -9,6 +9,7 @@ interface MessagePreviewProps {
   message: GeneratedMessage;
 }
 
+// TODO: make message editable (textarea?)
 export default function MessagePreview({ message }: MessagePreviewProps) {
   const [copyStatus, setCopyStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);

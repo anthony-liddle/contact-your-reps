@@ -2,6 +2,8 @@
 
 import styles from './TrustBadges.module.css';
 
+// TODO: explain this, maybe in tooltips?
+
 export default function TrustBadges() {
   return (
     <div className={styles.container} role="region" aria-label="Privacy and trust information">

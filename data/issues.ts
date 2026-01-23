@@ -10,6 +10,8 @@ export interface Issue {
   messageParagraph: string;
 }
 
+// TODO: Add queer rights
+
 export const issues: Issue[] = [
   {
     id: 'universal-healthcare',

@@ -2,29 +2,40 @@
  * Type definitions for the application
  */
 
+export interface FieldOffice {
+  phone: string;
+  city: string;
+}
+
 export interface Representative {
+  id: string;
   name: string;
-  office: string;
-  party?: string;
-  emails?: string[];
-  phones?: string[];
-  urls?: string[];
+  phone: string;
+  url: string;
   photoUrl?: string;
-  contactFormUrl?: string;
-  bioguideId?: string;
-  channels?: {
-    type: string;
-    id: string;
-  }[];
+  party: string;
+  state: string;
+  reason: string;
+  area: string;
+  fieldOffices?: FieldOffice[];
+}
+
+export interface FiveCallsResponse {
+  location: string;
+  lowAccuracy: boolean;
+  isSplit: boolean;
+  state: string;
+  district: string;
+  representatives: Representative[];
+  error?: string;
 }
 
 export interface RepresentativesResult {
   representatives: Representative[];
-  normalizedInput?: {
-    city?: string;
-    state?: string;
-    zip?: string;
-  };
+  location?: string;
+  state?: string;
+  district?: string;
+  lowAccuracy?: boolean;
   error?: string;
 }
 

@@ -56,19 +56,14 @@ Respectfully,
 }
 
 /**
- * Generates a complete message based on selected issues and representatives
+ * Generates a complete message based on selected issues
  */
 export function generateMessage(
   selectedIssues: Issue[],
-  representatives: Representative[]
+  _representatives: Representative[]
 ): GeneratedMessage {
-  // Note: 'to' field is kept for compatibility but typically empty
-  // since contact forms don't use email addresses
-  const emails = representatives
-    .flatMap((rep) => rep.emails || [])
-    .filter((email, index, arr) => arr.indexOf(email) === index);
-
-  const to = emails.length > 0 ? emails.join(', ') : '';
+  // 'to' field is empty since users submit via contact forms
+  const to = '';
 
   const subject = generateSubject(selectedIssues);
 

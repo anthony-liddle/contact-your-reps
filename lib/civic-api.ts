@@ -1,36 +1,9 @@
 /**
  * Representatives API integration
- * Uses whoismyrepresentative.com to resolve representatives by ZIP code.
- * Enriches data with congress-legislators dataset for contact form URLs.
- *
- * Note: whoismyrepresentative.com is licensed under Creative Commons Attribution 3.0.
- * congress-legislators data is public domain.
+ * Uses 5calls.org API to resolve representatives by ZIP code.
  */
 
-import type { Representative, RepresentativesResult } from './types';
-import {
-  fetchLegislatorsData,
-  findLegislator,
-  type LegislatorInfo,
-} from './legislators-data';
-
-/**
- * Response format from whoismyrepresentative.com API
- */
-interface WhoIsMyRepMember {
-  name: string;
-  party: string;
-  state: string;
-  district: string;
-  phone: string;
-  office: string;
-  link: string;
-}
-
-interface WhoIsMyRepResponse {
-  results?: WhoIsMyRepMember[];
-  error?: string;
-}
+import type { Representative, RepresentativesResult, FiveCallsResponse } from './types';
 
 /**
  * Validates a U.S. ZIP code format
@@ -41,64 +14,35 @@ export function isValidZipCode(zip: string): boolean {
 }
 
 /**
- * Determines if a member is a Senator based on district field and link
- * Senators have an empty district field and senate.gov in their website
+ * Transforms the 5calls API response to our internal format
  */
-function isSenator(member: WhoIsMyRepMember): boolean {
-  // Senators have empty district field
-  if (!member.district || member.district.trim() === '') {
-    return true;
-  }
-  // Fallback: check if their website is senate.gov
-  if (member.link && member.link.includes('senate.gov')) {
-    return true;
-  }
-  return false;
-}
-
-/**
- * Formats the office title for display
- */
-function formatOfficeTitle(member: WhoIsMyRepMember): string {
-  if (isSenator(member)) {
-    return `U.S. Senator (${member.state})`;
-  }
-  return `U.S. Representative (${member.state}-${member.district})`;
-}
-
-/**
- * Enriches a representative with data from the congress-legislators dataset
- */
-function enrichRepresentative(
-  member: WhoIsMyRepMember,
-  legislators: LegislatorInfo[]
-): Representative {
-  const baseRep: Representative = {
-    name: member.name,
-    office: formatOfficeTitle(member),
-    party: member.party || undefined,
-    phones: member.phone ? [member.phone] : undefined,
-    urls: member.link ? [member.link] : undefined,
+function transformRepresentative(rep: {
+  id: string;
+  name: string;
+  phone: string;
+  url: string;
+  photoURL?: string;
+  party: string;
+  state: string;
+  reason: string;
+  area: string;
+  field_offices?: { phone: string; city: string }[];
+}): Representative {
+  return {
+    id: rep.id,
+    name: rep.name,
+    phone: rep.phone,
+    url: rep.url,
+    photoUrl: rep.photoURL,
+    party: rep.party,
+    state: rep.state,
+    reason: rep.reason,
+    area: rep.area,
+    fieldOffices: rep.field_offices?.map((office) => ({
+      phone: office.phone,
+      city: office.city,
+    })),
   };
-
-  // Try to find matching legislator for additional data
-  const legislator = findLegislator(member.name, member.state, legislators);
-
-  if (legislator) {
-    return {
-      ...baseRep,
-      contactFormUrl: legislator.contactFormUrl,
-      bioguideId: legislator.bioguideId,
-      // Prefer congress-legislators phone if available (more likely to be current)
-      phones: legislator.phone ? [legislator.phone] : baseRep.phones,
-      // Add official website URL if available
-      urls: legislator.websiteUrl
-        ? [legislator.websiteUrl, ...(baseRep.urls || [])]
-        : baseRep.urls,
-    };
-  }
-
-  return baseRep;
 }
 
 /**
@@ -118,18 +62,14 @@ export async function getRepresentativesByZip(
   const zip5 = zipCode.trim().substring(0, 5);
 
   try {
-    // Fetch both data sources in parallel
-    // Use local API route to avoid CORS issues with whoismyrepresentative.com
-    const [repsResponse, legislatorsData] = await Promise.all([
-      fetch(`/api/representatives?zip=${zip5}`),
-      fetchLegislatorsData(),
-    ]);
+    // Use local API route to handle authentication
+    const response = await fetch(`/api/representatives?zip=${zip5}`);
 
-    if (!repsResponse.ok) {
-      throw new Error(`API request failed: ${repsResponse.status}`);
+    if (!response.ok) {
+      throw new Error(`API request failed: ${response.status}`);
     }
 
-    const data: WhoIsMyRepResponse = await repsResponse.json();
+    const data: FiveCallsResponse = await response.json();
 
     if (data.error) {
       return {
@@ -138,22 +78,22 @@ export async function getRepresentativesByZip(
       };
     }
 
-    if (!data.results || data.results.length === 0) {
+    if (!data.representatives || data.representatives.length === 0) {
       return {
         representatives: [],
         error: 'No representatives found for this ZIP code. Please verify the ZIP code is correct.',
       };
     }
 
-    // Map and enrich API response with congress-legislators data
-    const representatives: Representative[] = data.results.map((member) =>
-      enrichRepresentative(member, legislatorsData)
-    );
+    // Transform and filter to federal representatives only
+    const representatives: Representative[] = data.representatives
+      .filter((rep) => rep.area === 'US House' || rep.area === 'US Senate')
+      .map(transformRepresentative);
 
     // Sort: Senators first, then House Representatives
     representatives.sort((a, b) => {
-      const aIsSenator = a.office.toLowerCase().includes('senator');
-      const bIsSenator = b.office.toLowerCase().includes('senator');
+      const aIsSenator = a.area === 'US Senate';
+      const bIsSenator = b.area === 'US Senate';
       if (aIsSenator && !bIsSenator) return -1;
       if (!aIsSenator && bIsSenator) return 1;
       return a.name.localeCompare(b.name);
@@ -161,9 +101,10 @@ export async function getRepresentativesByZip(
 
     return {
       representatives,
-      normalizedInput: {
-        zip: zip5,
-      },
+      location: data.location,
+      state: data.state,
+      district: data.district,
+      lowAccuracy: data.lowAccuracy,
     };
   } catch (error) {
     console.error('Error fetching representatives:', error);
@@ -172,17 +113,4 @@ export async function getRepresentativesByZip(
       error: 'Unable to fetch representative information. Please try again later.',
     };
   }
-}
-
-/**
- * Extracts all available email addresses from representatives
- */
-export function extractEmails(representatives: Representative[]): string[] {
-  const emails: string[] = [];
-  for (const rep of representatives) {
-    if (rep.emails && rep.emails.length > 0) {
-      emails.push(...rep.emails);
-    }
-  }
-  return [...new Set(emails)]; // Remove duplicates
 }

@@ -13,10 +13,9 @@ A free, open-source civic engagement tool that helps U.S. citizens contact their
 
 This application is designed with privacy as a core principle:
 
-- **No Data Storage**: Your ZIP code and selections are processed entirely in your browser
+- **No Data Storage**: Your ZIP code and selections are not stored
 - **No Message Sending**: We never send messages on your behalf—you maintain full control
 - **No Tracking**: No analytics, cookies, or user tracking of any kind
-- **No Backend**: All processing happens client-side; no data is ever transmitted to our servers
 
 ## Getting Started
 
@@ -35,9 +34,21 @@ cd contact-your-rep
 # Install dependencies
 npm install
 
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local and add your 5calls.org API token
+
 # Start the development server
 npm run dev
 ```
+
+### Environment Variables
+
+This application requires a [5calls.org](https://5calls.org/representatives-api/) API token. Sign up at their website to get one.
+
+| Variable | Description |
+|----------|-------------|
+| `FIVE_CALLS_TOKEN` | Your 5calls.org API token |
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
@@ -96,9 +107,7 @@ The application uses CSS Modules with CSS Custom Properties for theming. Edit `a
 - **Framework**: [Next.js 15](https://nextjs.org/) with App Router
 - **Language**: TypeScript
 - **Styling**: CSS Modules with CSS Custom Properties
-- **Data Sources**:
-  - [whoismyrepresentative.com](https://whoismyrepresentative.com/) - ZIP code to representative lookup (CC 3.0)
-  - [unitedstates/congress-legislators](https://github.com/unitedstates/congress-legislators) - Contact form URLs and details (Public Domain)
+- **Data Source**: [5calls.org](https://5calls.org/representatives-api/) - Representative lookup API
 - **Accessibility**: WCAG 2.1 AA compliant
 
 ## Accessibility
@@ -129,6 +138,5 @@ This project is licensed under the MIT License—see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-- Representative lookup powered by [whoismyrepresentative.com](https://whoismyrepresentative.com/)
-- Contact form URLs from [unitedstates/congress-legislators](https://github.com/unitedstates/congress-legislators)
+- Representative lookup powered by [5calls.org](https://5calls.org/representatives-api/)
 - Inspired by civic engagement tools and democracy advocates everywhere
