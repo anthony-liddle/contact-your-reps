@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Create a report to help us improve
+about: Report a bug to help us improve
 title: '[BUG] '
 labels: bug
 assignees: ''
@@ -16,12 +16,11 @@ Steps to reproduce the behavior:
 
 1. Go to '...'
 2. Click on '...'
-3. Scroll down to '...'
-4. See error
+3. See error
 
 ## Expected Behavior
 
-<!-- A clear and concise description of what you expected to happen -->
+<!-- What you expected to happen -->
 
 ## Actual Behavior
 
@@ -29,34 +28,41 @@ Steps to reproduce the behavior:
 
 ## Screenshots
 
-<!-- If applicable, add screenshots to help explain your problem -->
+<!-- If applicable, add screenshots to help explain the problem -->
 
 ## Environment
 
-**Device/Platform:**
-- [ ] iOS Simulator
-- [ ] iOS Device
-- [ ] Android Emulator
-- [ ] Android Device
-- [ ] Web Browser
-- [ ] Server/API
+**Browser:**
+- [ ] Chrome
+- [ ] Firefox
+- [ ] Safari
+- [ ] Edge
+- [ ] Other:
 
-**Details:**
-- OS: [e.g. iOS 17, Android 14, macOS 14]
-- Device: [e.g. iPhone 15, Pixel 8]
-- App Version: [e.g. 1.0.0]
-- Node Version: [e.g. 22.1.0]
+**Browser Version:**
+
+**Operating System:**
+- [ ] Windows
+- [ ] macOS
+- [ ] Linux
+- [ ] iOS (mobile browser)
+- [ ] Android (mobile browser)
+
+## Accessibility Impact
+
+<!-- If this bug affects accessibility, please describe how -->
+
+- [ ] This bug affects keyboard navigation
+- [ ] This bug affects screen reader users
+- [ ] This bug affects users with visual impairments
+- [ ] Not an accessibility issue
+
+## Console Errors
+
+```
+<!-- Paste any browser console errors here -->
+```
 
 ## Additional Context
 
 <!-- Add any other context about the problem here -->
-
-## Logs/Error Messages
-
-```
-<!-- Paste any relevant logs or error messages here -->
-```
-
-## Possible Solution
-
-<!-- Optional: Suggest a fix or reason for the bug -->

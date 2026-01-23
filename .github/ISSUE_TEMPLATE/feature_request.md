@@ -27,22 +27,14 @@ assignees: ''
 
 <!-- Describe who would benefit from this feature and how -->
 
-1. 
-2. 
-3. 
+## Civic Engagement Impact
 
-## Implementation Suggestions
+<!-- How would this feature help citizens engage with their representatives? -->
 
-<!-- Optional: If you have ideas about how to implement this feature -->
+## Accessibility Considerations
 
-### Frontend (Mobile)
-<!-- Changes needed in the mobile app -->
-
-### Backend (Server)
-<!-- Changes needed in the server -->
-
-### Database
-<!-- Any schema changes needed -->
+<!-- How should this feature work for users with disabilities? -->
+<!-- Consider: keyboard navigation, screen readers, color contrast, etc. -->
 
 ## Mockups/Examples
 
@@ -50,13 +42,12 @@ assignees: ''
 
 ## Additional Context
 
-<!-- Add any other context, screenshots, or links about the feature request here -->
+<!-- Add any other context about the feature request here -->
 
 ## Priority
 
 <!-- How important is this feature to you? -->
 
-- [ ] Critical - Blocking my use of the app
-- [ ] High - Would significantly improve my experience
+- [ ] High - Would significantly improve the user experience
 - [ ] Medium - Nice to have
 - [ ] Low - Just an idea
