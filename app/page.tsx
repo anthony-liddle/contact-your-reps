@@ -68,10 +68,6 @@ export default function Home() {
 
   return (
     <>
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
-
       <header className={styles.header}>
         <div className={styles.headerContent}>
           <h1 className={styles.title}>Contact Your Representatives</h1>

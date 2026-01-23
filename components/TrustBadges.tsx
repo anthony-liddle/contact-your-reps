@@ -2,8 +2,6 @@
 
 import styles from './TrustBadges.module.css';
 
-// TODO: explain this, maybe in tooltips?
-
 export default function TrustBadges() {
   return (
     <div className={styles.container} role="region" aria-label="Privacy and trust information">
@@ -23,7 +21,7 @@ export default function TrustBadges() {
         <span className={styles.icon} aria-hidden="true">
           ✓
         </span>
-        <span className={styles.text}>100% client-side processing</span>
+        <span className={styles.text}>No tracking or cookies</span>
       </div>
     </div>
   );
