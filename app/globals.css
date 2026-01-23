@@ -5,55 +5,62 @@
 
 :root {
   /* Colors - Light Mode */
-  --background: #ffffff;
-  --foreground: #1a1a2e;
+  --background: #f8fafc; /* Slate-50 */
+  --foreground: #0f172a; /* Slate-900 */
 
   /* Text colors */
-  --text-primary: #1a1a2e;
-  --text-secondary: #4a4a6a;
-  --text-muted: #7a7a9a;
+  --text-primary: #0f172a; /* Slate-900 */
+  --text-secondary: #475569; /* Slate-600 */
+  --text-muted: #64748b; /* Slate-500 */
 
   /* UI colors */
   --card-bg: #ffffff;
-  --card-hover: #f8f9fa;
+  --card-hover: #ffffff;
   --input-bg: #ffffff;
-  --input-readonly-bg: #f5f5f7;
-  --border-color: #d1d5db;
-  --border-hover: #9ca3af;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  --input-readonly-bg: #f1f5f9; /* Slate-100 */
+  --border-color: #e2e8f0; /* Slate-200 */
+  --border-hover: #cbd5e1; /* Slate-300 */
+  --shadow-color: rgba(64, 78, 237, 0.1); /* Slight blue tint to shadow */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 
   /* Interactive colors */
-  --button-bg: #2563eb;
-  --button-hover: #1d4ed8;
+  --button-bg: #0ea5e9; /* Sky-500 - Vivid Blue */
+  --button-hover: #0284c7; /* Sky-600 */
   --button-text: #ffffff;
-  --button-secondary-bg: #f3f4f6;
-  --button-secondary-hover: #e5e7eb;
-  --button-secondary-text: #374151;
+  
+  --button-secondary-bg: #ffffff;
+  --button-secondary-hover: #f8fafc;
+  --button-secondary-text: #0f172a;
+  --button-secondary-border: #e2e8f0;
 
   /* Link colors */
-  --link-color: #2563eb;
-  --link-hover: #1d4ed8;
+  --link-color: #0284c7; /* Sky-600 */
+  --link-hover: #0369a1; /* Sky-700 */
 
   /* Focus states - high visibility for accessibility */
-  --focus-color: #2563eb;
-  --focus-ring: rgba(37, 99, 235, 0.35);
+  --focus-color: #0ea5e9;
+  --focus-ring: rgba(14, 165, 233, 0.35);
 
   /* Selection states */
-  --selected-color: #2563eb;
-  --selected-bg: rgba(37, 99, 235, 0.08);
+  --selected-color: #0ea5e9;
+  --selected-bg: #f0f9ff; /* Sky-50 */
+  --selected-border: #0ea5e9;
 
   /* Status colors */
-  --error-color: #dc2626;
-  --error-ring: rgba(220, 38, 38, 0.35);
-  --error-bg: #fef2f2;
-  --error-text: #991b1b;
-  --success-bg: #f0fdf4;
-  --success-text: #166534;
+  --error-color: #ef4444; /* Red-500 */
+  --error-ring: rgba(239, 68, 68, 0.35);
+  --error-bg: #fef2f2; /* Red-50 */
+  --error-text: #b91c1c; /* Red-700 */
+  
+  --success-bg: #f0fdf4; /* Green-50 */
+  --success-text: #15803d; /* Green-700 */
 
   /* Trust badges */
-  --trust-badge-bg: #f0fdf4;
-  --trust-badge-border: #bbf7d0;
-  --trust-badge-text: #166534;
+  --trust-badge-bg: #ffffff;
+  --trust-badge-border: #e2e8f0;
+  --trust-badge-text: #475569;
 
   /* Instructions */
   --instructions-bg: #f8fafc;
@@ -68,48 +75,52 @@
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0f0f1a;
-    --foreground: #f0f0f5;
+    --background: #0f172a; /* Slate-900 */
+    --foreground: #f1f5f9; /* Slate-100 */
 
-    --text-primary: #f0f0f5;
-    --text-secondary: #a0a0b5;
-    --text-muted: #707085;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8; /* Slate-400 */
+    --text-muted: #64748b; /* Slate-500 */
 
-    --card-bg: #1a1a2e;
-    --card-hover: #252540;
-    --input-bg: #1a1a2e;
-    --input-readonly-bg: #252540;
-    --border-color: #3a3a5a;
-    --border-hover: #5a5a7a;
-    --shadow-color: rgba(0, 0, 0, 0.3);
+    --card-bg: #1e293b; /* Slate-800 */
+    --card-hover: #1e293b;
+    --input-bg: #1e293b;
+    --input-readonly-bg: #334155; /* Slate-700 */
+    --border-color: #334155;
+    --border-hover: #475569;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    
+    --button-bg: #0ea5e9; /* Sky-500 */
+    --button-hover: #38bdf8; /* Sky-400 - Lighten on hover in dark mode */
+    
+    --button-secondary-bg: #1e293b;
+    --button-secondary-hover: #334155;
+    --button-secondary-text: #f1f5f9;
+    --button-secondary-border: #334155;
 
-    --button-bg: #3b82f6;
-    --button-hover: #2563eb;
-    --button-secondary-bg: #252540;
-    --button-secondary-hover: #3a3a5a;
-    --button-secondary-text: #e0e0ef;
+    --link-color: #38bdf8; /* Sky-400 */
+    --link-hover: #7dd3fc; /* Sky-300 */
 
-    --link-color: #60a5fa;
-    --link-hover: #93c5fd;
+    --focus-color: #38bdf8;
+    --focus-ring: rgba(56, 189, 248, 0.4);
 
-    --focus-color: #60a5fa;
-    --focus-ring: rgba(96, 165, 250, 0.4);
-
-    --selected-color: #3b82f6;
-    --selected-bg: rgba(59, 130, 246, 0.15);
+    --selected-color: #0ea5e9;
+    --selected-bg: rgba(14, 165, 233, 0.15);
+    --selected-border: #0ea5e9;
 
     --error-color: #f87171;
     --error-ring: rgba(248, 113, 113, 0.4);
-    --error-bg: rgba(220, 38, 38, 0.15);
+    --error-bg: rgba(127, 29, 29, 0.2);
     --error-text: #fca5a5;
-    --success-bg: rgba(22, 163, 74, 0.15);
+    
+    --success-bg: rgba(20, 83, 45, 0.2);
     --success-text: #86efac;
 
-    --trust-badge-bg: rgba(22, 163, 74, 0.15);
-    --trust-badge-border: rgba(34, 197, 94, 0.3);
-    --trust-badge-text: #86efac;
+    --trust-badge-bg: #1e293b;
+    --trust-badge-border: #334155;
+    --trust-badge-text: #94a3b8;
 
-    --instructions-bg: #1a1a2e;
+    --instructions-bg: #1e293b;
   }
 }
 

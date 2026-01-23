@@ -73,11 +73,8 @@ export default function IssueSelector({
             />
             <span className={styles.checkboxCustom} aria-hidden="true">
               {selectedIds.has(issue.id) && (
-                <svg viewBox="0 0 24 24" className={styles.checkIcon}>
-                  <path
-                    fill="currentColor"
-                    d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
-                  />
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={styles.checkIcon}>
+                  <polyline points="20 6 9 17 4 12" />
                 </svg>
               )}
             </span>
