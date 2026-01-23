@@ -41,17 +41,66 @@ git clone https://github.com/your-username/contact-your-rep.git
 cd contact-your-rep
 
 # Install dependencies
-npm install
+pnpm install
 
 # Start development server
-npm run dev
+pnpm dev
 
 # Run linting
-npm run lint
+pnpm lint
+
+# Run tests
+pnpm test
 
 # Build for production
-npm run build
+pnpm build
 ```
+
+## Commit Message Convention
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/). All commit messages must follow this format:
+
+```
+<type>(<scope>): <subject>
+```
+
+The scope is optional. Examples:
+
+```
+feat: add dark mode toggle
+fix: resolve ZIP code validation error
+docs: update README with API instructions
+test: add unit tests for message generator
+chore: update dependencies
+feat(api): add rate limiting
+```
+
+### Allowed Types
+
+| Type | Description |
+|------|-------------|
+| `feat` | New feature |
+| `fix` | Bug fix |
+| `docs` | Documentation changes |
+| `style` | Code style/formatting (no logic changes) |
+| `refactor` | Code refactoring |
+| `test` | Adding or updating tests |
+| `chore` | Maintenance tasks |
+| `build` | Build system or dependencies |
+| `ci` | CI configuration |
+| `perf` | Performance improvements |
+| `revert` | Reverting changes |
+
+A commit-msg hook will validate your commit messages automatically.
+
+## Pre-commit Hooks
+
+This project uses Husky to run checks before each commit:
+
+1. **TypeScript check** - Ensures all code compiles without errors
+2. **ESLint** - Lints staged `.ts` and `.tsx` files
+
+If any check fails, the commit will be blocked until you fix the issues.
 
 ## Code Style Guidelines
 
@@ -107,11 +156,16 @@ To add new civic issues to the application:
 
 ## Pull Request Process
 
-1. Ensure your code passes linting (`npm run lint`)
-2. Update documentation if needed
-3. Write a clear PR description explaining your changes
-4. Link any related issues
-5. Request review from maintainers
+1. Ensure your code passes linting (`pnpm lint`)
+2. Ensure all tests pass (`pnpm test`)
+3. Ensure the build succeeds (`pnpm build`)
+4. Use semantic commit messages (see above)
+5. Update documentation if needed
+6. Write a clear PR description explaining your changes
+7. Link any related issues
+8. Request review from maintainers
+
+Our CI pipeline will automatically run linting, tests, and build checks on your PR.
 
 ## Questions?
 
