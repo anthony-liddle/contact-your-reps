@@ -37,7 +37,7 @@ Feature suggestions are welcome! Please open an issue with:
 
 ```bash
 # Clone your fork
-git clone https://github.com/your-username/contact-your-rep.git
+git clone https://github.com/anthony-liddle/contact-your-rep.git
 cd contact-your-rep
 
 # Install dependencies
