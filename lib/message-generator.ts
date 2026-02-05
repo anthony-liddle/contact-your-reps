@@ -6,6 +6,11 @@
 import type { Issue } from '@/data/issues';
 import type { GeneratedMessage, Representative } from './types';
 
+export const MESSAGE_SALUTATION = 'Dear Senator or Representative,';
+export const MESSAGE_OPENING = 'I am writing to you as your constituent to demand action on the issues below. These are not abstract policy questions. They are crises affecting real people in your district right now, and I expect you to treat them with the urgency they deserve.';
+export const MESSAGE_GENERIC = 'I am writing because I expect you to fight for the people in your district, not donors, not party leadership, and not your own career. I will be paying close attention to your votes and public positions, and I will hold you accountable at the ballot box.';
+export const MESSAGE_CLOSING = 'I am not writing to start a conversation. I am writing because people are suffering and you have the power to act. I will be watching your votes, your public statements, and your priorities closely, and so will your other constituents. Represent us, or we will find someone who will.';
+
 /**
  * Generates a subject line based on selected issues
  */
@@ -33,21 +38,21 @@ function generateSubject(issues: Issue[]): string {
 function generateSalutation(): string {
   // Generic salutation works for both Senators and Representatives
   // Users can personalize this when they paste into the contact form
-  return 'Dear Senator or Representative,';
+  return MESSAGE_SALUTATION;
 }
 
 /**
  * Generates the opening paragraph
  */
 function generateOpening(): string {
-  return 'I am writing to you as your constituent to demand action on the issues below. These are not abstract policy questions. They are crises affecting real people in your district right now, and I expect you to treat them with the urgency they deserve.';
+  return MESSAGE_OPENING
 }
 
 /**
  * Generates the closing paragraph
  */
 function generateClosing(): string {
-  return `I am not writing to start a conversation. I am writing because people are suffering and you have the power to act. I will be watching your votes, your public statements, and your priorities closely, and so will your other constituents. Represent us, or we will find someone who will.
+  return `${MESSAGE_CLOSING}
 
 [Your Name]
 [Your Address]
@@ -83,9 +88,7 @@ export function generateMessage(
       bodyParts.push('');
     }
   } else {
-    bodyParts.push(
-      'I am reaching out to ensure my voice is heard on the issues that matter most to our community. I encourage you to prioritize the needs of your constituents in all legislative decisions.'
-    );
+    bodyParts.push(MESSAGE_GENERIC);
     bodyParts.push('');
   }
 

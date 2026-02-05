@@ -1,6 +1,7 @@
 import { generateMessage, formatMessageForClipboard } from '@/lib/message-generator';
 import type { Issue } from '@/data/issues';
 import type { Representative } from '@/lib/types';
+import { MESSAGE_SALUTATION, MESSAGE_OPENING, MESSAGE_GENERIC, MESSAGE_CLOSING } from '@/lib/message-generator';
 
 const mockIssues: Issue[] = [
   {
@@ -62,17 +63,17 @@ describe('generateMessage', () => {
   describe('message body generation', () => {
     it('includes salutation', () => {
       const result = generateMessage([], mockRepresentatives);
-      expect(result.body).toContain('Dear Senator or Representative,');
+      expect(result.body).toContain(MESSAGE_SALUTATION);
     });
 
     it('includes opening paragraph', () => {
       const result = generateMessage([], mockRepresentatives);
-      expect(result.body).toContain('I am writing to you as a concerned constituent');
+      expect(result.body).toContain(MESSAGE_OPENING);
     });
 
     it('includes closing with signature placeholders', () => {
       const result = generateMessage([], mockRepresentatives);
-      expect(result.body).toContain('Respectfully,');
+      expect(result.body).toContain(MESSAGE_CLOSING);
       expect(result.body).toContain('[Your Name]');
       expect(result.body).toContain('[Your Address]');
     });
@@ -90,7 +91,7 @@ describe('generateMessage', () => {
 
     it('includes generic paragraph when no issues selected', () => {
       const result = generateMessage([], mockRepresentatives);
-      expect(result.body).toContain('I am reaching out to ensure my voice is heard');
+      expect(result.body).toContain(MESSAGE_GENERIC);
     });
   });
 
