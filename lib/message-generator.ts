@@ -40,16 +40,15 @@ function generateSalutation(): string {
  * Generates the opening paragraph
  */
 function generateOpening(): string {
-  return 'I am writing to you as a concerned constituent to share my priorities and ask for your attention on matters important to me and my community.';
+  return 'I am writing to you as your constituent to demand action on the issues below. These are not abstract policy questions. They are crises affecting real people in your district right now, and I expect you to treat them with the urgency they deserve.';
 }
 
 /**
  * Generates the closing paragraph
  */
 function generateClosing(): string {
-  return `Thank you for taking the time to consider my concerns. I trust that you will represent the interests of our community thoughtfully and responsibly. I look forward to hearing about your positions and actions on these important issues.
+  return `I am not writing to start a conversation. I am writing because people are suffering and you have the power to act. I will be watching your votes, your public statements, and your priorities closely, and so will your other constituents. Represent us, or we will find someone who will.
 
-Respectfully,
 [Your Name]
 [Your Address]
 [Your City, State ZIP]`;

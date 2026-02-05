@@ -113,7 +113,7 @@ export default function MessagePreview({ message }: MessagePreviewProps) {
         <ol className={styles.instructionsList}>
           <li>Click the button above to copy your message</li>
           <li>
-            Click the <strong>&quot;Official Contact Form&quot;</strong> link on your
+            Click the <strong>&quot;Contact Form&quot;</strong> link on your
             representative&apos;s card above
           </li>
           <li>Paste your message into their contact form</li>

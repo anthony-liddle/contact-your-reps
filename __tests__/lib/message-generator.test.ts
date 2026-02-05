@@ -18,6 +18,7 @@ const mockIssues: Issue[] = [
   {
     id: 'test-issue-3',
     title: 'Test Issue Three',
+    description: 'Third test issue',
     messageParagraph: 'This is the third test issue paragraph.',
   },
 ];
