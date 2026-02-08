@@ -22,7 +22,7 @@ This application is designed with privacy as a core principle:
 ### Prerequisites
 
 - Node.js 18.0 or higher
-- npm or yarn
+- pnpm
 
 ### Installation
 
@@ -32,14 +32,14 @@ git clone https://github.com/your-username/contact-your-rep.git
 cd contact-your-rep
 
 # Install dependencies
-npm install
+pnpm install
 
 # Set up environment variables
 cp .env.example .env.local
 # Edit .env.local and add your 5calls.org API token
 
 # Start the development server
-npm run dev
+pnpm dev
 ```
 
 ### Environment Variables
@@ -56,10 +56,10 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ```bash
 # Create a production build
-npm run build
+pnpm build
 
 # Start the production server
-npm start
+pnpm start
 ```
 
 ## Deployment
@@ -73,7 +73,7 @@ This application can be deployed to any static hosting platform:
 For static export:
 
 ```bash
-npm run build
+pnpm build
 ```
 
 ## Customization
