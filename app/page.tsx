@@ -72,7 +72,7 @@ export default function Home() {
         <div className={styles.headerContent}>
           <h1 className={styles.title}>Contact Your Representatives</h1>
           <p className={styles.subtitle}>
-            Make your voice heard. Contact your federal representatives about the issues that matter to you.
+            Find your senators and representative by ZIP code and write to Congress about the issues that matter to you.
           </p>
         </div>
       </header>
@@ -86,7 +86,7 @@ export default function Home() {
             </h2>
             <p className={styles.sectionDescription}>
               Enter your ZIP code to find your U.S. Senators and House Representative.
-              We&apos;ll help you compose a message about the issues you care about.
+              We&apos;ll help you compose and send a message to your congressman about the issues you care about.
             </p>
 
             <TrustBadges />
@@ -169,6 +169,8 @@ export default function Home() {
             </a>
             {' · '}
             <a href="/privacy">Privacy</a>
+            {' · '}
+            <a href="/about">About</a>
             {' · '}
             <span>MIT License</span>
           </p>
