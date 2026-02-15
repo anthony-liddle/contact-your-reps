@@ -24,7 +24,7 @@ export default function RepresentativeCard({
           <div className={styles.photoContainer}>
             <Image
               src={photoUrl}
-              alt={`Photo of ${title} ${name}`}
+              alt={`Photo of ${title} ${name}, ${party} - ${state}`}
               width={80}
               height={80}
               className={styles.photo}
