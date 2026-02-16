@@ -131,6 +131,8 @@ export default function PrivacyPage() {
               View on GitHub
             </a>
             {' · '}
+            <Link href="/about">About</Link>
+            {' · '}
             <span>MIT License</span>
           </p>
         </div>
