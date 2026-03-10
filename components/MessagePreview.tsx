@@ -54,7 +54,7 @@ export default function MessagePreview({ message, editedBody, onBodyChange }: Me
       </h2>
 
       <p className={styles.note}>
-        Personalize this message before sending — many offices automatically filter out
+        Personalize this message before sending. Many offices automatically filter out
         form letters. Adding even one or two sentences in your own words significantly
         increases the chance your message is read.
       </p>
@@ -120,7 +120,7 @@ export default function MessagePreview({ message, editedBody, onBodyChange }: Me
         <h3 className={styles.instructionsHeading}>Next Steps:</h3>
         <ol className={styles.instructionsList}>
           <li>
-            <strong>Personalize the message above</strong> — add a sentence or two in your
+            <strong>Personalize the message above.</strong> Add a sentence or two in your
             own words about why this issue matters to you personally
           </li>
           <li>Click the button above to copy your message</li>

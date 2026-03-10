@@ -7,7 +7,7 @@ A free, open-source civic engagement tool that helps U.S. citizens contact their
 - **Find Your Representatives**: Enter your ZIP code to instantly look up your U.S. Senators and House Representative
 - **Select Issues**: Choose from a curated list of civic issues or customize your message
 - **Generate Messages**: Automatically compose professional messages with appropriate salutations and formatting
-- **Copy & Send**: One-click copy to clipboard, then paste into your representative's contact form
+- **Personalize & Send**: Edit the generated message directly in the app, then copy and paste it into your representative's contact form
 
 ## Privacy First
 
@@ -64,17 +64,10 @@ pnpm start
 
 ## Deployment
 
-This application can be deployed to any static hosting platform:
+This application requires a Node.js server (API routes are used for the representative lookup). Recommended platforms:
 
 - **Vercel**: Connect your repository and deploy automatically
 - **Netlify**: Import from Git and deploy with zero configuration
-- **GitHub Pages**: Build and deploy the `out` directory
-
-For static export:
-
-```bash
-pnpm build
-```
 
 ## Customization
 
@@ -104,7 +97,7 @@ The application uses CSS Modules with CSS Custom Properties for theming. Edit `a
 
 ## Technology Stack
 
-- **Framework**: [Next.js 15](https://nextjs.org/) with App Router
+- **Framework**: [Next.js 16](https://nextjs.org/) with App Router
 - **Language**: TypeScript
 - **Styling**: CSS Modules with CSS Custom Properties
 - **Data Source**: [5calls.org](https://5calls.org/representatives-api/) - Representative lookup API
@@ -127,6 +120,14 @@ This application is built with accessibility as a priority:
 **This is an independent, open-source project and is not affiliated with, endorsed by, or connected to the U.S. government or any government agency.**
 
 The information provided by this tool is sourced from public APIs and may not always be current. Always verify representative contact information through official government sources.
+
+## Testing
+
+```bash
+pnpm test
+```
+
+The project has a comprehensive test suite covering all components, lib functions, the API route, and full integration flows.
 
 ## Contributing
 
