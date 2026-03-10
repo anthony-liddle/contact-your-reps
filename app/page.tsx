@@ -160,14 +160,6 @@ export default function Home() {
             endorsed by, or connected to the U.S. government or any government agency.
           </p>
           <p className={styles.footerLinks}>
-            <a
-              href="https://github.com/anthony-liddle/contact-your-reps"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View on GitHub
-            </a>
-            {' · '}
             <a href="/privacy">Privacy</a>
             {' · '}
             <a href="/about">About</a>

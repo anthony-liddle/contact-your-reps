@@ -70,16 +70,8 @@ export default function AboutPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionHeading}>Open Source</h2>
             <p>
-              This project is completely open source under the MIT License. You can review the code,
-              suggest improvements, or contribute on{' '}
-              <a
-                href="https://github.com/anthony-liddle/contact-your-reps"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub
-              </a>
-              . Transparency is a core value — you can verify exactly how your data is handled.
+              This project is completely open source under the MIT License.
+              Transparency is a core value — you can review the source code to verify exactly how your data is handled.
             </p>
           </section>
 
@@ -96,14 +88,6 @@ export default function AboutPage() {
             connected to the U.S. government or any government agency.
           </p>
           <p className={styles.footerLinks}>
-            <a
-              href="https://github.com/anthony-liddle/contact-your-reps"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View on GitHub
-            </a>
-            {' · '}
             <Link href="/privacy">Privacy</Link>
             {' · '}
             <span>MIT License</span>

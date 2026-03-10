@@ -61,15 +61,20 @@ export default function PrivacyPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionHeading}>No Tracking</h2>
             <p>
-              We do not use any tracking technologies:
+              We use Vercel Analytics solely to measure aggregate traffic volume (page views and visitor counts).
+              It does not track individual users:
             </p>
             <ul className={styles.list}>
-              <li>No analytics scripts (Google Analytics, etc.)</li>
               <li>No cookies</li>
-              <li>No local storage persistence</li>
               <li>No fingerprinting</li>
+              <li>No personal data collected</li>
+              <li>No local storage persistence</li>
               <li>No third-party tracking pixels</li>
             </ul>
+            <p>
+              The analytics data is anonymous and aggregated — it tells us how many people visited the site,
+              not who they are or what they did.
+            </p>
           </section>
 
           <section className={styles.section}>
@@ -88,23 +93,8 @@ export default function PrivacyPage() {
           <section className={styles.section}>
             <h2 className={styles.sectionHeading}>Open Source</h2>
             <p>
-              This application is open source. You can review the complete source
-              code to verify our privacy practices at our{' '}
-              <a
-                href="https://github.com/anthony-liddle/contact-your-reps"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub repository
-              </a>.
-            </p>
-          </section>
-
-          <section className={styles.section}>
-            <h2 className={styles.sectionHeading}>Contact</h2>
-            <p>
-              If you have questions about this privacy policy, please open an issue
-              on our GitHub repository.
+              This application is open source under the MIT License.
+              The source code is publicly available for review so you can verify our privacy practices.
             </p>
           </section>
 
@@ -123,14 +113,6 @@ export default function PrivacyPage() {
             endorsed by, or connected to the U.S. government or any government agency.
           </p>
           <p className={styles.footerLinks}>
-            <a
-              href="https://github.com/anthony-liddle/contact-your-reps"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View on GitHub
-            </a>
-            {' · '}
             <Link href="/about">About</Link>
             {' · '}
             <span>MIT License</span>

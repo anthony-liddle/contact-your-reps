@@ -15,7 +15,7 @@ This application is designed with privacy as a core principle:
 
 - **No Data Storage**: Your ZIP code and selections are not stored
 - **No Message Sending**: We never send messages on your behalf—you maintain full control
-- **No Tracking**: No analytics, cookies, or user tracking of any kind
+- **No User Tracking**: No cookies, no fingerprinting, no personal data collected. We use [Vercel Analytics](https://vercel.com/analytics) for anonymous, aggregate traffic counts only
 
 ## Getting Started
 
