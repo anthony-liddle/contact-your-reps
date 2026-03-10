@@ -35,21 +35,12 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Contact Your Representatives - Find and write to your senators and congressman',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Contact Your Representatives',
     description:
       'Find your representative by zip code and write to your senator or congressman. Make your voice heard.',
-    images: ['/og-image.png'],
   },
   robots: {
     index: true,

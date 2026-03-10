@@ -1,7 +1,15 @@
-'use client';
-
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import styles from './page.module.css';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy | Contact Your Representatives',
+  description:
+    'Our privacy policy: no cookies, no fingerprinting, no personal data collected. Anonymous aggregate traffic analytics only. Your ZIP code and selections are never stored.',
+  alternates: {
+    canonical: '/privacy',
+  },
+};
 
 export default function PrivacyPage() {
   return (

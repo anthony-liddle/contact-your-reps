@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'About | Contact Your Representatives',
   description:
     'Learn how Contact Your Representatives helps you find your representative by ZIP code and write to your senator or congressman. Free, open-source, and privacy-focused.',
+  alternates: {
+    canonical: '/about',
+  },
 };
 
 export default function AboutPage() {
