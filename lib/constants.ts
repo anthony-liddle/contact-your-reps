@@ -1,1 +1,1 @@
-export const SITE_URL = 'https://contactyourrep.org';
+export const SITE_URL = 'https://contact-your-reps.org';
