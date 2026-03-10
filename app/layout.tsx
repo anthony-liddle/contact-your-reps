@@ -29,18 +29,27 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Contact Your Representatives',
+    title: 'Contact Your Representatives | Make Your Voice Heard',
     description:
       'Find your representative by zip code and write to your senator or congressman. Make your voice heard on the issues that matter.',
     type: 'website',
     locale: 'en_US',
     url: '/',
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Contact Your Representatives - Find and write to your senators and congressman',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Contact Your Representatives',
+    title: 'Contact Your Representatives | Make Your Voice Heard',
     description:
       'Find your representative by zip code and write to your senator or congressman. Make your voice heard.',
+    images: ['/opengraph-image'],
   },
   robots: {
     index: true,
