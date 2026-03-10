@@ -7,10 +7,11 @@ import styles from './MessagePreview.module.css';
 
 interface MessagePreviewProps {
   message: GeneratedMessage;
+  editedBody: string | null;
+  onBodyChange: (body: string) => void;
 }
 
-// TODO: make message editable (textarea?)
-export default function MessagePreview({ message }: MessagePreviewProps) {
+export default function MessagePreview({ message, editedBody, onBodyChange }: MessagePreviewProps) {
   const [copyStatus, setCopyStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -22,9 +23,15 @@ export default function MessagePreview({ message }: MessagePreviewProps) {
     };
   }, []);
 
+  const body = editedBody ?? message.body;
+
+  const handleBodyChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onBodyChange(e.target.value);
+  }, [onBodyChange]);
+
   const handleCopyMessage = useCallback(async () => {
     try {
-      const text = formatMessageForClipboard(message);
+      const text = formatMessageForClipboard({ ...message, body });
       await navigator.clipboard.writeText(text);
       setCopyStatus('success');
     } catch (err) {
@@ -38,7 +45,7 @@ export default function MessagePreview({ message }: MessagePreviewProps) {
     timeoutRef.current = setTimeout(() => {
       setCopyStatus('idle');
     }, 3000);
-  }, [message]);
+  }, [message, body]);
 
   return (
     <section className={styles.container} aria-labelledby="message-preview-heading">
@@ -47,7 +54,9 @@ export default function MessagePreview({ message }: MessagePreviewProps) {
       </h2>
 
       <p className={styles.note}>
-        Copy this message and paste it into your representative&apos;s contact form.
+        Personalize this message before sending — many offices automatically filter out
+        form letters. Adding even one or two sentences in your own words significantly
+        increases the chance your message is read.
       </p>
 
       <div className={styles.messageContainer}>
@@ -72,8 +81,8 @@ export default function MessagePreview({ message }: MessagePreviewProps) {
           </label>
           <textarea
             id="message-body"
-            value={message.body}
-            readOnly
+            value={body}
+            onChange={handleBodyChange}
             className={styles.textarea}
             rows={20}
           />
@@ -95,9 +104,8 @@ export default function MessagePreview({ message }: MessagePreviewProps) {
 
         {copyStatus !== 'idle' && (
           <p
-            className={`${styles.statusMessage} ${
-              copyStatus === 'success' ? styles.success : styles.error
-            }`}
+            className={`${styles.statusMessage} ${copyStatus === 'success' ? styles.success : styles.error
+              }`}
             role="status"
             aria-live="polite"
           >
@@ -111,21 +119,23 @@ export default function MessagePreview({ message }: MessagePreviewProps) {
       <div className={styles.instructions}>
         <h3 className={styles.instructionsHeading}>Next Steps:</h3>
         <ol className={styles.instructionsList}>
+          <li>
+            <strong>Personalize the message above</strong> — add a sentence or two in your
+            own words about why this issue matters to you personally
+          </li>
           <li>Click the button above to copy your message</li>
           <li>
-            Click the <strong>&quot;Contact Form&quot;</strong> link on your
+            Click the <strong>&quot;Website&quot;</strong> link on your
             representative&apos;s card above
           </li>
           <li>Paste your message into their contact form</li>
-          <li>
-            Fill in your name, address, and any required fields
-          </li>
-          <li>Review and personalize the message if desired</li>
+          <li>Fill in your name, address, and any required fields</li>
           <li>Submit your message!</li>
         </ol>
         <p className={styles.instructionsNote}>
-          <strong>Why contact forms?</strong> Most representatives prefer constituents
-          use their official contact forms to verify you live in their district.
+          <strong>Why personalize?</strong> Many congressional offices use software to
+          identify and deprioritize form letters. A personal touch makes your message
+          stand out and is more likely to be read by staff.
         </p>
       </div>
     </section>

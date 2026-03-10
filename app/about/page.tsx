@@ -34,7 +34,7 @@ export default function AboutPage() {
             <p>
               Contact Your Representatives makes civic engagement simple. Enter your ZIP code and
               instantly find your two U.S. Senators and your House Representative, complete with
-              their contact information and official contact forms.
+              their contact information and official websites.
             </p>
             <p>
               We use the{' '}

@@ -1,7 +1,7 @@
 /**
  * Congress Legislators Data Integration
  * Fetches and caches legislator data from the unitedstates/congress-legislators GitHub repo.
- * This provides contact form URLs, social media, and other details not available from whoismyrepresentative.com
+ * This provides website URLs, social media, and other details not available from whoismyrepresentative.com
  *
  * Data source: https://github.com/unitedstates/congress-legislators (Public Domain)
  */

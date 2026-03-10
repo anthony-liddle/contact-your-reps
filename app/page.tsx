@@ -5,6 +5,7 @@ import ZipCodeInput from '@/components/ZipCodeInput';
 import RepresentativeCard from '@/components/RepresentativeCard';
 import IssueSelector from '@/components/IssueSelector';
 import MessagePreview from '@/components/MessagePreview';
+import ConfirmTemplateModal from '@/components/ConfirmTemplateModal';
 import TrustBadges from '@/components/TrustBadges';
 import { getRepresentativesByZip } from '@/lib/civic-api';
 import { generateMessage } from '@/lib/message-generator';
@@ -18,6 +19,8 @@ export default function Home() {
   const [appState, setAppState] = useState<AppState>('initial');
   const [representatives, setRepresentatives] = useState<Representative[]>([]);
   const [selectedIssueIds, setSelectedIssueIds] = useState<Set<string>>(new Set());
+  const [pendingSelectionIds, setPendingSelectionIds] = useState<Set<string> | null>(null);
+  const [editedBody, setEditedBody] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [locationInfo, setLocationInfo] = useState<string | null>(null);
 
@@ -50,10 +53,33 @@ export default function Home() {
     setAppState('representatives');
   }, []);
 
+  const handleSelectionChange = useCallback((newIds: Set<string>) => {
+    if (editedBody !== null) {
+      // User has edited the message — hold the selection change and ask what to do
+      setPendingSelectionIds(newIds);
+    } else {
+      setSelectedIssueIds(newIds);
+    }
+  }, [editedBody]);
+
+  const handleConfirmUpdate = useCallback(() => {
+    if (pendingSelectionIds !== null) {
+      setSelectedIssueIds(pendingSelectionIds);
+      setPendingSelectionIds(null);
+      setEditedBody(null);
+    }
+  }, [pendingSelectionIds]);
+
+  const handleKeepEdits = useCallback(() => {
+    setPendingSelectionIds(null);
+  }, []);
+
   const handleReset = useCallback(() => {
     setAppState('initial');
     setRepresentatives([]);
     setSelectedIssueIds(new Set());
+    setPendingSelectionIds(null);
+    setEditedBody(null);
     setError(null);
     setLocationInfo(null);
   }, []);
@@ -141,14 +167,24 @@ export default function Home() {
               <IssueSelector
                 issues={issues}
                 selectedIds={selectedIssueIds}
-                onSelectionChange={setSelectedIssueIds}
+                onSelectionChange={handleSelectionChange}
               />
             </section>
 
             {/* Message Preview Section */}
             <section className={styles.section}>
-              <MessagePreview message={generatedMessage} />
+              <MessagePreview
+                message={generatedMessage}
+                editedBody={editedBody}
+                onBodyChange={setEditedBody}
+              />
             </section>
+
+            <ConfirmTemplateModal
+              open={pendingSelectionIds !== null}
+              onUpdate={handleConfirmUpdate}
+              onKeep={handleKeepEdits}
+            />
           </>
         )}
       </main>
