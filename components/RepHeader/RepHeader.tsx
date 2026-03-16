@@ -11,6 +11,8 @@
  * Props come from the URL (party, chamber, bioguideId) which are stable
  * across SSR and hydration. Display data comes from sessionStorage to
  * keep URLs clean.
+ *
+ * Layout: 3-column grid — photo | identity | contact info.
  */
 
 import { useState, useEffect } from 'react';
@@ -64,13 +66,13 @@ export default function RepHeader({ bioguideId, party, chamber }: RepHeaderProps
 
   return (
     <header className={styles.header}>
-      {/* Avatar — photo if available, initials otherwise */}
+      {/* Col 1: Photo / avatar */}
       <div className={styles.avatarWrapper}>
         {rep && showPhoto && rep.photoUrl ? (
           <img
             src={rep.photoUrl}
-            width={64}
-            height={64}
+            width={100}
+            height={100}
             alt={`${rep.name}, ${party} representative from ${rep.state}`}
             className={styles.photo}
             onError={() => setShowPhoto(false)}
@@ -82,6 +84,7 @@ export default function RepHeader({ bioguideId, party, chamber }: RepHeaderProps
         )}
       </div>
 
+      {/* Col 2: Identity */}
       <div className={styles.info}>
         <h1 className={styles.name}>{displayName}</h1>
 
@@ -101,7 +104,10 @@ export default function RepHeader({ bioguideId, party, chamber }: RepHeaderProps
           <span className={`${styles.badge} ${partyMod}`}>{party}</span>
           <span className={styles.badge}>{chamber}</span>
         </div>
+      </div>
 
+      {/* Col 3: Contact info */}
+      <div className={styles.contact}>
         {rep && rep.phone && (
           <a href={`tel:${rep.phone}`} className={styles.phoneLink}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none"

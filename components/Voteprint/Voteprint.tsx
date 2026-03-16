@@ -136,6 +136,20 @@ export default function Voteprint({
       // Vote lines
       const votesInWedge = byCategory.get(wedge.categoryId)!;
       const range = wedge.endAngle - wedge.startAngle;
+      const midAngle = wedge.startAngle + range / 2;
+
+      // Minimum presence arc — drawn when all votes in the wedge are absent
+      const allAbsent = votesInWedge.every((v) => v.position === 'absent');
+      if (allAbsent) {
+        const arcR = innerR + (outerR - innerR) * 0.5;
+        ctx.beginPath();
+        ctx.arc(cx, cy, arcR, wedge.startAngle, wedge.endAngle);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1;
+        ctx.globalAlpha = isActive ? 0.35 : 0.1;
+        ctx.stroke();
+        ctx.globalAlpha = isActive ? 1 : 0.2;
+      }
 
       for (const vote of votesInWedge) {
         if (vote.position === 'absent') continue;
@@ -153,11 +167,11 @@ export default function Voteprint({
         let opacity: number;
 
         if (alignedWithIssue === true) {
-          minFrac = 0.5; maxFrac = 1.0; lineWeight = 1.5; opacity = isActive ? 0.8 : 0.15;
+          minFrac = 0.5; maxFrac = 1.0; lineWeight = 2.5; opacity = isActive ? 0.85 : 0.15;
         } else if (alignedWithIssue === false) {
-          minFrac = 0.05; maxFrac = 0.2; lineWeight = 1; opacity = isActive ? 0.5 : 0.15;
+          minFrac = 0.05; maxFrac = 0.2; lineWeight = 1.5; opacity = isActive ? 0.5 : 0.15;
         } else if (vote.position === 'yea') {
-          minFrac = 0.3; maxFrac = 0.5; lineWeight = 1; opacity = isActive ? 0.65 : 0.15;
+          minFrac = 0.3; maxFrac = 0.5; lineWeight = 1.5; opacity = isActive ? 0.65 : 0.15;
         } else {
           // null + nay
           minFrac = 0.05; maxFrac = 0.2; lineWeight = 1; opacity = isActive ? 0.5 : 0.15;
@@ -179,6 +193,17 @@ export default function Voteprint({
         ctx.globalAlpha = opacity;
         ctx.stroke();
       }
+
+      ctx.globalAlpha = isActive ? 1 : 0.2;
+
+      // Category dot — 4px filled circle at the outer edge midpoint
+      const dotR = 4;
+      const dotX = cx + (outerR + dotR + 2) * Math.cos(midAngle);
+      const dotY = cy + (outerR + dotR + 2) * Math.sin(midAngle);
+      ctx.beginPath();
+      ctx.arc(dotX, dotY, dotR, 0, 2 * Math.PI);
+      ctx.fillStyle = color;
+      ctx.fill();
 
       ctx.globalAlpha = 1;
     }

@@ -17,6 +17,7 @@ import Link from 'next/link';
 import { getMemberVotes } from '@/lib/voteprint';
 import type { Vote } from '@/lib/voteprint';
 import RepHeader from '@/components/RepHeader/RepHeader';
+import Footer from '@/components/Footer/Footer';
 import VoteprintPanel from '@/components/VoteprintPanel/VoteprintPanel';
 import VoteprintUnavailable from '@/components/VoteprintUnavailable/VoteprintUnavailable';
 import VoteprintSkeleton from '@/components/VoteprintSkeleton/VoteprintSkeleton';
@@ -104,6 +105,8 @@ export default async function RepPage({ params, searchParams }: PageProps) {
           )}
         </div>
       </main>
+
+      <Footer />
     </>
   );
 }

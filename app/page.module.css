@@ -127,45 +127,6 @@
   }
 }
 
-/* Footer */
-.footer {
-  background-color: var(--background);
-  /* Match page bg */
-  border-top: 1px solid var(--border-color);
-  padding: 4rem 1.5rem;
-  text-align: center;
-  margin-top: auto;
-}
-
-.footerContent {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.disclaimer {
-  font-size: 0.875rem;
-  color: var(--text-muted);
-  margin: 0 0 1.5rem 0;
-  line-height: 1.6;
-}
-
-.footerLinks {
-  font-size: 0.9375rem;
-  color: var(--text-secondary);
-  margin: 0;
-  font-weight: 500;
-}
-
-.footerLinks a {
-  color: var(--text-secondary);
-  text-decoration-color: var(--border-hover);
-  transition: color 0.2s;
-}
-
-.footerLinks a:hover {
-  color: var(--link-color);
-}
-
 /* Vote context indicator — shown above MessagePreview when navigating from voteprint */
 .voteContextBanner {
   display: flex;

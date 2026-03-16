@@ -7,6 +7,7 @@ import IssueSelector from '@/components/IssueSelector';
 import MessagePreview from '@/components/MessagePreview';
 import ConfirmTemplateModal from '@/components/ConfirmTemplateModal';
 import TrustBadges from '@/components/TrustBadges';
+import Footer from '@/components/Footer/Footer';
 import { getRepresentativesByZip } from '@/lib/civic-api';
 import { generateMessage } from '@/lib/message-generator';
 import { issues } from '@/data/issues';
@@ -279,21 +280,7 @@ export default function Home() {
         )}
       </main>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-          <p className={styles.disclaimer}>
-            This is an independent, open-source project and is not affiliated with,
-            endorsed by, or connected to the U.S. government or any government agency.
-          </p>
-          <p className={styles.footerLinks}>
-            <a href="/privacy">Privacy</a>
-            {' · '}
-            <a href="/about">About</a>
-            {' · '}
-            <span>MIT License</span>
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

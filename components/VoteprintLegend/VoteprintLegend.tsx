@@ -3,7 +3,7 @@
 /**
  * VoteprintLegend — per-category breakdown list.
  *
- * Each row shows: color dot, truncated label, yea% bar, and yea% number.
+ * Each row shows: color dot, truncated label, alignment summary.
  * Sorted by vote count descending. An "All issues" row at the top clears the
  * active filter. Clicking a row selects/deselects the matching category.
  */
@@ -21,7 +21,8 @@ interface VoteprintLegendProps {
 interface CategoryStat {
   id: string;
   count: number;
-  yeaCount: number;
+  alignedCount: number;
+  againstCount: number;
 }
 
 function buildStats(votes: Vote[]): CategoryStat[] {
@@ -29,13 +30,40 @@ function buildStats(votes: Vote[]): CategoryStat[] {
   for (const v of votes) {
     if (!v.category) continue;
     if (!map.has(v.category)) {
-      map.set(v.category, { id: v.category, count: 0, yeaCount: 0 });
+      map.set(v.category, { id: v.category, count: 0, alignedCount: 0, againstCount: 0 });
     }
     const s = map.get(v.category)!;
     s.count++;
-    if (v.position === 'yea') s.yeaCount++;
+    if (v.alignedWithIssue === true) s.alignedCount++;
+    if (v.alignedWithIssue === false) s.againstCount++;
   }
   return [...map.values()].sort((a, b) => b.count - a.count);
+}
+
+function AlignmentSummary({ stat }: { stat: CategoryStat }) {
+  const { alignedCount, againstCount } = stat;
+  const stanceTotal = alignedCount + againstCount;
+
+  if (stanceTotal === 0) {
+    return <span className={`${styles.summaryText} ${styles.summaryNoData}`}>no data</span>;
+  }
+
+  if (alignedCount === stanceTotal) {
+    return <span className={`${styles.summaryText} ${styles.summaryAligned}`}>all with issue</span>;
+  }
+
+  if (againstCount === stanceTotal) {
+    return <span className={`${styles.summaryText} ${styles.summaryAgainst}`}>all against issue</span>;
+  }
+
+  return (
+    <span className={`${styles.summaryText} ${styles.summaryMixed}`}>
+      <span className={styles.summaryAligned}>{alignedCount}</span>
+      {' with · '}
+      <span className={styles.summaryAgainst}>{againstCount}</span>
+      {' against'}
+    </span>
+  );
 }
 
 export default function VoteprintLegend({
@@ -52,7 +80,7 @@ export default function VoteprintLegend({
       {/* "All issues" row */}
       <button
         type="button"
-                className={`${styles.row} ${activeCategory === null ? styles.active : ''}`}
+        className={`${styles.row} ${activeCategory === null ? styles.active : ''}`}
         onClick={handleAll}
         aria-pressed={activeCategory === null}
       >
@@ -62,21 +90,20 @@ export default function VoteprintLegend({
           aria-hidden="true"
         />
         <span className={styles.label}>All issues</span>
-        <span className={styles.count}>{votes.length}</span>
+        <span className={styles.count}>{votes.length} votes</span>
       </button>
 
       {/* Per-category rows */}
       {stats.map((stat) => {
         const color = CATEGORY_COLORS[stat.id] ?? '#94a3b8';
         const label = CATEGORY_LABELS[stat.id] ?? stat.id;
-        const yeaPct = stat.count > 0 ? (stat.yeaCount / stat.count) * 100 : 0;
         const isActive = activeCategory === stat.id;
 
         return (
           <button
             key={stat.id}
             type="button"
-                        className={`${styles.row} ${isActive ? styles.active : ''}`}
+            className={`${styles.row} ${isActive ? styles.active : ''}`}
             onClick={() => onCategorySelect(isActive ? null : stat.id)}
             aria-pressed={isActive}
           >
@@ -88,13 +115,7 @@ export default function VoteprintLegend({
             <span className={styles.label} title={label}>
               {label}
             </span>
-            <span className={styles.bar} aria-hidden="true">
-              <span
-                className={styles.barFill}
-                style={{ width: `${yeaPct}%`, background: color }}
-              />
-            </span>
-            <span className={styles.pct}>{Math.round(yeaPct)}%</span>
+            <AlignmentSummary stat={stat} />
           </button>
         );
       })}
