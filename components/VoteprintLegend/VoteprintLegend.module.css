@@ -2,8 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.125rem;
-  /* Width 100% of the 260px fixed .legendWrapper — never wider. */
-  width: 100%;
+    width: 100%;
   overflow-y: auto;
   max-height: 280px;
 }
@@ -39,12 +38,22 @@
 }
 
 .row:hover {
+  background: rgba(241, 245, 249, 0.5);
+}
+
+/* Active state: neutral background only — no border, no outline, no shadow. */
+.row.active {
   background: var(--input-readonly-bg);
 }
 
-/* Active state: background-color only — no border, no padding change. */
-.row.active {
-  background: var(--selected-bg);
+@media (prefers-color-scheme: dark) {
+  .row:hover {
+    background: rgba(51, 65, 85, 0.4);
+  }
+
+  .row.active {
+    background: var(--input-readonly-bg);
+  }
 }
 
 .dot {
