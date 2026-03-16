@@ -176,7 +176,7 @@ Add `"stance": "for" | "against"` to every entry.
 - `"for"` — a YEA vote aligns with the progressive/protective issue position
 - `"against"` — a YEA vote opposes the issue position
 
-Entries with genuine uncertainty carry `(stance: review)` appended to the `note` field as a human-review marker. This string is intentionally visible in the VoteList UI's `{vote.note}` display — it signals to users that the categorisation needs verification.
+Entries with genuine uncertainty carry `(stance: review)` appended to the `note` field in the JSON file as a human-review marker for maintainers. `enrichWithCategory` strips this suffix before returning the note so it is never present in a `Vote` object and never shown in the UI.
 
 **Delete** `119-house-340` entirely (Kayla Hamilton Act — misidentified category; removing rather than assigning uncertain stance).
 
@@ -310,6 +310,12 @@ no mapping        → { category: null, note: '', alignedWithIssue: null }
 position absent   → { ..., alignedWithIssue: null }
 stance 'for'      → yea → true,  nay → false
 stance 'against'  → yea → false, nay → true
+```
+
+The returned `note` must have the ` (stance: review)` suffix stripped if present, so it is never shown in the UI:
+
+```ts
+const note = entry.note.replace(/ \(stance: review\)$/, '');
 ```
 
 `transformVotes.ts` call site (the `position` variable is already in scope):
