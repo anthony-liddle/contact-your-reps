@@ -32,7 +32,7 @@ function initials(name: string): string {
     .join('');
 }
 
-export default function RepHeader({ party, chamber }: RepHeaderProps) {
+export default function RepHeader({ bioguideId, party, chamber }: RepHeaderProps) {
   const [rep, setRep] = useState<Representative | null>(null);
   const [showPhoto, setShowPhoto] = useState(true);
 
@@ -40,13 +40,18 @@ export default function RepHeader({ party, chamber }: RepHeaderProps) {
     try {
       const raw = sessionStorage.getItem('cyr_viewing_rep');
       if (raw) {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setRep(JSON.parse(raw) as Representative);
+        const stored = JSON.parse(raw) as Representative;
+        // Only use the cached data if it matches the current rep — prevents
+        // showing stale data when navigating directly to a different rep's URL.
+        if (stored.id === bioguideId) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
+          setRep(stored);
+        }
       }
     } catch {
       // sessionStorage unavailable or invalid JSON — stay in fallback state
     }
-  }, []);
+  }, [bioguideId]);
 
   const partyMod =
     party === 'Democrat'

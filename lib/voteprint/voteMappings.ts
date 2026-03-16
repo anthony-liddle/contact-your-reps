@@ -46,7 +46,7 @@ export function enrichWithCategory(
   const note = entry.note.replace(/ \(stance: review\)$/, '');
 
   let alignedWithIssue: boolean | null = null;
-  if (position !== 'absent') {
+  if (position !== 'absent' && entry.stance) {
     if (entry.stance === 'for') {
       alignedWithIssue = position === 'yea';
     } else {
