@@ -78,6 +78,7 @@ function makeVote(overrides: Partial<Vote> = {}): Vote {
     isPartyBreak: false,
     category: 'climate-justice',
     note: '',
+    alignedWithIssue: null,
     ...overrides,
   };
 }

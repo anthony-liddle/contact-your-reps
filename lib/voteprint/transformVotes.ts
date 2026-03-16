@@ -84,6 +84,7 @@ export function transformVotes(
       isPartyBreak,
       category,
       note,
+      alignedWithIssue: null,
     };
   });
 

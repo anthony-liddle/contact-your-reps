@@ -25,6 +25,7 @@ function makeVote(overrides: Partial<Vote> = {}): Vote {
     isPartyBreak: false,
     category: null,
     note: '',
+    alignedWithIssue: null,
     ...overrides,
   };
 }
