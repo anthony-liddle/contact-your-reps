@@ -25,6 +25,7 @@ const SUGGESTIONS_PATH = join(PROJECT_ROOT, 'data', 'vote-mappings-suggestions.j
 interface VoteMapping {
   category: string;
   note: string;
+  stance?: 'for' | 'against';
 }
 
 interface VoteMappings {
@@ -34,6 +35,7 @@ interface VoteMappings {
 interface SuggestionEntry {
   category: string;
   note: string;
+  stance?: 'for' | 'against';
   confidence?: string;
 }
 
@@ -92,10 +94,11 @@ function main(): void {
       skipped++;
       continue;
     }
-    // Strip confidence field — vote-mappings.json only stores category + note
+    // Strip confidence field — vote-mappings.json only stores category + note + stance
     mappings[key] = {
       category: entry.category,
       note: entry.note,
+      ...(entry.stance ? { stance: entry.stance } : {}),
     };
     added++;
   }
