@@ -97,7 +97,8 @@ export function generateVoteReference(context: VoteContext, _repName: string): s
     const posLabel = entry.position === 'yea' ? 'yes' : entry.position === 'nay' ? 'no' : entry.position;
     // Prefer billTitle; fall back to note for better context
     const displayTitle = entry.billTitle || entry.note;
-    const billRef = `${entry.billNumber}${displayTitle ? `, the ${displayTitle}` : ''}`;
+    const cleanTitle = displayTitle.replace(/\.+$/, '');
+    const billRef = `${entry.billNumber}${cleanTitle ? `, the ${cleanTitle}` : ''}`;
 
     if (entry.alignedWithIssue === true) {
       return `On ${dateStr}, you stood with ${categoryLabel} by voting ${posLabel} on ${billRef}.`;
