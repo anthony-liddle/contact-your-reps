@@ -95,6 +95,10 @@ export default function VoteList({
   const absentCount = base.filter((v) => v.position === 'absent').length;
   const total = base.length;
 
+  const alignedCount = base.filter((v) => v.alignedWithIssue === true).length;
+  const againstCount = base.filter((v) => v.alignedWithIssue === false).length;
+  const stanceTotal = alignedCount + againstCount;
+
   // Build contact URL with context
   const contactParams = new URLSearchParams({ repId: repBioguideId });
   if (activeCategory) {
@@ -228,6 +232,12 @@ export default function VoteList({
                         ≠ Party break
                       </span>
                     )}
+                    {vote.alignedWithIssue === true && (
+                      <span className={`${styles.tag} ${styles.tagAligned}`}>↑ With issue</span>
+                    )}
+                    {vote.alignedWithIssue === false && (
+                      <span className={`${styles.tag} ${styles.tagOpposed}`}>↓ Against issue</span>
+                    )}
                     {activeCategory === null && vote.category && (
                       <span
                         className={styles.categoryBadge}
@@ -256,7 +266,13 @@ export default function VoteList({
       <div className={styles.contactBanner}>
         <p className={styles.contactText}>
           {categoryLabel
-            ? `Concerned about ${repName}'s votes on ${categoryLabel}?`
+            ? stanceTotal === 0
+              ? `Concerned about ${repName}'s votes on ${categoryLabel}?`
+              : againstCount === stanceTotal
+                ? `${repName} has voted against ${categoryLabel} ${stanceTotal} out of ${stanceTotal} times`
+                : alignedCount === stanceTotal
+                  ? `${repName} has consistently supported ${categoryLabel}`
+                  : `${repName} has voted with ${categoryLabel} ${alignedCount} ${alignedCount === 1 ? 'time' : 'times'} and against it ${againstCount} ${againstCount === 1 ? 'time' : 'times'}`
             : `Want to contact ${repName} about their voting record?`}
         </p>
         <a href={contactUrl} className={styles.contactLink}>
