@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Git worktrees
+.worktrees/
+
 # dependencies
 /node_modules
 /.pnp
@@ -19,6 +22,12 @@
 
 # production
 /build
+
+# local development cache (voteprint API responses)
+/.cache/
+
+# vote categorization working file — review before committing any accepted entries
+/data/vote-mappings-suggestions.json
 
 # misc
 .DS_Store
