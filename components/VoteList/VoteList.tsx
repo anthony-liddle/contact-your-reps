@@ -182,7 +182,7 @@ export default function VoteList({
             {stanceTotal === 0
               ? `Concerned about ${repName}'s votes on ${categoryLabel}?`
               : againstCount === stanceTotal
-                ? `${repName} has voted against ${categoryLabel} ${stanceTotal} out of ${stanceTotal} times`
+                ? `${repName} has voted against ${categoryLabel} ${stanceTotal} out of ${stanceTotal} ${stanceTotal === 1 ? 'time' : 'times'}`
                 : alignedCount === stanceTotal
                   ? `${repName} has consistently supported ${categoryLabel}`
                   : `${repName} has voted with ${categoryLabel} ${alignedCount} ${alignedCount === 1 ? 'time' : 'times'} and against it ${againstCount} ${againstCount === 1 ? 'time' : 'times'}`}
