@@ -10,6 +10,7 @@
 
 import { useState, useMemo } from 'react';
 import type { Vote } from '@/lib/voteprint';
+import type { VoteContextEntry } from '@/lib/types';
 import { CATEGORY_COLORS, CATEGORY_LABELS } from '@/lib/voteprint/utils';
 import styles from './VoteList.module.css';
 
@@ -29,6 +30,26 @@ const FILTERS: { key: FilterKey; label: string }[] = [
   { key: 'absent', label: 'Absent' },
   { key: 'party-breaks', label: 'Party breaks' },
 ];
+
+/**
+ * Returns up to 3 recent votes in the active category where stance is known.
+ * Used to populate 'cyr_vote_context' sessionStorage before navigating to /.
+ */
+function getContextVotes(votes: Vote[], activeCategory: string): VoteContextEntry[] {
+  return votes
+    .filter((v) => v.category === activeCategory && v.alignedWithIssue !== null)
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, 3)
+    .map((v) => ({
+      billNumber: v.bill?.number ?? '',
+      billTitle: v.bill?.title ?? '',
+      question: v.question,
+      date: v.date,
+      position: v.position,
+      alignedWithIssue: v.alignedWithIssue,
+      note: v.note,
+    }));
+}
 
 function formatDate(iso: string): string {
   const d = new Date(iso);
@@ -187,7 +208,21 @@ export default function VoteList({
                   ? `${repName} has consistently supported ${categoryLabel}`
                   : `${repName} has voted with ${categoryLabel} ${alignedCount} ${alignedCount === 1 ? 'time' : 'times'} and against it ${againstCount} ${againstCount === 1 ? 'time' : 'times'}`}
           </p>
-          <a href={contactUrl} className={styles.contactLink}>
+          <a
+            href={contactUrl}
+            className={styles.contactLink}
+            onClick={() => {
+              sessionStorage.setItem(
+                'cyr_vote_context',
+                JSON.stringify({
+                  category: activeCategory,
+                  repId: repBioguideId,
+                  repName,
+                  votes: getContextVotes(votes, activeCategory),
+                }),
+              );
+            }}
+          >
             Write to {repName}
           </a>
         </div>

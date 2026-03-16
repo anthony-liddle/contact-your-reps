@@ -44,3 +44,28 @@ export interface GeneratedMessage {
   subject: string;
   body: string;
 }
+
+/** One vote entry serialized to sessionStorage for message generation. */
+export interface VoteContextEntry {
+  billNumber: string;
+  /** Bill title from the API, may be empty. Fall back to note for display. */
+  billTitle: string;
+  question: string;
+  date: string;
+  position: 'yea' | 'nay' | 'absent';
+  alignedWithIssue: boolean | null;
+  note: string;
+}
+
+/**
+ * Vote context written to sessionStorage ('cyr_vote_context') by VoteList
+ * when the user clicks "Write to [rep]" with an active category filter.
+ * Read and cleared by the main page on mount; passed to generateMessage
+ * to inject specific vote references into the generated message.
+ */
+export interface VoteContext {
+  category: string;
+  repId: string;
+  repName: string;
+  votes: VoteContextEntry[];
+}

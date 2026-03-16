@@ -3,8 +3,9 @@
  * Generates respectful, issue-based messages for representative contact forms.
  */
 
+import { issues } from '@/data/issues';
 import type { Issue } from '@/data/issues';
-import type { GeneratedMessage, Representative } from './types';
+import type { GeneratedMessage, Representative, VoteContext } from './types';
 
 export const MESSAGE_SALUTATION = 'Dear Senator or Representative,';
 export const MESSAGE_OPENING = 'I am writing to you as your constituent to demand action on the issues below. These are not abstract policy questions. They are crises affecting real people in your district right now, and I expect you to treat them with the urgency they deserve.';
@@ -14,20 +15,20 @@ export const MESSAGE_CLOSING = 'I am not writing to start a conversation. I am w
 /**
  * Generates a subject line based on selected issues
  */
-function generateSubject(issues: Issue[]): string {
-  if (issues.length === 0) {
+function generateSubject(selectedIssues: Issue[]): string {
+  if (selectedIssues.length === 0) {
     return 'Message from a Concerned Constituent';
   }
 
-  if (issues.length === 1) {
-    return `Constituent Request: ${issues[0].title}`;
+  if (selectedIssues.length === 1) {
+    return `Constituent Request: ${selectedIssues[0].title}`;
   }
 
-  if (issues.length === 2) {
-    return `Constituent Priorities: ${issues[0].title} and ${issues[1].title}`;
+  if (selectedIssues.length === 2) {
+    return `Constituent Priorities: ${selectedIssues[0].title} and ${selectedIssues[1].title}`;
   }
 
-  return `Constituent Priorities: ${issues[0].title} and ${issues.length - 1} Other Issues`;
+  return `Constituent Priorities: ${selectedIssues[0].title} and ${selectedIssues.length - 1} Other Issues`;
 }
 
 /**
@@ -59,17 +60,75 @@ function generateClosing(): string {
 [Your City, State ZIP]`;
 }
 
+/** Maps a category ID to its human-readable title from data/issues.ts. */
+function getCategoryLabel(categoryId: string): string {
+  return issues.find((i) => i.id === categoryId)?.title ?? categoryId;
+}
+
+function formatVoteDate(isoDate: string): string {
+  const d = new Date(isoDate);
+  if (isNaN(d.getTime())) return isoDate;
+  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+
 /**
- * Generates a complete message based on selected issues
+ * Builds 1–3 sentences referencing the representative's actual votes on an issue.
+ * Exported for direct testing.
+ */
+export function generateVoteReference(context: VoteContext, _repName: string): string {
+  const categoryLabel = getCategoryLabel(context.category);
+  const votes = context.votes.slice(0, 3);
+
+  const allAligned = votes.every((v) => v.alignedWithIssue === true);
+  const allAgainst = votes.every((v) => v.alignedWithIssue === false);
+  const anyAgainst = votes.some((v) => v.alignedWithIssue === false);
+
+  let opening: string;
+  if (allAligned) {
+    opening = `Your voting record on ${categoryLabel} shows consistent support for this issue.`;
+  } else if (allAgainst) {
+    opening = `Your voting record on ${categoryLabel} is a direct attack on the people you represent.`;
+  } else {
+    opening = `Your record on ${categoryLabel} is mixed.`;
+  }
+
+  const sentences = votes.map((entry) => {
+    const dateStr = formatVoteDate(entry.date);
+    const posLabel = entry.position === 'yea' ? 'yes' : entry.position === 'nay' ? 'no' : entry.position;
+    // Prefer billTitle; fall back to note for better context
+    const displayTitle = entry.billTitle || entry.note;
+    const billRef = `${entry.billNumber}${displayTitle ? `, the ${displayTitle}` : ''}`;
+
+    if (entry.alignedWithIssue === true) {
+      return `On ${dateStr}, you stood with ${categoryLabel} by voting ${posLabel} on ${billRef}.`;
+    }
+    return `On ${dateStr}, you voted against ${categoryLabel} by voting ${posLabel} on ${billRef}.`;
+  });
+
+  const parts = [opening, ...sentences];
+  if (anyAgainst) {
+    parts.push('I expect you to do better.');
+  }
+
+  return parts.join(' ');
+}
+
+/**
+ * Generates a complete message based on selected issues.
+ * When voteContext is provided and matches a selected issue, a vote reference
+ * paragraph is prepended to that issue's message paragraph.
  */
 export function generateMessage(
   selectedIssues: Issue[],
-  _representatives: Representative[]
+  _representatives: Representative[],
+  voteContext?: VoteContext | null
 ): GeneratedMessage {
   // 'to' field is empty since users submit via contact forms
   const to = '';
 
-  const subject = generateSubject(selectedIssues);
+  const subject = voteContext
+    ? `Constituent Concerns: ${getCategoryLabel(voteContext.category)} Voting Record`
+    : generateSubject(selectedIssues);
 
   const bodyParts: string[] = [];
 
@@ -84,7 +143,12 @@ export function generateMessage(
   // Issue paragraphs
   if (selectedIssues.length > 0) {
     for (const issue of selectedIssues) {
-      bodyParts.push(issue.messageParagraph);
+      if (voteContext && issue.id === voteContext.category && voteContext.votes.length > 0) {
+        const ref = generateVoteReference(voteContext, voteContext.repName);
+        bodyParts.push(`${ref}\n\n${issue.messageParagraph}`);
+      } else {
+        bodyParts.push(issue.messageParagraph);
+      }
       bodyParts.push('');
     }
   } else {

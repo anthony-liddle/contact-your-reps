@@ -216,4 +216,71 @@ describe('Home page integration', () => {
     expect(screen.getByLabelText(/zip code/i)).toBeInTheDocument();
     expect(screen.queryByText(/your federal representatives/i)).not.toBeInTheDocument();
   });
+
+  // ── Vote context ───────────────────────────────────────────────────────────
+
+  it('reads voteContext from sessionStorage on mount and clears it', async () => {
+    const voteCtx = {
+      category: 'trans-rights',
+      repId: 'rep-bonamici',
+      repName: 'Suzanne Bonamici',
+      votes: [
+        {
+          billNumber: 'H.R. 5184',
+          billTitle: 'Protection of Women and Girls in Sports Act',
+          question: 'On Passage',
+          date: '2026-01-09',
+          position: 'yea',
+          alignedWithIssue: false,
+          note: '',
+        },
+      ],
+    };
+    sessionStorage.setItem('cyr_vote_context', JSON.stringify(voteCtx));
+
+    render(<Home />);
+
+    // sessionStorage entry should be cleared immediately on mount
+    expect(sessionStorage.getItem('cyr_vote_context')).toBeNull();
+  });
+
+  it('shows vote context indicator after reps load when voteContext is present', async () => {
+    const voteCtx = {
+      category: 'trans-rights',
+      repId: 'rep-bonamici',
+      repName: 'Suzanne Bonamici',
+      votes: [],
+    };
+    sessionStorage.setItem('cyr_vote_context', JSON.stringify(voteCtx));
+    sessionStorage.setItem('cyr_zip', '97006');
+
+    render(<Home />);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(/this message references suzanne bonamici/i),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it('dismissing the vote context indicator hides the banner', async () => {
+    const voteCtx = {
+      category: 'trans-rights',
+      repId: 'rep-bonamici',
+      repName: 'Suzanne Bonamici',
+      votes: [],
+    };
+    sessionStorage.setItem('cyr_vote_context', JSON.stringify(voteCtx));
+    sessionStorage.setItem('cyr_zip', '97006');
+
+    render(<Home />);
+
+    await waitFor(() => {
+      expect(screen.getByText(/this message references/i)).toBeInTheDocument();
+    });
+
+    fireEvent.click(screen.getByRole('button', { name: /remove vote context/i }));
+
+    expect(screen.queryByText(/this message references/i)).not.toBeInTheDocument();
+  });
 });
