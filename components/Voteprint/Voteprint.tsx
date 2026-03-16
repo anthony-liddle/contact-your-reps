@@ -145,9 +145,24 @@ export default function Voteprint({
 
         const voteAngle = wedge.startAngle + r1 * range;
 
-        const isYea = vote.position === 'yea';
-        const minFrac = isYea ? 0.5 : 0.05;
-        const maxFrac = isYea ? 1.0 : 0.2;
+        const { alignedWithIssue } = vote;
+
+        let minFrac: number;
+        let maxFrac: number;
+        let lineWeight: number;
+        let opacity: number;
+
+        if (alignedWithIssue === true) {
+          minFrac = 0.5; maxFrac = 1.0; lineWeight = 1.5; opacity = isActive ? 0.8 : 0.15;
+        } else if (alignedWithIssue === false) {
+          minFrac = 0.05; maxFrac = 0.2; lineWeight = 1; opacity = isActive ? 0.5 : 0.15;
+        } else if (vote.position === 'yea') {
+          minFrac = 0.3; maxFrac = 0.5; lineWeight = 1; opacity = isActive ? 0.65 : 0.15;
+        } else {
+          // null + nay
+          minFrac = 0.05; maxFrac = 0.2; lineWeight = 1; opacity = isActive ? 0.5 : 0.15;
+        }
+
         const lengthFrac = minFrac + r2 * (maxFrac - minFrac);
         const lineLen = (outerR - innerR) * lengthFrac;
 
@@ -160,8 +175,8 @@ export default function Voteprint({
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
         ctx.strokeStyle = color;
-        ctx.lineWidth = isYea ? 1.5 : 1;
-        ctx.globalAlpha = isActive ? (isYea ? 0.8 : 0.5) : 0.15;
+        ctx.lineWidth = lineWeight;
+        ctx.globalAlpha = opacity;
         ctx.stroke();
       }
 
