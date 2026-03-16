@@ -60,9 +60,9 @@ function generateClosing(): string {
 [Your City, State ZIP]`;
 }
 
-/** Maps a category ID to its human-readable title from data/issues.ts. */
+/** Maps a category ID to its short message label from data/issues.ts. */
 function getCategoryLabel(categoryId: string): string {
-  return issues.find((i) => i.id === categoryId)?.title ?? categoryId;
+  return issues.find((i) => i.id === categoryId)?.messageLabel ?? categoryId;
 }
 
 function formatVoteDate(isoDate: string): string {

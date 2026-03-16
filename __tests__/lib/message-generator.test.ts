@@ -9,18 +9,21 @@ const mockIssues: Issue[] = [
     title: 'Test Issue One',
     description: 'First test issue',
     messageParagraph: 'This is the first test issue paragraph.',
+    messageLabel: 'Test Issue One',
   },
   {
     id: 'test-issue-2',
     title: 'Test Issue Two',
     description: 'Second test issue',
     messageParagraph: 'This is the second test issue paragraph.',
+    messageLabel: 'Test Issue Two',
   },
   {
     id: 'test-issue-3',
     title: 'Test Issue Three',
     description: 'Third test issue',
     messageParagraph: 'This is the third test issue paragraph.',
+    messageLabel: 'Test Issue Three',
   },
 ];
 
@@ -282,6 +285,7 @@ const transRightsIssue: Issue = {
   title: 'Protect Transgender People and Trans Youth',
   description: 'Oppose state-sponsored attacks on trans lives',
   messageParagraph: 'Trans people are under direct attack.',
+  messageLabel: 'Trans Rights',
 };
 
 describe('generateMessage with voteContext', () => {
@@ -307,6 +311,7 @@ describe('generateMessage with voteContext', () => {
       title: 'Climate Justice',
       description: 'Climate',
       messageParagraph: 'Climate paragraph text.',
+      messageLabel: 'Climate Justice',
     };
     const ctx: VoteContext = {
       category: 'trans-rights',
@@ -331,7 +336,7 @@ describe('generateMessage with voteContext', () => {
       votes: [makeEntry({ alignedWithIssue: false })],
     };
     const result = generateMessage([transRightsIssue], mockRepresentatives, ctx);
-    expect(result.subject).toBe('Constituent Concerns: Protect Transgender People and Trans Youth Voting Record');
+    expect(result.subject).toBe('Constituent Concerns: Trans Rights Voting Record');
   });
 
   it('skips vote reference injection when votes array is empty', () => {
