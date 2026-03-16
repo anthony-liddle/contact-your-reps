@@ -4,11 +4,13 @@
  * Voteprint canvas.
  *
  * Renders a donut-ring chart where each arc sector represents an issue
- * category. Individual votes are drawn as radial quadratic Bézier lines
- * radiating outward from the inner ring:
- *   - yea   → long line (50–100% of the annular depth)
- *   - nay   → short line (5–20% of the annular depth)
- *   - absent → not drawn
+ * category. Individual votes are drawn as radial straight lines radiating
+ * outward from the inner ring, encoding alignment with the issue position:
+ *   - aligned (alignedWithIssue === true)  → long line (50–100% of depth), 1.5px, full opacity
+ *   - opposed (alignedWithIssue === false) → short stub (5–20% of depth), 1px, reduced opacity
+ *   - null + yea                           → medium line (30–50%), 1px, slightly reduced
+ *   - null + nay                           → short stub (5–20%), 1px, reduced
+ *   - absent                               → not drawn
  *
  * Click or use keyboard (← → Escape Enter) to select / deselect categories.
  * DPR-scaled for sharp rendering on retina displays.
@@ -140,7 +142,6 @@ export default function Voteprint({
 
         const r1 = seededRandom(vote.rollCall * 31 + 7);
         const r2 = seededRandom(vote.rollCall * 31 + 13);
-        const r3 = seededRandom(vote.rollCall * 31 + 19);
 
         const voteAngle = wedge.startAngle + r1 * range;
 
@@ -155,15 +156,9 @@ export default function Voteprint({
         const x2 = cx + (innerR + lineLen) * Math.cos(voteAngle);
         const y2 = cy + (innerR + lineLen) * Math.sin(voteAngle);
 
-        // Slight quadratic curve perpendicular to the radial direction
-        const perpAngle = voteAngle + Math.PI / 2;
-        const curveMag = lineLen * 0.2 * (r3 - 0.5);
-        const cpx = (x1 + x2) / 2 + Math.cos(perpAngle) * curveMag;
-        const cpy = (y1 + y2) / 2 + Math.sin(perpAngle) * curveMag;
-
         ctx.beginPath();
         ctx.moveTo(x1, y1);
-        ctx.quadraticCurveTo(cpx, cpy, x2, y2);
+        ctx.lineTo(x2, y2);
         ctx.strokeStyle = color;
         ctx.lineWidth = isYea ? 1.5 : 1;
         ctx.globalAlpha = isActive ? (isYea ? 0.8 : 0.5) : 0.15;
