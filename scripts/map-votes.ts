@@ -39,6 +39,12 @@ function loadDotEnv(): void {
   }
 }
 
+// Ensure the fs cache path is used when running this script locally,
+// even if the .env file doesn't set NODE_ENV explicitly.
+if (!process.env.NODE_ENV) {
+  (process.env as Record<string, string>).NODE_ENV = 'development';
+}
+
 loadDotEnv();
 
 // ---------------------------------------------------------------------------
