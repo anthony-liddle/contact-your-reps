@@ -9,6 +9,7 @@ import type { RawCongressVote, Vote, VoteCategory } from './types';
 interface VoteMappingEntry {
   category: VoteCategory;
   note: string;
+  stance: 'for' | 'against';
 }
 
 type VoteMappingsJson = Record<string, VoteMappingEntry>;
@@ -24,21 +25,34 @@ function buildMappingKey(vote: RawCongressVote): string {
 }
 
 /**
- * Looks up the category and note for a raw vote from vote-mappings.json.
- * Returns { category: null, note: '' } if no mapping exists for the vote.
+ * Looks up the category, note, and alignedWithIssue for a raw vote from vote-mappings.json.
+ * Returns { category: null, note: '', alignedWithIssue: null } if no mapping exists for the vote.
  *
  * @param vote - The raw vote to look up
- * @returns The matching category and note, or null defaults if unmapped
+ * @param position - The normalized position ('yea' | 'nay' | 'absent')
+ * @returns The matching category, note, and alignedWithIssue, or null defaults if unmapped
  */
 export function enrichWithCategory(
   vote: RawCongressVote,
-): Pick<Vote, 'category' | 'note'> {
+  position: Vote['position'],
+): Pick<Vote, 'category' | 'note' | 'alignedWithIssue'> {
   const key = buildMappingKey(vote);
   const entry = voteMappings[key];
 
   if (!entry) {
-    return { category: null, note: '' };
+    return { category: null, note: '', alignedWithIssue: null };
   }
 
-  return { category: entry.category, note: entry.note };
+  const note = entry.note.replace(/ \(stance: review\)$/, '');
+
+  let alignedWithIssue: boolean | null = null;
+  if (position !== 'absent') {
+    if (entry.stance === 'for') {
+      alignedWithIssue = position === 'yea';
+    } else {
+      alignedWithIssue = position === 'nay';
+    }
+  }
+
+  return { category: entry.category, note, alignedWithIssue };
 }

@@ -61,7 +61,7 @@ export function transformVotes(
     const position = normalizePosition(raw.memberVote);
     const result = normalizeResult(raw.result);
     const partyMajority = derivePartyMajority(raw.partyTotals, party);
-    const { category, note } = enrichWithCategory(raw);
+    const { category, note } = enrichWithCategory(raw, position);
 
     const isPartyBreak =
       position !== 'absent' &&
