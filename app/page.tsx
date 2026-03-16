@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import ZipCodeInput from '@/components/ZipCodeInput';
 import RepresentativeCard from '@/components/RepresentativeCard';
 import IssueSelector from '@/components/IssueSelector';
@@ -24,6 +24,12 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [locationInfo, setLocationInfo] = useState<string | null>(null);
 
+  // Holds a ?category= param from the voteprint page's contact banner link.
+  // Stored in a ref (not state) so it doesn't trigger a premature render —
+  // the value is only applied once reps have loaded and the IssueSelector is
+  // visible (see the appState effect below).
+  const pendingCategoryRef = useRef<string | null>(null);
+
   const handleZipSubmit = useCallback(async (zipCode: string) => {
     setAppState('loading');
     setError(null);
@@ -41,6 +47,9 @@ export default function Home() {
       setAppState('error');
       return;
     }
+
+    // Persist the ZIP so it can be restored on the next visit within this tab
+    sessionStorage.setItem('cyr_zip', zipCode);
 
     setRepresentatives(result.representatives);
 
@@ -75,6 +84,7 @@ export default function Home() {
   }, []);
 
   const handleReset = useCallback(() => {
+    sessionStorage.removeItem('cyr_zip');
     setAppState('initial');
     setRepresentatives([]);
     setSelectedIssueIds(new Set());
@@ -83,6 +93,50 @@ export default function Home() {
     setError(null);
     setLocationInfo(null);
   }, []);
+
+  // Mount effect — runs once, SSR-safe (sessionStorage only accessed inside useEffect).
+  //
+  // 1. Read ?category= from the URL (written by VoteList's contact banner when
+  //    the user clicks "Write to <rep>"). Store the value in a ref so it can be
+  //    applied after the rep lookup completes (see the appState effect below),
+  //    then clean the URL so the param doesn't re-appear on reload.
+  //
+  // 2. Restore the last successful ZIP from sessionStorage (key: 'cyr_zip').
+  //    Uses sessionStorage rather than localStorage so the data clears when the
+  //    tab closes — consistent with the app's "We do not store your data" stance.
+  //
+  // NOTE: if ?repId= is also present we intentionally skip pre-selecting that
+  // representative. Reps are loaded async via ZIP, and sessionStorage restoration
+  // below handles re-loading the correct rep list automatically.
+  useEffect(() => {
+    // Capture and clean URL params
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get('category');
+    if (category && issues.some((i) => i.id === category)) {
+      pendingCategoryRef.current = category;
+    }
+    if (window.location.search) {
+      history.replaceState(null, '', window.location.pathname);
+    }
+
+    // Auto-restore ZIP lookup — calling an async handler from a mount effect is
+    // intentional here (not a synchronous setState pattern).
+    const savedZip = sessionStorage.getItem('cyr_zip');
+    if (savedZip) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      void handleZipSubmit(savedZip);
+    }
+  }, [handleZipSubmit]);
+
+  // Apply the pending category pre-selection once reps have loaded and the
+  // IssueSelector is rendered. Clear the ref immediately so subsequent
+  // appState changes (e.g., user resets and reloads reps) don't re-apply it.
+  useEffect(() => {
+    if (appState === 'representatives' && pendingCategoryRef.current !== null) {
+      setSelectedIssueIds(new Set([pendingCategoryRef.current]));
+      pendingCategoryRef.current = null;
+    }
+  }, [appState]);
 
   const selectedIssues = useMemo(() => {
     return issues.filter((issue) => selectedIssueIds.has(issue.id));

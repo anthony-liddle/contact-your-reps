@@ -10,7 +10,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "prepare": "husky"
+    "prepare": "husky",
+    "map-votes": "tsx scripts/map-votes.ts",
+    "apply-mappings": "tsx scripts/apply-mappings.ts"
   },
   "dependencies": {
     "@vercel/analytics": "^1.6.1",
@@ -38,6 +40,7 @@
     "jest-environment-jsdom": "^30.3.0",
     "lint-staged": "^16.3.3",
     "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }

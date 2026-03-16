@@ -1,0 +1,31 @@
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.icon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.heading {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.body {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  max-width: 36ch;
+  margin: 0;
+  line-height: 1.6;
+}

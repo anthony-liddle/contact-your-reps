@@ -1,0 +1,342 @@
+{
+  "119-house-96": {
+    "category": "foreign-policy",
+    "note": "Revoked Biden-era export license restrictions on Israel; passed over Democratic opposition"
+  },
+  "119-house-100": {
+    "category": "foreign-policy",
+    "note": "FY 2025 budget resolution including record Pentagon funding; passed with Republican majority"
+  },
+  "119-house-101": {
+    "category": "foreign-policy",
+    "note": "Democratic motion to recommit the FY 2025 budget resolution; failed along party lines"
+  },
+  "119-house-116": {
+    "category": "corporate-power",
+    "note": "Regulatory relief bill reducing federal oversight of small businesses and contractors"
+  },
+  "119-house-122": {
+    "category": "workers-rights",
+    "note": "Reduced NLRB enforcement funding; passed with Republican majority over union objections"
+  },
+  "119-house-140": {
+    "category": "surveillance-digital-rights",
+    "note": "Reauthorized Section 702 FISA surveillance authority without warrant requirement reforms"
+  },
+  "119-house-163": {
+    "category": "immigration-abolish-ice",
+    "note": "Increased ICE detention bed capacity and expanded expedited removal authority"
+  },
+  "119-house-185": {
+    "category": "universal-healthcare",
+    "note": "ACA marketplace subsidy extension through 2027; passed with bipartisan support"
+  },
+  "119-house-210": {
+    "category": "housing-as-a-right",
+    "note": "Waived environmental review for housing development on federal land; passed along party lines"
+  },
+  "119-house-240": {
+    "category": "student-debt",
+    "note": "Eliminated remaining Biden administration student loan forgiveness programs"
+  },
+  "119-house-245": {
+    "category": "climate-justice",
+    "note": "Amendment restoring EPA methane reporting requirements stripped in earlier markup"
+  },
+  "119-house-259": {
+    "category": "climate-justice",
+    "note": "Amendment to defund EPA's climate enforcement division; failed on bipartisan opposition"
+  },
+  "119-house-81": {
+    "category": "indigenous-sovereignty",
+    "note": "Bill addressing tribal trust land homeownership, directly related to Indigenous land rights and sovereignty."
+  },
+  "119-house-85": {
+    "category": "foreign-policy",
+    "note": "Resolution directing the President to remove U.S. Armed Forces from unauthorized hostilities in Iran under the War Powers Resolution."
+  },
+  "119-house-307": {
+    "category": "foreign-policy",
+    "note": "No New Burma Funds Act restricts funding related to Burma/Myanmar foreign policy."
+  },
+  "119-house-87": {
+    "category": "immigration-abolish-ice",
+    "note": "Final passage of DHS appropriations bill which funds immigration enforcement; categorized by its impact on ICE and immigration policy."
+  },
+  "119-house-92": {
+    "category": "voting-rights-democracy",
+    "note": "Rule for consideration includes H.R. 22 requiring citizenship proof for voter registration, which directly impacts voting rights."
+  },
+  "119-house-321": {
+    "category": "workers-rights",
+    "note": "Motion to discharge on H.R. 2550 to nullify Executive order on federal labor-management relations programs, relating to workers' rights."
+  },
+  "119-house-264": {
+    "category": "immigration-abolish-ice",
+    "note": "Stop Illegal Entry Act of 2025 addresses immigration policy and enforcement."
+  },
+  "119-house-111": {
+    "category": "climate-justice",
+    "note": "Congressional disapproval of EPA environmental standards for vehicle emissions and pollution control."
+  },
+  "119-house-143": {
+    "category": "climate-justice",
+    "note": "Congressional disapproval of EPA rule reclassification regarding Clean Air Act major sources represents opposition to environmental protection."
+  },
+  "119-house-351": {
+    "category": "trans-rights",
+    "note": "The 'Protect Children's Innocence Act' is legislation targeting transgender youth and medical care, directly opposing trans rights."
+  },
+  "119-house-22": {
+    "category": "indigenous-sovereignty",
+    "note": "Legislation establishing a memorial and protecting the sacred site of Wounded Knee honors Indigenous sovereignty and historical justice."
+  },
+  "119-house-26": {
+    "category": "reproductive-justice",
+    "note": "The Born-Alive Abortion Survivors Protection Act restricts reproductive healthcare and bodily autonomy."
+  },
+  "119-house-27": {
+    "category": "reproductive-justice",
+    "note": "Passage of the Born-Alive Abortion Survivors Protection Act restricts reproductive healthcare and bodily autonomy."
+  },
+  "119-house-28": {
+    "category": "indigenous-sovereignty",
+    "note": "Alaska Native Village land restoration legislation centers Indigenous self-determination and land rights."
+  },
+  "119-house-345": {
+    "category": "foreign-policy",
+    "note": "Resolution directing removal of U.S. Armed Forces from hostilities with terrorist organizations in the Western Hemisphere, addressing war powers and military intervention."
+  },
+  "119-house-346": {
+    "category": "foreign-policy",
+    "note": "Resolution directing removal of U.S. Armed Forces from hostilities in Venezuela, addressing war powers and military intervention."
+  },
+  "119-house-295": {
+    "category": "climate-justice",
+    "note": "Congressional disapproval of oil and gas leasing program in Coastal Plain, opposing fossil fuel extraction."
+  },
+  "119-house-296": {
+    "category": "climate-justice",
+    "note": "Congressional disapproval of oil and gas activities in National Petroleum Reserve in Alaska, opposing fossil fuel development."
+  },
+  "119-house-350": {
+    "category": "trans-rights",
+    "note": "Motion to recommit on 'Protect Children's Innocence Act,' which targets transgender medical care for youth."
+  },
+  "119-house-294": {
+    "category": "climate-justice",
+    "note": "Congressional disapproval of Bureau of Land Management resource management plan affecting public lands."
+  },
+  "119-house-151": {
+    "category": "drug-decriminalization",
+    "note": "SUPPORT for Patients and Communities Reauthorization Act reauthorizes medication-assisted treatment and opioid crisis response programs."
+  },
+  "119-house-162": {
+    "category": "workers-rights",
+    "note": "Protecting Our Nation's Capital Emergency Act restores collective bargaining rights for D.C. police officers."
+  },
+  "119-house-166": {
+    "category": "drug-decriminalization",
+    "note": "HALT Fentanyl Act addresses controlled substance scheduling and fentanyl-related drug policy."
+  },
+  "119-house-171": {
+    "category": "immigration-abolish-ice",
+    "note": "District of Columbia Federal Immigration Compliance Act requires D.C. to enforce federal immigration law, opposing sanctuary city policies that protect immigrants."
+  },
+  "119-house-172": {
+    "category": "foreign-policy",
+    "note": "Bill to sanction sea pirates, relating to international affairs and foreign policy enforcement."
+  },
+  "119-house-11": {
+    "category": "trans-rights",
+    "note": "Motion to recommit on Protection of Women and Girls in Sports Act, which targets transgender participation in sports."
+  },
+  "119-house-12": {
+    "category": "trans-rights",
+    "note": "Passage of Protection of Women and Girls in Sports Act, legislation that restricts transgender athletes from participating in sports consistent with their gender identity."
+  },
+  "119-house-114": {
+    "category": "climate-justice",
+    "note": "Congressional disapproval of EPA pollution control standards and vehicle emission rules related to climate and environmental protection."
+  },
+  "119-house-86": {
+    "category": "immigration-abolish-ice",
+    "note": "DHS appropriations bill that funds immigration enforcement agencies; immigration advocates would scrutinize funding for ICE and border operations."
+  },
+  "119-house-319": {
+    "category": "foreign-policy",
+    "note": "National Defense Authorization Act determines military spending and defense policy; relevant to military overspending concerns."
+  },
+  "119-house-320": {
+    "category": "foreign-policy",
+    "note": "National Defense Authorization Act for Fiscal Year 2026 relating to military spending and armed forces policy."
+  },
+  "119-house-331": {
+    "category": "workers-rights",
+    "note": "Procedural vote agreeing to H.Res. 432, a rule providing for consideration of H.R. 2550 to nullify an executive order relating to federal labor-management relations."
+  },
+  "119-house-332": {
+    "category": "workers-rights",
+    "note": "Protect America's Workforce Act likely addresses worker protections and labor standards."
+  },
+  "119-house-132": {
+    "category": "foreign-policy",
+    "note": "Strengthening the Quad Act relates to international affairs and diplomatic partnerships in Asia-Pacific region."
+  },
+  "119-house-287": {
+    "category": "surveillance-digital-rights",
+    "note": "Cyber resilience against state-sponsored threats relates to digital security and accountability of technology systems."
+  },
+  "119-house-196": {
+    "category": "surveillance-digital-rights",
+    "note": "Communications Security Act addressing cybersecurity and digital communications infrastructure."
+  },
+  "119-house-191": {
+    "category": "surveillance-digital-rights",
+    "note": "Bill addressing cybersecurity of mobile networks and digital infrastructure."
+  },
+  "119-house-109": {
+    "category": "surveillance-digital-rights",
+    "note": "Informing Consumers about Smart Devices Act addresses consumer awareness and potential privacy implications of smart devices."
+  },
+  "119-house-137": {
+    "category": "corporate-power",
+    "note": "Congressional disapproval of bank merger rule changes relates to corporate power and anti-monopoly enforcement."
+  },
+  "119-house-16": {
+    "category": "immigration-abolish-ice",
+    "note": "Immigration enforcement legislation framed around violence prevention, but centered on immigration enforcement rather than abolishing ICE abuses."
+  },
+  "119-house-183": {
+    "category": "immigration-abolish-ice",
+    "note": "Immigration bill targeting deportation of aliens convicted of DUI offenses."
+  },
+  "119-house-184": {
+    "category": "immigration-abolish-ice",
+    "note": "Immigration bill requiring reporting on special interest aliens attempting unlawful entry."
+  },
+  "119-house-33": {
+    "category": "drug-decriminalization",
+    "note": "HALT Fentanyl Act addresses drug-related policy, likely involving law enforcement approaches to fentanyl trafficking."
+  },
+  "119-house-270": {
+    "category": "police-violence",
+    "note": "Passage of H.R. 4922, which reforms DC criminal law including youth offender status and criminal liability sentences."
+  },
+  "119-house-271": {
+    "category": "police-violence",
+    "note": "Passage of H.R. 5140 to lower the age at which minors may be tried as adults in DC to 14 years old, affecting criminal justice."
+  },
+  "119-house-298": {
+    "category": "police-violence",
+    "note": "Bill requires mandatory detention and cash bail for crimes of violence in DC, relating to criminal justice and detention policy."
+  },
+  "119-house-299": {
+    "category": "police-violence",
+    "note": "Bill to repeal policing and justice reform measures in DC, affecting accountability and criminal justice policy."
+  },
+  "119-house-340": {
+    "category": "police-violence",
+    "note": "Kayla Hamilton Act likely addresses police accountability or officer conduct based on policy area of Crime and Law Enforcement."
+  },
+  "119-house-348": {
+    "category": "universal-healthcare",
+    "note": "Motion to recommit on a bill titled 'Lower Health Care Premiums for All Americans Act' dealing with healthcare costs."
+  },
+  "119-house-349": {
+    "category": "universal-healthcare",
+    "note": "Passage of 'Lower Health Care Premiums for All Americans Act' addressing healthcare affordability."
+  },
+  "119-house-304": {
+    "category": "climate-justice",
+    "note": "Bill to repeal restrictions on LNG export and import, promoting fossil fuel industry expansion."
+  },
+  "119-house-112": {
+    "category": "climate-justice",
+    "note": "EPA disapproval vote targets rollback of emissions standards for vehicles and engines, opposing climate action."
+  },
+  "119-house-201": {
+    "category": "surveillance-digital-rights",
+    "note": "Anti-CBDC Surveillance State Act aims to prevent central bank digital currency implementation, directly addressing surveillance and digital rights concerns."
+  },
+  "119-house-211": {
+    "category": "foreign-policy",
+    "note": "Motion to recommit on Department of Defense appropriations bill, relating to military spending priorities."
+  },
+  "119-house-212": {
+    "category": "foreign-policy",
+    "note": "Passage of Department of Defense Appropriations Act, 2026, governing military spending."
+  },
+  "119-house-328": {
+    "category": "corporate-power",
+    "note": "Passage of H.R. 3383, the Incentivizing New Ventures and Economic Strength Through Capital Formation Act, regulating investment companies and financial sector."
+  },
+  "119-house-95": {
+    "category": "corporate-power",
+    "note": "Joint resolution disapproving CFPB rule on digital payment app market participation by large financial institutions."
+  },
+  "119-house-102": {
+    "category": "voting-rights-democracy",
+    "note": "SAVE Act likely related to voter identification; without full details, assumed to relate to voting access and democracy."
+  },
+  "119-house-104": {
+    "category": "surveillance-digital-rights",
+    "note": "TAKE IT DOWN Act addresses removal of online content and likely relates to digital rights and platform accountability."
+  },
+  "119-house-106": {
+    "category": "climate-justice",
+    "note": "Resolution providing consideration of multiple CRA disapprovals of EPA clean air and vehicle emission standards that protect climate and public health."
+  },
+  "119-house-152": {
+    "category": "immigration-abolish-ice",
+    "note": "Motion to recommit on bill targeting sanctuary cities and restricting SBA offices in jurisdictions limiting immigration enforcement cooperation."
+  },
+  "119-house-153": {
+    "category": "immigration-abolish-ice",
+    "note": "Passage of bill penalizing sanctuary cities by restricting SBA office locations based on immigration enforcement policies."
+  },
+  "119-house-170": {
+    "category": "immigration-abolish-ice",
+    "note": "Motion to recommit on bill requiring DC to comply with federal immigration enforcement laws."
+  },
+  "119-house-275": {
+    "category": "police-violence",
+    "note": "District of Columbia Policing Protection Act relates to law enforcement practices and accountability."
+  },
+  "119-house-344": {
+    "category": "trans-rights",
+    "note": "Rule agreeing to consideration of bills including H.R. 498 prohibiting Medicaid funding for gender transition procedures for minors, which targets transgender healthcare access."
+  },
+  "119-house-7": {
+    "category": "foreign-policy",
+    "note": "Illegitimate Court Counteraction Act related to International Criminal Court; touches on foreign policy and international relations."
+  },
+  "119-house-57": {
+    "category": "climate-justice",
+    "note": "Resolution providing for consideration of disapproval resolutions on EPA air pollution rules and energy appliance standards, which relate to climate and environmental protection."
+  },
+  "119-house-23": {
+    "category": "immigration-abolish-ice",
+    "note": "Passage of the Laken Riley Act, immigration enforcement legislation."
+  },
+  "119-house-6": {
+    "category": "immigration-abolish-ice",
+    "note": "Laken Riley Act relates to immigration enforcement but likely focuses on mandatory detention rather than abolishing ICE abuses."
+  },
+  "119-house-17": {
+    "category": "immigration-abolish-ice",
+    "note": "Bill titled on preventing violence by undocumented immigrants appears to frame immigration policy through criminalization lens, though the framing is contentious."
+  },
+  "119-house-77": {
+    "category": "climate-justice",
+    "note": "Motion to recommit on Homeowner Energy Freedom Act suggests debate over energy policy and home electrification subsidies."
+  },
+  "119-house-78": {
+    "category": "climate-justice",
+    "note": "Homeowner Energy Freedom Act repeals home electrification subsidies, opposing climate-related energy investments."
+  },
+  "119-house-76": {
+    "category": "climate-justice",
+    "note": "Home Appliance Protection and Affordability Act restricts energy conservation standards, opposing climate-focused regulations."
+  }
+}

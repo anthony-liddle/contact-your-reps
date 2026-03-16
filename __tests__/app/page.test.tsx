@@ -65,6 +65,7 @@ describe('Home page integration', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+    sessionStorage.clear();
   });
 
   // ── Initial state ──────────────────────────────────────────────────────────

@@ -1,0 +1,341 @@
+.section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Summary bar */
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pills {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1875rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.pillYea {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.pillNay {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.pillAbsent {
+  background: var(--input-readonly-bg);
+  /* Explicit dark color for contrast against light bg */
+  color: #475569;
+}
+
+@media (prefers-color-scheme: dark) {
+  .pillYea {
+    background: rgba(22, 101, 52, 0.3);
+    color: #86efac;
+  }
+  .pillNay {
+    background: rgba(153, 27, 27, 0.3);
+    color: #fca5a5;
+  }
+  .pillAbsent {
+    background: rgba(51, 65, 85, 0.6);
+    color: #94a3b8;
+  }
+}
+
+.progressBar {
+  height: 6px;
+  background: var(--border-color);
+  border-radius: 9999px;
+  overflow: hidden;
+  display: flex;
+}
+
+.progressYea {
+  background: #22c55e;
+  height: 100%;
+}
+
+.progressNay {
+  background: #ef4444;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .progressYea,
+  .progressNay {
+    transition: width 0.3s ease;
+  }
+}
+
+/* Filter tabs */
+.filters {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  padding: 0.3125rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .filterBtn {
+    transition: background-color 0.12s, border-color 0.12s, color 0.12s;
+  }
+}
+
+.filterBtn:hover {
+  background: var(--input-readonly-bg);
+  border-color: var(--border-hover);
+}
+
+.filterBtn.filterActive {
+  background: var(--selected-bg);
+  border-color: var(--selected-border);
+  color: var(--selected-color);
+  font-weight: 600;
+}
+
+/* Vote list */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.empty {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  padding: 1.5rem 0;
+  text-align: center;
+}
+
+.voteRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .voteRow {
+    transition: background-color 0.12s, border-color 0.12s;
+  }
+}
+
+.voteRow:hover {
+  background: var(--input-readonly-bg);
+  border-color: var(--border-color);
+  color: inherit;
+}
+
+/* Position circle */
+.posCircle {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 0.3125rem;
+}
+
+.posYea {
+  background: #22c55e;
+}
+
+.posNay {
+  background: #ef4444;
+}
+
+.posAbsent {
+  background: var(--border-hover);
+}
+
+/* Vote content */
+.voteMain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.voteTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 0.375rem;
+  flex-wrap: wrap;
+}
+
+.billNumber {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.question {
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.voteMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  flex-wrap: wrap;
+}
+
+.date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.0625rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.015em;
+  /* Sentence case — no text-transform */
+}
+
+.tagPassed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.tagFailed {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ≠ prefix gives non-color signal for party breaks */
+.tagPartyBreak {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tagPassed {
+    background: rgba(22, 101, 52, 0.3);
+    color: #86efac;
+  }
+  .tagFailed {
+    background: rgba(153, 27, 27, 0.3);
+    color: #fca5a5;
+  }
+  .tagPartyBreak {
+    background: rgba(133, 77, 14, 0.3);
+    color: #fde68a;
+  }
+}
+
+/*
+ * Category badges use the bright CATEGORY_COLORS as solid fills.
+ * Dark text (#0f172a) gives 12:1+ contrast against the bright chip colors.
+ * This works in both light and dark mode since the chip itself is the
+ * high-contrast element, not the page background.
+ */
+.categoryBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  background: var(--cat-color);
+  /* Dark text against all the bright category colors */
+  color: #0f172a;
+  border: none;
+}
+
+.note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Contact banner */
+.contactBanner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--selected-bg);
+  border: 1px solid var(--selected-border);
+  border-radius: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.contactText {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.contactLink {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--button-bg);
+  color: var(--button-text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .contactLink {
+    transition: background-color 0.15s;
+  }
+}
+
+.contactLink:hover {
+  background: var(--button-hover);
+  color: var(--button-text);
+}

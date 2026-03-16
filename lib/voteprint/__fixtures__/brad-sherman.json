@@ -1,0 +1,570 @@
+[
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 240,
+    "date": "2025-09-08T18:56:00-04:00",
+    "question": "On Motion to Suspend the Rules and Pass",
+    "description": "",
+    "result": "Passed",
+    "voteType": "2/3 Yea-And-Nay",
+    "bill": {
+      "number": "H.R. 3424",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-bill/3424"
+    },
+    "memberVote": "Yea",
+    "partyTotals": {
+      "democratic": {
+        "yea": 195,
+        "nay": 1,
+        "notVoting": 16
+      },
+      "republican": {
+        "yea": 202,
+        "nay": 0,
+        "notVoting": 16
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 306,
+    "date": "2025-12-01T18:57:00-05:00",
+    "question": "On Motion to Suspend the Rules and Pass, as Amended",
+    "description": "",
+    "result": "Passed",
+    "voteType": "2/3 Yea-And-Nay",
+    "bill": {
+      "number": "H.R. 5348",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-bill/5348"
+    },
+    "memberVote": "Yea",
+    "partyTotals": {
+      "democratic": {
+        "yea": 191,
+        "nay": 0,
+        "notVoting": 21
+      },
+      "republican": {
+        "yea": 195,
+        "nay": 0,
+        "notVoting": 23
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 241,
+    "date": "2025-09-08T19:02:00-04:00",
+    "question": "On Motion to Suspend the Rules and Pass, as Amended",
+    "description": "",
+    "result": "Passed",
+    "voteType": "2/3 Yea-And-Nay",
+    "bill": {
+      "number": "H.R. 3425",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-bill/3425"
+    },
+    "memberVote": "Yea",
+    "partyTotals": {
+      "democratic": {
+        "yea": 196,
+        "nay": 0,
+        "notVoting": 16
+      },
+      "republican": {
+        "yea": 206,
+        "nay": 0,
+        "notVoting": 12
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 116,
+    "date": "2025-05-05T18:56:00-04:00",
+    "question": "On Motion to Suspend the Rules and Pass",
+    "description": "",
+    "result": "Passed",
+    "voteType": "2/3 Yea-And-Nay",
+    "bill": {
+      "number": "H.R. 36",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-bill/36"
+    },
+    "memberVote": "Yea",
+    "partyTotals": {
+      "democratic": {
+        "yea": 181,
+        "nay": 8,
+        "notVoting": 24
+      },
+      "republican": {
+        "yea": 168,
+        "nay": 34,
+        "notVoting": 18
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 122,
+    "date": "2025-05-08T10:42:00-04:00",
+    "question": "On Passage",
+    "description": "",
+    "result": "Passed",
+    "voteType": "Recorded Vote",
+    "bill": {
+      "number": "H.R. 276",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-bill/276"
+    },
+    "memberVote": "No",
+    "partyTotals": {
+      "democratic": {
+        "yea": 0,
+        "nay": 205,
+        "notVoting": 8
+      },
+      "republican": {
+        "yea": 211,
+        "nay": 1,
+        "notVoting": 8
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 2,
+    "date": "2025-01-03T14:33:00-05:00",
+    "question": "Election of the Speaker",
+    "description": "",
+    "result": "Elected Speaker Name",
+    "voteType": "Yea-and-Nay",
+    "bill": null,
+    "memberVote": "Jeffries",
+    "partyTotals": {
+      "democratic": {
+        "yea": 0,
+        "nay": 0,
+        "notVoting": 0
+      },
+      "republican": {
+        "yea": 0,
+        "nay": 0,
+        "notVoting": 0
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 96,
+    "date": "2025-04-09T16:23:00-04:00",
+    "question": "On Passage",
+    "description": "",
+    "result": "Passed",
+    "voteType": "Yea-and-Nay",
+    "bill": {
+      "number": "S.J.Res. 18",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/senate-joint-resolution/18"
+    },
+    "memberVote": "Nay",
+    "partyTotals": {
+      "democratic": {
+        "yea": 0,
+        "nay": 210,
+        "notVoting": 3
+      },
+      "republican": {
+        "yea": 217,
+        "nay": 1,
+        "notVoting": 2
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 307,
+    "date": "2025-12-01T19:05:00-05:00",
+    "question": "On Motion to Suspend the Rules and Pass, as Amended",
+    "description": "",
+    "result": "Passed",
+    "voteType": "2/3 Yea-And-Nay",
+    "bill": {
+      "number": "H.R. 4423",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-bill/4423"
+    },
+    "memberVote": "Yea",
+    "partyTotals": {
+      "democratic": {
+        "yea": 193,
+        "nay": 0,
+        "notVoting": 20
+      },
+      "republican": {
+        "yea": 192,
+        "nay": 0,
+        "notVoting": 26
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 242,
+    "date": "2025-09-09T14:01:00-04:00",
+    "question": "On Ordering the Previous Question",
+    "description": "",
+    "result": "Passed",
+    "voteType": "Yea-and-Nay",
+    "bill": {
+      "number": "H.Res. 682",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-resolution/682"
+    },
+    "memberVote": "Nay",
+    "partyTotals": {
+      "democratic": {
+        "yea": 0,
+        "nay": 207,
+        "notVoting": 5
+      },
+      "republican": {
+        "yea": 213,
+        "nay": 0,
+        "notVoting": 5
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 243,
+    "date": "2025-09-09T14:10:00-04:00",
+    "question": "On Agreeing to the Resolution",
+    "description": "",
+    "result": "Passed",
+    "voteType": "Recorded Vote",
+    "bill": {
+      "number": "H.Res. 682",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-resolution/682"
+    },
+    "memberVote": "No",
+    "partyTotals": {
+      "democratic": {
+        "yea": 0,
+        "nay": 206,
+        "notVoting": 6
+      },
+      "republican": {
+        "yea": 210,
+        "nay": 1,
+        "notVoting": 8
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 308,
+    "date": "2025-12-02T14:00:00-05:00",
+    "question": "On Ordering the Previous Question",
+    "description": "",
+    "result": "Passed",
+    "voteType": "Yea-and-Nay",
+    "bill": {
+      "number": "H.Res. 916",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-resolution/916"
+    },
+    "memberVote": "Nay",
+    "partyTotals": {
+      "democratic": {
+        "yea": 0,
+        "nay": 205,
+        "notVoting": 8
+      },
+      "republican": {
+        "yea": 210,
+        "nay": 0,
+        "notVoting": 9
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 259,
+    "date": "2025-09-10T17:36:00-04:00",
+    "question": "On Agreeing to the Amendment",
+    "description": "",
+    "result": "Failed",
+    "voteType": "Recorded Vote",
+    "bill": null,
+    "memberVote": "No",
+    "partyTotals": {
+      "democratic": {
+        "yea": 2,
+        "nay": 210,
+        "notVoting": 4
+      },
+      "republican": {
+        "yea": 198,
+        "nay": 18,
+        "notVoting": 5
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 245,
+    "date": "2025-09-10T16:50:00-04:00",
+    "question": "On Agreeing to the Amendment",
+    "description": "",
+    "result": "Agreed to",
+    "voteType": "Recorded Vote",
+    "bill": null,
+    "memberVote": "No",
+    "partyTotals": {
+      "democratic": {
+        "yea": 4,
+        "nay": 209,
+        "notVoting": 3
+      },
+      "republican": {
+        "yea": 217,
+        "nay": 1,
+        "notVoting": 3
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 100,
+    "date": "2025-04-10T11:08:00-04:00",
+    "question": "On Motion to Concur in the Senate Amendment",
+    "description": "",
+    "result": "Passed",
+    "voteType": "Yea-and-Nay",
+    "bill": {
+      "number": "H.Con.Res. 14",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-concurrent-resolution/14"
+    },
+    "memberVote": "Nay",
+    "partyTotals": {
+      "democratic": {
+        "yea": 0,
+        "nay": 212,
+        "notVoting": 1
+      },
+      "republican": {
+        "yea": 216,
+        "nay": 2,
+        "notVoting": 2
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 101,
+    "date": "2025-04-10T11:14:00-04:00",
+    "question": "On Motion to Recommit",
+    "description": "",
+    "result": "Failed",
+    "voteType": "Yea-and-Nay",
+    "bill": {
+      "number": "H.R. 22",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-bill/22"
+    },
+    "memberVote": "Yea",
+    "partyTotals": {
+      "democratic": {
+        "yea": 211,
+        "nay": 0,
+        "notVoting": 2
+      },
+      "republican": {
+        "yea": 0,
+        "nay": 215,
+        "notVoting": 5
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 113,
+    "date": "2025-05-01T10:20:00-04:00",
+    "question": "On Passage",
+    "description": "",
+    "result": "Passed",
+    "voteType": "Yea-and-Nay",
+    "bill": {
+      "number": "H.J.Res. 78",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-joint-resolution/78"
+    },
+    "memberVote": "Nay",
+    "partyTotals": {
+      "democratic": {
+        "yea": 3,
+        "nay": 194,
+        "notVoting": 16
+      },
+      "republican": {
+        "yea": 213,
+        "nay": 1,
+        "notVoting": 6
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 114,
+    "date": "2025-05-01T10:37:00-04:00",
+    "question": "On Passage",
+    "description": "",
+    "result": "Passed",
+    "voteType": "Yea-and-Nay",
+    "bill": {
+      "number": "H.J.Res. 88",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-joint-resolution/88"
+    },
+    "memberVote": "Nay",
+    "partyTotals": {
+      "democratic": {
+        "yea": 35,
+        "nay": 164,
+        "notVoting": 14
+      },
+      "republican": {
+        "yea": 211,
+        "nay": 0,
+        "notVoting": 8
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 115,
+    "date": "2025-05-05T18:50:00-04:00",
+    "question": "On Motion to Suspend the Rules and Pass, as Amended",
+    "description": "",
+    "result": "Passed",
+    "voteType": "2/3 Yea-And-Nay",
+    "bill": {
+      "number": "H.R. 530",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-bill/530"
+    },
+    "memberVote": "Yea",
+    "partyTotals": {
+      "democratic": {
+        "yea": 180,
+        "nay": 0,
+        "notVoting": 33
+      },
+      "republican": {
+        "yea": 196,
+        "nay": 5,
+        "notVoting": 19
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 117,
+    "date": "2025-05-06T13:53:00-04:00",
+    "question": "On Ordering the Previous Question",
+    "description": "",
+    "result": "Passed",
+    "voteType": "Yea-and-Nay",
+    "bill": {
+      "number": "H.Res. 377",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-resolution/377"
+    },
+    "memberVote": "Nay",
+    "partyTotals": {
+      "democratic": {
+        "yea": 0,
+        "nay": 200,
+        "notVoting": 13
+      },
+      "republican": {
+        "yea": 206,
+        "nay": 0,
+        "notVoting": 14
+      }
+    }
+  },
+  {
+    "congress": 119,
+    "chamber": "House",
+    "session": 1,
+    "rollCall": 118,
+    "date": "2025-05-06T14:00:00-04:00",
+    "question": "On Agreeing to the Resolution",
+    "description": "",
+    "result": "Passed",
+    "voteType": "Recorded Vote",
+    "bill": {
+      "number": "H.Res. 377",
+      "title": "",
+      "url": "https://www.congress.gov/bill/119/house-resolution/377"
+    },
+    "memberVote": "No",
+    "partyTotals": {
+      "democratic": {
+        "yea": 0,
+        "nay": 209,
+        "notVoting": 4
+      },
+      "republican": {
+        "yea": 213,
+        "nay": 0,
+        "notVoting": 7
+      }
+    }
+  }
+]

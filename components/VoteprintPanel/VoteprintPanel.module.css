@@ -1,0 +1,66 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  /* Explicit 100% width prevents any child from stretching the card */
+  width: 100%;
+}
+
+.heading {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* Canvas + legend side by side.
+   BOTH columns are explicit fixed widths so the visual section has a
+   completely stable total width of 220 + 24 + 260 = 504px regardless of
+   activeCategory or vote count changes. */
+.visualSection {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+/* Canvas column: locked to exactly the canvas size. */
+.canvasColumn {
+  width: 220px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.caption {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+  max-width: 220px;
+}
+
+/* Legend column: fixed at 260px — wide enough for all category labels to
+   truncate cleanly; cannot grow or shrink when activeCategory changes. */
+.legendWrapper {
+  width: 260px;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+@media (max-width: 560px) {
+  .visualSection {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .legendWrapper {
+    width: 100%;
+  }
+}

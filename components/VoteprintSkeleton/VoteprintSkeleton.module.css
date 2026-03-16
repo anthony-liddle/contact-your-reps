@@ -1,0 +1,176 @@
+/* ---------------------------------------------------------------------------
+   VoteprintSkeleton — mirrors VoteprintPanel's layout with placeholder fills.
+   Uses var(--input-readonly-bg) for placeholder color (the project's
+   "background secondary" token).
+   --------------------------------------------------------------------------- */
+
+/* Shared pulse animation — fades opacity for a gentle breathing effect.
+   Disabled entirely when the user prefers reduced motion. */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+/* Outer card — matches VoteprintPanel .panel exactly */
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+}
+
+/* Heading bar — roughly the width of a short h2 */
+.headingBar {
+  height: 1.25rem;
+  width: 12rem;
+  border-radius: 0.375rem;
+  background: var(--input-readonly-bg);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+/* Canvas + legend row — mirrors VoteprintPanel .visualSection */
+.visualSection {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+/* Canvas column — locked to 220px, same as VoteprintPanel */
+.canvasColumn {
+  width: 220px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Circular canvas placeholder — same 220px diameter as the real canvas */
+.canvasCircle {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: var(--input-readonly-bg);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+/* Loading message below the circle */
+.loadingMessage {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+  max-width: 220px;
+  margin: 0;
+}
+
+/* Legend column — mirrors VoteprintPanel .legendWrapper */
+.legendWrapper {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding-top: 0.125rem;
+}
+
+/* Single legend row: dot + bar */
+.legendRow {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.legendDot {
+  flex-shrink: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: var(--input-readonly-bg);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.legendBar {
+  height: 0.75rem;
+  border-radius: 0.25rem;
+  background: var(--input-readonly-bg);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+/* Vote list */
+.voteList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Single vote row: short badge + long text bar */
+.voteRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.voteBarShort {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 1.5rem;
+  border-radius: 0.375rem;
+  background: var(--input-readonly-bg);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.voteBarLong {
+  height: 1rem;
+  border-radius: 0.375rem;
+  background: var(--input-readonly-bg);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+/* Stagger pulse slightly per-element for a more natural feel */
+.legendRow:nth-child(2) .legendDot,
+.legendRow:nth-child(2) .legendBar { animation-delay: 0.1s; }
+.legendRow:nth-child(3) .legendDot,
+.legendRow:nth-child(3) .legendBar { animation-delay: 0.2s; }
+.legendRow:nth-child(4) .legendDot,
+.legendRow:nth-child(4) .legendBar { animation-delay: 0.3s; }
+.legendRow:nth-child(5) .legendDot,
+.legendRow:nth-child(5) .legendBar { animation-delay: 0.4s; }
+.legendRow:nth-child(6) .legendDot,
+.legendRow:nth-child(6) .legendBar { animation-delay: 0.5s; }
+
+.voteRow:nth-child(2) .voteBarShort,
+.voteRow:nth-child(2) .voteBarLong { animation-delay: 0.15s; }
+.voteRow:nth-child(3) .voteBarShort,
+.voteRow:nth-child(3) .voteBarLong { animation-delay: 0.3s; }
+.voteRow:nth-child(4) .voteBarShort,
+.voteRow:nth-child(4) .voteBarLong { animation-delay: 0.45s; }
+
+/* Responsive: stack canvas and legend on narrow screens, same as the panel */
+@media (max-width: 560px) {
+  .visualSection {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .legendWrapper {
+    width: 100%;
+  }
+}
+
+/* Respect user's motion preference — disable all animation */
+@media (prefers-reduced-motion: reduce) {
+  .headingBar,
+  .canvasCircle,
+  .legendDot,
+  .legendBar,
+  .voteBarShort,
+  .voteBarLong {
+    animation: none;
+  }
+}

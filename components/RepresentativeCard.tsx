@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import type { Representative } from '@/lib/types';
 import styles from './RepresentativeCard.module.css';
 
@@ -95,6 +96,19 @@ export default function RepresentativeCard({
               <line x1="10" y1="14" x2="21" y2="3"></line>
             </svg>
           </a>
+          {!isSenator && (
+            <div className={styles.exploreWrapper}>
+              <Link
+                href={`/rep/${representative.id}?name=${encodeURIComponent(name)}&party=${encodeURIComponent(party)}&state=${state}&chamber=House`}
+                className={styles.exploreAction}
+              >
+                Explore voting record
+              </Link>
+              <span className={styles.exploreNote}>
+                First load may take up to 30 seconds
+              </span>
+            </div>
+          )}
         </div>
 
         <div className={styles.footer}>
