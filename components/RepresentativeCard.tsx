@@ -99,8 +99,11 @@ export default function RepresentativeCard({
           {!isSenator && (
             <div className={styles.exploreWrapper}>
               <Link
-                href={`/rep/${representative.id}?name=${encodeURIComponent(name)}&party=${encodeURIComponent(party)}&state=${state}&chamber=House`}
+                href={`/rep/${representative.id}?party=${encodeURIComponent(party)}&chamber=House`}
                 className={styles.exploreAction}
+                onClick={() =>
+                  sessionStorage.setItem('cyr_viewing_rep', JSON.stringify(representative))
+                }
               >
                 Explore voting record
               </Link>
