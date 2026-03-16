@@ -6,10 +6,10 @@
  * Renders a donut-ring chart where each arc sector represents an issue
  * category. Individual votes are drawn as radial straight lines radiating
  * outward from the inner ring, encoding alignment with the issue position:
- *   - aligned (alignedWithIssue === true)  → long line (50–100% of depth), 1.5px, full opacity
- *   - opposed (alignedWithIssue === false) → short stub (5–20% of depth), 1px, reduced opacity
- *   - null + yea                           → medium line (30–50%), 1px, slightly reduced
- *   - null + nay                           → short stub (5–20%), 1px, reduced
+ *   - aligned (alignedWithIssue === true)  → outward: innerR → outerR*0.85, 2.5px
+ *   - opposed (alignedWithIssue === false) → inward: outerR*0.85 → outerR*0.45, 1.5px
+ *   - null + yea                           → outward: innerR → outerR*0.45, 1.5px
+ *   - null + nay                           → outward stub: innerR → outerR*0.25, 1px
  *   - absent                               → not drawn
  *
  * Click or use keyboard (← → Escape Enter) to select / deselect categories.
@@ -61,8 +61,9 @@ export default function Voteprint({
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
-    ctx.clearRect(0, 0, size, size);
 
     const cx = size / 2;
     const cy = size / 2;
@@ -136,12 +137,11 @@ export default function Voteprint({
       // Vote lines
       const votesInWedge = byCategory.get(wedge.categoryId)!;
       const range = wedge.endAngle - wedge.startAngle;
-      const midAngle = wedge.startAngle + range / 2;
 
       // Minimum presence arc — drawn when all votes in the wedge are absent
       const allAbsent = votesInWedge.every((v) => v.position === 'absent');
       if (allAbsent) {
-        const arcR = innerR + (outerR - innerR) * 0.5;
+        const arcR = innerR + 2;
         ctx.beginPath();
         ctx.arc(cx, cy, arcR, wedge.startAngle, wedge.endAngle);
         ctx.strokeStyle = color;
@@ -155,35 +155,54 @@ export default function Voteprint({
         if (vote.position === 'absent') continue;
 
         const r1 = seededRandom(vote.rollCall * 31 + 7);
-        const r2 = seededRandom(vote.rollCall * 31 + 13);
 
         const voteAngle = wedge.startAngle + r1 * range;
 
         const { alignedWithIssue } = vote;
 
-        let minFrac: number;
-        let maxFrac: number;
+        // Opposed votes draw inward from the inner ring toward center — handled
+        // separately so the direction is explicit and cannot be conflated with
+        // outward spokes. Nothing is drawn in the outer zone for opposed votes.
+        if (alignedWithIssue === false) {
+          const fromR = innerR;
+          const toR = innerR * 0.15;
+
+          const x1 = cx + Math.cos(voteAngle) * fromR;
+          const y1 = cy + Math.sin(voteAngle) * fromR;
+          const x2 = cx + Math.cos(voteAngle) * toR;
+          const y2 = cy + Math.sin(voteAngle) * toR;
+
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.strokeStyle = color;
+          ctx.globalAlpha = isActive ? 0.6 : 0.15;
+          ctx.lineWidth = 1.5;
+          ctx.lineCap = 'round';
+          ctx.stroke();
+          ctx.restore();
+          continue;
+        }
+
+        let fromR: number;
+        let toR: number;
         let lineWeight: number;
         let opacity: number;
 
         if (alignedWithIssue === true) {
-          minFrac = 0.5; maxFrac = 1.0; lineWeight = 2.5; opacity = isActive ? 0.85 : 0.15;
-        } else if (alignedWithIssue === false) {
-          minFrac = 0.05; maxFrac = 0.2; lineWeight = 1.5; opacity = isActive ? 0.5 : 0.15;
+          fromR = innerR; toR = outerR * 0.85; lineWeight = 2.5; opacity = isActive ? 0.85 : 0.15;
         } else if (vote.position === 'yea') {
-          minFrac = 0.3; maxFrac = 0.5; lineWeight = 1.5; opacity = isActive ? 0.65 : 0.15;
+          fromR = innerR; toR = outerR * 0.45; lineWeight = 1.5; opacity = isActive ? 0.65 : 0.15;
         } else {
           // null + nay
-          minFrac = 0.05; maxFrac = 0.2; lineWeight = 1; opacity = isActive ? 0.5 : 0.15;
+          fromR = innerR; toR = outerR * 0.25; lineWeight = 1; opacity = isActive ? 0.4 : 0.15;
         }
 
-        const lengthFrac = minFrac + r2 * (maxFrac - minFrac);
-        const lineLen = (outerR - innerR) * lengthFrac;
-
-        const x1 = cx + innerR * Math.cos(voteAngle);
-        const y1 = cy + innerR * Math.sin(voteAngle);
-        const x2 = cx + (innerR + lineLen) * Math.cos(voteAngle);
-        const y2 = cy + (innerR + lineLen) * Math.sin(voteAngle);
+        const x1 = cx + fromR * Math.cos(voteAngle);
+        const y1 = cy + fromR * Math.sin(voteAngle);
+        const x2 = cx + toR * Math.cos(voteAngle);
+        const y2 = cy + toR * Math.sin(voteAngle);
 
         ctx.beginPath();
         ctx.moveTo(x1, y1);
@@ -194,17 +213,6 @@ export default function Voteprint({
         ctx.stroke();
       }
 
-      ctx.globalAlpha = isActive ? 1 : 0.2;
-
-      // Category dot — 4px filled circle at the outer edge midpoint
-      const dotR = 4;
-      const dotX = cx + (outerR + dotR + 2) * Math.cos(midAngle);
-      const dotY = cy + (outerR + dotR + 2) * Math.sin(midAngle);
-      ctx.beginPath();
-      ctx.arc(dotX, dotY, dotR, 0, 2 * Math.PI);
-      ctx.fillStyle = color;
-      ctx.fill();
-
       ctx.globalAlpha = 1;
     }
   }, [votes, activeCategory, size]);
@@ -214,8 +222,9 @@ export default function Voteprint({
 
     // Redraw when the system color-scheme changes
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    mq.addEventListener('change', draw);
-    return () => mq.removeEventListener('change', draw);
+    const onColorSchemeChange = () => draw();
+    mq.addEventListener('change', onColorSchemeChange);
+    return () => mq.removeEventListener('change', onColorSchemeChange);
   }, [draw]);
 
   // ---------------------------------------------------------------------------

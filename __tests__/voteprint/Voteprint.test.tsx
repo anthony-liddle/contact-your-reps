@@ -26,6 +26,7 @@ const mockGetWedgeAtPoint = getWedgeAtPoint as jest.Mock;
 
 const mockFns = {
   scale: jest.fn(),
+  setTransform: jest.fn(),
   clearRect: jest.fn(),
   beginPath: jest.fn(),
   arc: jest.fn(),

@@ -90,7 +90,7 @@ export default function VoteprintPanel({
 
           {/* Chart explainer caption */}
           <p className={styles.caption} aria-hidden="true">
-            Long lines = aligned with issue · short = opposed · gaps = absent.
+            Outward lines = aligned with issue · inward = opposed · gaps = absent.
             Click a wedge or category to filter.
           </p>
         </div>

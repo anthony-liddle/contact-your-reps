@@ -16,9 +16,8 @@
   gap: 0.5rem;
   padding: 0.375rem 0.5rem;
   border-radius: 0.5rem;
-  /* No border at all — active state uses background-color only.
-     A border that switches from transparent to visible can cause sub-pixel
-     layout shift; omitting it entirely eliminates that risk. */
+  border: none;
+  outline: none;
   background: transparent;
   cursor: pointer;
   text-align: left;
@@ -35,6 +34,10 @@
   .row {
     transition: background-color 0.12s;
   }
+}
+
+.row:focus-visible {
+  outline: none;
 }
 
 .row:hover {
