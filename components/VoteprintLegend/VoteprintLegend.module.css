@@ -9,11 +9,10 @@
 }
 
 .row {
-  /* Fixed grid: dot | label (truncate) | bar | pct
-     Every column except label is an exact pixel/ch width so nothing can
-     shift when active state, vote counts, or bar fill percentages change. */
+  /* Fixed grid: dot | label (truncate) | summary
+     Label truncates; summary auto-sizes to its content. */
   display: grid;
-  grid-template-columns: 10px 1fr 60px 36px;
+  grid-template-columns: 10px 1fr auto;
   align-items: center;
   gap: 0.5rem;
   padding: 0.375rem 0.5rem;
@@ -69,8 +68,7 @@
 }
 
 .count {
-  /* Sits in the 60px bar column on the "All issues" row.
-     Tabular-nums prevents digit-width jitter. */
+  /* "All issues" row — total vote count. Tabular-nums prevents digit jitter. */
   font-size: 0.75rem;
   color: var(--text-muted);
   text-align: right;
@@ -78,34 +76,35 @@
   white-space: nowrap;
 }
 
-.bar {
-  /* Bar track is exactly 60px (the grid column width) — position:relative
-     so the absolute fill child stays contained. */
-  height: 4px;
-  background: var(--border-color);
-  border-radius: 9999px;
-  overflow: hidden;
-  position: relative;
+/* Alignment summary — per-category rows */
+.summaryText {
+  font-size: 0.75rem;
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
-.barFill {
-  position: absolute;
-  inset: 0;
-  height: 100%;
-  border-radius: 9999px;
+.summaryAligned {
+  color: #166534;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .barFill {
-    transition: width 0.3s ease;
+.summaryAgainst {
+  color: #991b1b;
+}
+
+.summaryMixed {
+  color: var(--text-muted);
+}
+
+.summaryNoData {
+  color: var(--text-muted);
+}
+
+@media (prefers-color-scheme: dark) {
+  .summaryAligned {
+    color: #86efac;
   }
-}
-
-.pct {
-  /* 36px column — "100%" fits at 0.75rem tabular-nums without overflow. */
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
+  .summaryAgainst {
+    color: #fca5a5;
+  }
 }

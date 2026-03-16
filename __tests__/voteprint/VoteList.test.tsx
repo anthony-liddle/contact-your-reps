@@ -265,13 +265,11 @@ describe('VoteList — stance-aware banner', () => {
     expect(screen.getByText(/concerned about/i)).toBeInTheDocument();
   });
 
-  it('shows generic contact text when no activeCategory', () => {
+  it('hides contact banner when no activeCategory', () => {
     const votes = [makeVote({ rollCall: 1, alignedWithIssue: null })];
     render(
       <VoteList votes={votes} activeCategory={null} {...baseProps} />,
     );
-    expect(
-      screen.getByText(/want to contact/i),
-    ).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /write to/i })).not.toBeInTheDocument();
   });
 });

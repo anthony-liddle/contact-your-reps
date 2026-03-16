@@ -175,6 +175,24 @@ export default function VoteList({
         ))}
       </div>
 
+      {/* Contact banner — only shown when a category is active */}
+      {activeCategory && (
+        <div className={styles.contactBanner}>
+          <p className={styles.contactText}>
+            {stanceTotal === 0
+              ? `Concerned about ${repName}'s votes on ${categoryLabel}?`
+              : againstCount === stanceTotal
+                ? `${repName} has voted against ${categoryLabel} ${stanceTotal} out of ${stanceTotal} times`
+                : alignedCount === stanceTotal
+                  ? `${repName} has consistently supported ${categoryLabel}`
+                  : `${repName} has voted with ${categoryLabel} ${alignedCount} ${alignedCount === 1 ? 'time' : 'times'} and against it ${againstCount} ${againstCount === 1 ? 'time' : 'times'}`}
+          </p>
+          <a href={contactUrl} className={styles.contactLink}>
+            Write to {repName}
+          </a>
+        </div>
+      )}
+
       {/* Vote rows */}
       <ul className={styles.list} role="list" aria-label="Votes">
         {displayed.length === 0 && (
@@ -262,23 +280,6 @@ export default function VoteList({
         })}
       </ul>
 
-      {/* Contact banner */}
-      <div className={styles.contactBanner}>
-        <p className={styles.contactText}>
-          {categoryLabel
-            ? stanceTotal === 0
-              ? `Concerned about ${repName}'s votes on ${categoryLabel}?`
-              : againstCount === stanceTotal
-                ? `${repName} has voted against ${categoryLabel} ${stanceTotal} out of ${stanceTotal} times`
-                : alignedCount === stanceTotal
-                  ? `${repName} has consistently supported ${categoryLabel}`
-                  : `${repName} has voted with ${categoryLabel} ${alignedCount} ${alignedCount === 1 ? 'time' : 'times'} and against it ${againstCount} ${againstCount === 1 ? 'time' : 'times'}`
-            : `Want to contact ${repName} about their voting record?`}
-        </p>
-        <a href={contactUrl} className={styles.contactLink}>
-          Write to {repName}
-        </a>
-      </div>
     </section>
   );
 }

@@ -311,7 +311,7 @@
   line-height: 1.4;
 }
 
-/* Contact banner */
+/* Contact banner — sits between filter tabs and vote rows */
 .contactBanner {
   width: 100%;
   display: flex;
@@ -322,7 +322,6 @@
   background: var(--selected-bg);
   border: 1px solid var(--selected-border);
   border-radius: 0.75rem;
-  margin-top: 0.5rem;
 }
 
 .contactText {
