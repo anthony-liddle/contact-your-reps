@@ -192,3 +192,38 @@ describe('transformVotes', () => {
     });
   });
 });
+
+describe('transformVotes — alignedWithIssue field', () => {
+  // Roll call 245 is mapped with stance: "for" (restores EPA methane reporting)
+  it('produces alignedWithIssue true for a "for"-stance vote with Yea position', () => {
+    const [vote] = transformVotes(
+      [makeRaw({ rollCall: 245, memberVote: 'Yea' })],
+      'Democrat',
+    );
+    expect(vote.alignedWithIssue).toBe(true);
+  });
+
+  it('produces alignedWithIssue false for a "for"-stance vote with Nay position', () => {
+    const [vote] = transformVotes(
+      [makeRaw({ rollCall: 245, memberVote: 'Nay' })],
+      'Democrat',
+    );
+    expect(vote.alignedWithIssue).toBe(false);
+  });
+
+  it('produces alignedWithIssue null for an unmapped vote', () => {
+    const [vote] = transformVotes(
+      [makeRaw({ rollCall: 99999, memberVote: 'Yea' })],
+      'Democrat',
+    );
+    expect(vote.alignedWithIssue).toBeNull();
+  });
+
+  it('produces alignedWithIssue null for an absent vote on a mapped roll call', () => {
+    const [vote] = transformVotes(
+      [makeRaw({ rollCall: 245, memberVote: 'Not Voting' })],
+      'Democrat',
+    );
+    expect(vote.alignedWithIssue).toBeNull();
+  });
+});
