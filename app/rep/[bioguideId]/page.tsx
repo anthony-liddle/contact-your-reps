@@ -2,8 +2,10 @@
  * Dynamic route: /rep/[bioguideId]
  *
  * Server component — fetches the member's voting record before rendering.
- * Rep display data (name, party, state, chamber) is passed as URL search
- * params from RepresentativeCard so no server-side rep lookup is needed.
+ * Rep display data (name, photoUrl, phone, url, state) is stored in
+ * sessionStorage under 'cyr_viewing_rep' by RepresentativeCard on navigate,
+ * and read by RepHeader on the client. Only party and chamber are read from
+ * URL search params (still needed for server-side data fetching and routing).
  *
  * If the vote fetch takes longer than VOTE_FETCH_TIMEOUT_MS, a timeout error
  * state is shown and a background cache-warming fetch is fired so the next
@@ -41,10 +43,7 @@ function normalizeParty(
 interface PageProps {
   params: Promise<{ bioguideId: string }>;
   searchParams: Promise<{
-    name?: string;
     party?: string;
-    state?: string;
-    district?: string;
     chamber?: string;
   }>;
 }
@@ -53,14 +52,10 @@ export default async function RepPage({ params, searchParams }: PageProps) {
   const { bioguideId } = await params;
   const sp = await searchParams;
 
-  const name = sp.name ? decodeURIComponent(sp.name) : 'Representative';
   const party = normalizeParty(sp.party);
-  const state = sp.state ?? '';
-  const district = sp.district ? parseInt(sp.district, 10) : undefined;
-  const chamber: 'House' | 'Senate' =
-    sp.chamber === 'Senate' ? 'Senate' : 'House';
+  const chamber: 'House' | 'Senate' = sp.chamber === 'Senate' ? 'Senate' : 'House';
 
-  const rep = { bioguideId, name, party, state, district, chamber };
+  const rep = { bioguideId, party, chamber };
 
   return (
     <>
@@ -92,7 +87,7 @@ export default async function RepPage({ params, searchParams }: PageProps) {
       </nav>
 
       <main className={styles.page}>
-        <RepHeader rep={rep} />
+        <RepHeader bioguideId={bioguideId} party={party} chamber={chamber} />
 
         <div className={styles.content}>
           {rep.chamber === 'House' ? (
@@ -100,7 +95,7 @@ export default async function RepPage({ params, searchParams }: PageProps) {
               <VoteprintContent
                 bioguideId={rep.bioguideId}
                 party={rep.party}
-                repName={rep.name}
+                repName={rep.bioguideId}
                 repBioguideId={rep.bioguideId}
               />
             </Suspense>
