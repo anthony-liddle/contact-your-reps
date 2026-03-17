@@ -26,7 +26,7 @@ export default function VoteprintSkeleton() {
 
           {/* Expectation-setting message */}
           <p className={styles.loadingMessage}>
-            Fetching voting record from Congress.gov — this may take up to 30
+            Fetching voting record from Congress.gov — this may take up to 60
             seconds for a first-time load. Subsequent visits will be instant.
           </p>
         </div>
