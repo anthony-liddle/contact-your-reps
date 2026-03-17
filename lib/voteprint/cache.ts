@@ -55,16 +55,13 @@ async function readBlobCache<T>(key: string, ttlMs: number): Promise<T | null> {
     const ageMs = Date.now() - new Date(envelope.cachedAt).getTime();
     if (ageMs > ttlMs) return null;
 
-    const result = envelope.data;
-    console.log('[voteprint cache] Blob read:', key, '→', result ? 'HIT' : 'MISS');
-    return result;
+    return envelope.data;
   } catch {
     return null;
   }
 }
 
 async function writeBlobCache<T>(key: string, data: T): Promise<void> {
-  console.log('[voteprint cache] Writing to Blob:', key);
   try {
     const envelope: CacheEnvelope<T> = {
       cachedAt: new Date().toISOString(),
@@ -75,8 +72,8 @@ async function writeBlobCache<T>(key: string, data: T): Promise<void> {
       access: 'public',
       contentType: 'application/json',
     });
-  } catch (err) {
-    console.error('[voteprint cache] Blob write failed:', err);
+  } catch {
+    // Silent failure — a failed cache write must never break the data fetch
   }
 }
 
@@ -95,7 +92,7 @@ export async function readCache<T>(
   key: string,
   ttlMs = 24 * 60 * 60 * 1000,
 ): Promise<T | null> {
-  console.log('[voteprint cache] Blob enabled:', blobEnabled());
+
   if (blobEnabled()) {
     return readBlobCache<T>(key, ttlMs);
   }
@@ -125,7 +122,7 @@ export async function readCache<T>(
  * @param data - The data to cache
  */
 export async function writeCache<T>(key: string, data: T): Promise<void> {
-  console.log('[voteprint cache] Blob enabled:', blobEnabled());
+
   if (blobEnabled()) {
     return writeBlobCache(key, data);
   }
