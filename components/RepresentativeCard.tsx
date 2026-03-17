@@ -108,7 +108,7 @@ export default function RepresentativeCard({
                 Explore voting record
               </Link>
               <span className={styles.exploreNote}>
-                First load may take up to 30 seconds
+                First load may take up to 60 seconds
               </span>
             </div>
           )}
