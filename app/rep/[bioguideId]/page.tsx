@@ -28,7 +28,7 @@ import styles from './page.module.css';
 // Constants
 // ---------------------------------------------------------------------------
 
-const VOTE_FETCH_TIMEOUT_MS = 30_000;
+const VOTE_FETCH_TIMEOUT_MS = 60_000;
 
 // ---------------------------------------------------------------------------
 // Party normalisation
@@ -137,7 +137,7 @@ async function VoteprintContent({
   } catch (err) {
     if (err instanceof Error && err.message === 'TIMEOUT') {
       // Best-effort background warm: the next page load will hit the cache
-      getMemberVotes(bioguideId, party).catch(() => {});
+      getMemberVotes(bioguideId, party).catch(() => { });
       return <VoteprintTimeout />;
     }
     return <VoteprintError />;
