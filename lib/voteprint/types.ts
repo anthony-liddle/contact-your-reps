@@ -102,4 +102,11 @@ export interface Vote {
   category: VoteCategory | null;
   /** Optional human-readable note from vote-mappings.json. */
   note: string;
+  /**
+   * Whether the member's vote aligned with the progressive issue position.
+   * true  = vote aligned with the issue
+   * false = vote opposed the issue
+   * null  = unmapped, absent, or stance unknown
+   */
+  alignedWithIssue: boolean | null;
 }

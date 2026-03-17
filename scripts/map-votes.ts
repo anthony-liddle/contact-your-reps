@@ -39,6 +39,12 @@ function loadDotEnv(): void {
   }
 }
 
+// Ensure the fs cache path is used when running this script locally,
+// even if the .env file doesn't set NODE_ENV explicitly.
+if (!process.env.NODE_ENV) {
+  (process.env as Record<string, string>).NODE_ENV = 'development';
+}
+
 loadDotEnv();
 
 // ---------------------------------------------------------------------------
@@ -85,6 +91,7 @@ interface VoteMappings {
 interface SuggestionEntry {
   category: string;
   note: string;
+  stance?: 'for' | 'against';
   confidence?: string;
 }
 
@@ -97,6 +104,7 @@ interface ApiSuggestion {
   key: string;
   category: string;
   confidence: 'high' | 'medium' | 'low';
+  stance: 'for' | 'against';
   note: string;
 }
 
@@ -434,6 +442,7 @@ Rules:
 - Procedural votes (motions to adjourn, quorum calls, rule adoptions with no policy content) should be "none"
 - When a vote touches multiple categories, pick the primary one
 - Base your decision on the question text and description only
+- For "stance": "for" means a YEA vote takes the progressive/protective position on the issue. "against" means a YEA vote opposes or restricts the issue position.
 - Return ONLY valid JSON, no other text
 
 Return a JSON array in this exact shape:
@@ -442,6 +451,7 @@ Return a JSON array in this exact shape:
     "key": "{congress}-{chamber}-{rollCall}",
     "category": "{issue-id or none}",
     "confidence": "high" | "medium" | "low",
+    "stance": "for" | "against",
     "note": "{one sentence explaining what this vote was about}"
   }
 ]`;
@@ -683,8 +693,12 @@ async function main(): Promise<void> {
       let batchReview = 0;
 
       for (const s of suggestions) {
-        if (!s.key || s.category === 'none' || !s.category) continue;
-        const entry: SuggestionEntry = { category: s.category, note: s.note ?? '' };
+        if (!s.key || s.category === 'none' || !s.category || !s.stance) continue;
+        const entry: SuggestionEntry = {
+          category: s.category,
+          note: s.note ?? '',
+          stance: s.stance,
+        };
         if (s.confidence === 'high') {
           highSuggestions[s.key] = entry;
           batchHigh++;

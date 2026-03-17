@@ -19,12 +19,10 @@
 }
 
 /* Canvas + legend side by side.
-   BOTH columns are explicit fixed widths so the visual section has a
-   completely stable total width of 220 + 24 + 260 = 504px regardless of
-   activeCategory or vote count changes. */
+   Canvas column is locked at 220px; legend column grows to fill the rest. */
 .visualSection {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
   align-items: flex-start;
 }
 
@@ -46,11 +44,9 @@
   max-width: 220px;
 }
 
-/* Legend column: fixed at 260px — wide enough for all category labels to
-   truncate cleanly; cannot grow or shrink when activeCategory changes. */
+/* Legend column: fills all remaining space after the 220px canvas column. */
 .legendWrapper {
-  width: 260px;
-  flex-shrink: 0;
+  flex: 1;
   min-width: 0;
 }
 

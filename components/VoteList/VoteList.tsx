@@ -10,6 +10,7 @@
 
 import { useState, useMemo } from 'react';
 import type { Vote } from '@/lib/voteprint';
+import type { VoteContextEntry } from '@/lib/types';
 import { CATEGORY_COLORS, CATEGORY_LABELS } from '@/lib/voteprint/utils';
 import styles from './VoteList.module.css';
 
@@ -29,6 +30,26 @@ const FILTERS: { key: FilterKey; label: string }[] = [
   { key: 'absent', label: 'Absent' },
   { key: 'party-breaks', label: 'Party breaks' },
 ];
+
+/**
+ * Returns up to 3 recent votes in the active category where stance is known.
+ * Used to populate 'cyr_vote_context' sessionStorage before navigating to /.
+ */
+function getContextVotes(votes: Vote[], activeCategory: string): VoteContextEntry[] {
+  return votes
+    .filter((v) => v.category === activeCategory && v.alignedWithIssue !== null)
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, 3)
+    .map((v) => ({
+      billNumber: v.bill?.number ?? '',
+      billTitle: v.bill?.title ?? '',
+      question: v.question,
+      date: v.date,
+      position: v.position,
+      alignedWithIssue: v.alignedWithIssue,
+      note: v.note,
+    }));
+}
 
 function formatDate(iso: string): string {
   const d = new Date(iso);
@@ -94,6 +115,10 @@ export default function VoteList({
   const nayCount = base.filter((v) => v.position === 'nay').length;
   const absentCount = base.filter((v) => v.position === 'absent').length;
   const total = base.length;
+
+  const alignedCount = base.filter((v) => v.alignedWithIssue === true).length;
+  const againstCount = base.filter((v) => v.alignedWithIssue === false).length;
+  const stanceTotal = alignedCount + againstCount;
 
   // Build contact URL with context
   const contactParams = new URLSearchParams({ repId: repBioguideId });
@@ -171,6 +196,38 @@ export default function VoteList({
         ))}
       </div>
 
+      {/* Contact banner — only shown when a category is active */}
+      {activeCategory && (
+        <div className={styles.contactBanner}>
+          <p className={styles.contactText}>
+            {stanceTotal === 0
+              ? `Concerned about ${repName}'s votes on ${categoryLabel}?`
+              : againstCount === stanceTotal
+                ? `${repName} has voted against ${categoryLabel} ${stanceTotal} out of ${stanceTotal} ${stanceTotal === 1 ? 'time' : 'times'}`
+                : alignedCount === stanceTotal
+                  ? `${repName} has consistently supported ${categoryLabel}`
+                  : `${repName} has voted with ${categoryLabel} ${alignedCount} ${alignedCount === 1 ? 'time' : 'times'} and against it ${againstCount} ${againstCount === 1 ? 'time' : 'times'}`}
+          </p>
+          <a
+            href={contactUrl}
+            className={styles.contactLink}
+            onClick={() => {
+              sessionStorage.setItem(
+                'cyr_vote_context',
+                JSON.stringify({
+                  category: activeCategory,
+                  repId: repBioguideId,
+                  repName,
+                  votes: getContextVotes(votes, activeCategory),
+                }),
+              );
+            }}
+          >
+            Write to {repName}
+          </a>
+        </div>
+      )}
+
       {/* Vote rows */}
       <ul className={styles.list} role="list" aria-label="Votes">
         {displayed.length === 0 && (
@@ -228,6 +285,12 @@ export default function VoteList({
                         ≠ Party break
                       </span>
                     )}
+                    {vote.alignedWithIssue === true && (
+                      <span className={`${styles.tag} ${styles.tagAligned}`}>↑ With issue</span>
+                    )}
+                    {vote.alignedWithIssue === false && (
+                      <span className={`${styles.tag} ${styles.tagOpposed}`}>↓ Against issue</span>
+                    )}
                     {activeCategory === null && vote.category && (
                       <span
                         className={styles.categoryBadge}
@@ -252,17 +315,6 @@ export default function VoteList({
         })}
       </ul>
 
-      {/* Contact banner */}
-      <div className={styles.contactBanner}>
-        <p className={styles.contactText}>
-          {categoryLabel
-            ? `Concerned about ${repName}'s votes on ${categoryLabel}?`
-            : `Want to contact ${repName} about their voting record?`}
-        </p>
-        <a href={contactUrl} className={styles.contactLink}>
-          Write to {repName}
-        </a>
-      </div>
     </section>
   );
 }

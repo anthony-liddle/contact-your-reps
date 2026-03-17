@@ -7,10 +7,11 @@ import IssueSelector from '@/components/IssueSelector';
 import MessagePreview from '@/components/MessagePreview';
 import ConfirmTemplateModal from '@/components/ConfirmTemplateModal';
 import TrustBadges from '@/components/TrustBadges';
+import Footer from '@/components/Footer/Footer';
 import { getRepresentativesByZip } from '@/lib/civic-api';
 import { generateMessage } from '@/lib/message-generator';
 import { issues } from '@/data/issues';
-import type { Representative } from '@/lib/types';
+import type { Representative, VoteContext } from '@/lib/types';
 import styles from './page.module.css';
 
 type AppState = 'initial' | 'loading' | 'representatives' | 'error';
@@ -23,6 +24,7 @@ export default function Home() {
   const [editedBody, setEditedBody] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [locationInfo, setLocationInfo] = useState<string | null>(null);
+  const [voteContext, setVoteContext] = useState<VoteContext | null>(null);
 
   // Holds a ?category= param from the voteprint page's contact banner link.
   // Stored in a ref (not state) so it doesn't trigger a premature render —
@@ -83,6 +85,11 @@ export default function Home() {
     setPendingSelectionIds(null);
   }, []);
 
+  const handleDismissVoteContext = useCallback(() => {
+    setVoteContext(null);
+    setEditedBody(null);
+  }, []);
+
   const handleReset = useCallback(() => {
     sessionStorage.removeItem('cyr_zip');
     setAppState('initial');
@@ -92,6 +99,7 @@ export default function Home() {
     setEditedBody(null);
     setError(null);
     setLocationInfo(null);
+    setVoteContext(null);
   }, []);
 
   // Mount effect — runs once, SSR-safe (sessionStorage only accessed inside useEffect).
@@ -119,11 +127,24 @@ export default function Home() {
       history.replaceState(null, '', window.location.pathname);
     }
 
+    // Read vote context written by VoteList's "Write to [rep]" contact banner.
+    // Clear it immediately — it applies only to this navigation, not future reloads.
+    const storedContext = sessionStorage.getItem('cyr_vote_context');
+    if (storedContext) {
+      try {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setVoteContext(JSON.parse(storedContext) as VoteContext);
+      } catch {
+        // Ignore malformed JSON
+      }
+      sessionStorage.removeItem('cyr_vote_context');
+    }
+
     // Auto-restore ZIP lookup — calling an async handler from a mount effect is
     // intentional here (not a synchronous setState pattern).
     const savedZip = sessionStorage.getItem('cyr_zip');
     if (savedZip) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+       
       void handleZipSubmit(savedZip);
     }
   }, [handleZipSubmit]);
@@ -143,8 +164,8 @@ export default function Home() {
   }, [selectedIssueIds]);
 
   const generatedMessage = useMemo(() => {
-    return generateMessage(selectedIssues, representatives);
-  }, [selectedIssues, representatives]);
+    return generateMessage(selectedIssues, representatives, voteContext);
+  }, [selectedIssues, representatives, voteContext]);
 
   return (
     <>
@@ -227,6 +248,22 @@ export default function Home() {
 
             {/* Message Preview Section */}
             <section className={styles.section}>
+              {voteContext && (
+                <div className={styles.voteContextBanner}>
+                  <span className={styles.voteContextText}>
+                    This message references {voteContext.repName}&apos;s voting record on{' '}
+                    {issues.find((i) => i.id === voteContext.category)?.title ?? voteContext.category}.
+                  </span>
+                  <button
+                    type="button"
+                    className={styles.voteContextDismiss}
+                    onClick={handleDismissVoteContext}
+                    aria-label="Remove vote context from message"
+                  >
+                    ×
+                  </button>
+                </div>
+              )}
               <MessagePreview
                 message={generatedMessage}
                 editedBody={editedBody}
@@ -243,21 +280,7 @@ export default function Home() {
         )}
       </main>
 
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-          <p className={styles.disclaimer}>
-            This is an independent, open-source project and is not affiliated with,
-            endorsed by, or connected to the U.S. government or any government agency.
-          </p>
-          <p className={styles.footerLinks}>
-            <a href="/privacy">Privacy</a>
-            {' · '}
-            <a href="/about">About</a>
-            {' · '}
-            <span>MIT License</span>
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

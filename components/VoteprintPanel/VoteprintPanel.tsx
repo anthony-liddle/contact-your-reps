@@ -9,7 +9,7 @@
  * and lets all three children stay in sync from a single source of truth.
  */
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import type { Vote } from '@/lib/voteprint';
 import { CATEGORY_LABELS } from '@/lib/voteprint/utils';
 import Voteprint from '@/components/Voteprint/Voteprint';
@@ -29,6 +29,22 @@ export default function VoteprintPanel({
   repBioguideId,
 }: VoteprintPanelProps) {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [displayName, setDisplayName] = useState(repName);
+
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem('cyr_viewing_rep');
+      if (raw) {
+        const stored = JSON.parse(raw) as { id?: string; name?: string };
+        if (stored.id === repBioguideId && stored.name) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
+          setDisplayName(stored.name);
+        }
+      }
+    } catch {
+      // sessionStorage unavailable or invalid JSON — use prop value
+    }
+  }, [repBioguideId]);
 
   // Stats used in the screen-reader summary
   const { yeaCount, total, mappedCount, catCount } = useMemo(() => {
@@ -50,14 +66,14 @@ export default function VoteprintPanel({
 
   return (
     <div className={styles.panel}>
-      <h2 className={styles.heading}>{repName}&apos;s Voteprint</h2>
+      <h2 className={styles.heading}>{displayName}&apos;s Voteprint</h2>
 
       <div className={styles.visualSection}>
         {/* Canvas column — fixed width to prevent layout shift */}
         <div className={styles.canvasColumn}>
           {/* Visually hidden summary for screen readers */}
           <p className="sr-only">
-            {repName} voted yea on {yeaCount} of {total} recorded votes ({yeaPct}%).{' '}
+            {displayName} voted yea on {yeaCount} of {total} recorded votes ({yeaPct}%).{' '}
             {mappedCount} votes are categorized across {catCount} issue{catCount !== 1 ? 's' : ''}.
             {activeCategoryLabel
               ? ` Currently filtered to: ${activeCategoryLabel}.`
@@ -68,13 +84,13 @@ export default function VoteprintPanel({
             votes={votes}
             activeCategory={activeCategory}
             onCategorySelect={setActiveCategory}
-            repName={repName}
+            repName={displayName}
             size={220}
           />
 
           {/* Chart explainer caption */}
           <p className={styles.caption} aria-hidden="true">
-            Long lines = yea · short = nay · gaps = absent.
+            Outward lines = aligned with issue · inward = opposed · gaps = absent.
             Click a wedge or category to filter.
           </p>
         </div>
@@ -91,7 +107,7 @@ export default function VoteprintPanel({
       <VoteList
         votes={votes}
         activeCategory={activeCategory}
-        repName={repName}
+        repName={displayName}
         repBioguideId={repBioguideId}
       />
     </div>

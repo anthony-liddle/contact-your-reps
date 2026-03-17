@@ -274,7 +274,7 @@ export async function fetchMemberVotes(
 
   // Layer 2: file-based cache (development only)
   if (!bypassCache && !isProduction) {
-    const cached = readCache<RawCongressVote[]>(cacheKey);
+    const cached = await readCache<RawCongressVote[]>(cacheKey);
     if (cached) return cached;
   }
 
@@ -357,7 +357,7 @@ export async function fetchMemberVotes(
 
   // Layer 2: write result to file cache (development only)
   if (!bypassCache && !isProduction) {
-    writeCache(cacheKey, allVotes);
+    await writeCache(cacheKey, allVotes);
   }
 
   return allVotes;

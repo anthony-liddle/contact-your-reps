@@ -25,6 +25,7 @@ function makeVote(overrides: Partial<Vote> = {}): Vote {
     isPartyBreak: false,
     category: null,
     note: '',
+    alignedWithIssue: null,
     ...overrides,
   };
 }
@@ -170,5 +171,105 @@ describe('VoteList — category badge', () => {
     // Only the climate-justice vote is shown (category filter), and no badge
     expect(screen.queryByText('Climate Justice')).not.toBeInTheDocument();
     expect(screen.queryByText("Workers' Rights")).not.toBeInTheDocument();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Alignment tags
+// ---------------------------------------------------------------------------
+
+describe('VoteList — alignment tags', () => {
+  it('shows ↑ With issue tag when alignedWithIssue is true', () => {
+    const votes = [
+      makeVote({ rollCall: 1, category: 'climate-justice', alignedWithIssue: true }),
+    ];
+    render(
+      <VoteList votes={votes} activeCategory="climate-justice" {...baseProps} />,
+    );
+    expect(screen.getByText('↑ With issue')).toBeInTheDocument();
+  });
+
+  it('shows ↓ Against issue tag when alignedWithIssue is false', () => {
+    const votes = [
+      makeVote({ rollCall: 1, category: 'climate-justice', alignedWithIssue: false }),
+    ];
+    render(
+      <VoteList votes={votes} activeCategory="climate-justice" {...baseProps} />,
+    );
+    expect(screen.getByText('↓ Against issue')).toBeInTheDocument();
+  });
+
+  it('shows no alignment tag when alignedWithIssue is null', () => {
+    const votes = [
+      makeVote({ rollCall: 1, category: 'climate-justice', alignedWithIssue: null }),
+    ];
+    render(
+      <VoteList votes={votes} activeCategory="climate-justice" {...baseProps} />,
+    );
+    expect(screen.queryByText('↑ With issue')).not.toBeInTheDocument();
+    expect(screen.queryByText('↓ Against issue')).not.toBeInTheDocument();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Contact banner — stance-aware text
+// ---------------------------------------------------------------------------
+
+describe('VoteList — stance-aware banner', () => {
+  it('shows "has consistently supported" when all category votes are aligned', () => {
+    const votes = [
+      makeVote({ rollCall: 1, category: 'climate-justice', alignedWithIssue: true }),
+      makeVote({ rollCall: 2, category: 'climate-justice', alignedWithIssue: true }),
+    ];
+    render(
+      <VoteList votes={votes} activeCategory="climate-justice" {...baseProps} />,
+    );
+    expect(
+      screen.getByText(/has consistently supported/i),
+    ).toBeInTheDocument();
+  });
+
+  it('shows "voted against … N out of N times" when all category votes are opposed', () => {
+    const votes = [
+      makeVote({ rollCall: 1, category: 'climate-justice', alignedWithIssue: false }),
+      makeVote({ rollCall: 2, category: 'climate-justice', alignedWithIssue: false }),
+    ];
+    render(
+      <VoteList votes={votes} activeCategory="climate-justice" {...baseProps} />,
+    );
+    expect(
+      screen.getByText(/has voted against/i),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/2 out of 2/i)).toBeInTheDocument();
+  });
+
+  it('shows mixed "voted with X times and against it Y times" when split', () => {
+    const votes = [
+      makeVote({ rollCall: 1, category: 'climate-justice', alignedWithIssue: true }),
+      makeVote({ rollCall: 2, category: 'climate-justice', alignedWithIssue: false }),
+    ];
+    render(
+      <VoteList votes={votes} activeCategory="climate-justice" {...baseProps} />,
+    );
+    expect(screen.getByText(/voted with.*1 time.*against it 1 time/i)).toBeInTheDocument();
+  });
+
+  it('shows fallback "Concerned about" when total mapped is zero (all null)', () => {
+    const votes = [
+      makeVote({ rollCall: 1, category: 'climate-justice', alignedWithIssue: null }),
+      makeVote({ rollCall: 2, category: 'climate-justice', alignedWithIssue: null }),
+    ];
+    render(
+      <VoteList votes={votes} activeCategory="climate-justice" {...baseProps} />,
+    );
+    expect(screen.getByText(/concerned about/i)).toBeInTheDocument();
+  });
+
+  it('hides contact banner when no activeCategory', () => {
+    const votes = [makeVote({ rollCall: 1, alignedWithIssue: null })];
+    render(
+      <VoteList votes={votes} activeCategory={null} {...baseProps} />,
+    );
+    expect(screen.queryByRole('link', { name: /write to/i })).not.toBeInTheDocument();
   });
 });

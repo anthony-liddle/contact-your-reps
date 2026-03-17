@@ -26,6 +26,7 @@ const mockGetWedgeAtPoint = getWedgeAtPoint as jest.Mock;
 
 const mockFns = {
   scale: jest.fn(),
+  setTransform: jest.fn(),
   clearRect: jest.fn(),
   beginPath: jest.fn(),
   arc: jest.fn(),
@@ -78,6 +79,7 @@ function makeVote(overrides: Partial<Vote> = {}): Vote {
     isPartyBreak: false,
     category: 'climate-justice',
     note: '',
+    alignedWithIssue: null,
     ...overrides,
   };
 }

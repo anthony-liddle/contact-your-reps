@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import RepresentativeCard from '@/components/RepresentativeCard';
 import type { Representative } from '@/lib/types';
 
@@ -82,5 +82,45 @@ describe('RepresentativeCard', () => {
   it('shows reason text', () => {
     render(<RepresentativeCard representative={baseSenator} />);
     expect(screen.getByText('This is one of your two senators.')).toBeInTheDocument();
+  });
+});
+
+describe('RepresentativeCard — explore link behaviour', () => {
+  it('explore link uses simplified URL shape (party + chamber only)', () => {
+    render(<RepresentativeCard representative={baseRep} />);
+    const exploreLink = screen.getByRole('link', { name: /explore voting record/i });
+    expect(exploreLink).toHaveAttribute(
+      'href',
+      expect.stringMatching(/^\/rep\/rep-1\?party=Republican&chamber=House$/),
+    );
+  });
+
+  it('explore link URL does not contain name or state params', () => {
+    render(<RepresentativeCard representative={baseRep} />);
+    const exploreLink = screen.getByRole('link', { name: /explore voting record/i });
+    const href = exploreLink.getAttribute('href') ?? '';
+    expect(href).not.toContain('name=');
+    expect(href).not.toContain('state=');
+  });
+
+  it('explore link does not appear for senators', () => {
+    render(<RepresentativeCard representative={baseSenator} />);
+    expect(
+      screen.queryByRole('link', { name: /explore voting record/i }),
+    ).not.toBeInTheDocument();
+  });
+
+  it('clicking explore link writes representative to sessionStorage', () => {
+    const setItemSpy = jest.spyOn(Storage.prototype, 'setItem');
+    render(<RepresentativeCard representative={baseRep} />);
+    const exploreLink = screen.getByRole('link', { name: /explore voting record/i });
+
+    fireEvent.click(exploreLink);
+
+    expect(setItemSpy).toHaveBeenCalledWith(
+      'cyr_viewing_rep',
+      JSON.stringify(baseRep),
+    );
+    setItemSpy.mockRestore();
   });
 });
