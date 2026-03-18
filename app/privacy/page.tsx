@@ -14,10 +14,6 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <>
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
-
       <header className={styles.header}>
         <div className={styles.headerContent}>
           <h1 className={styles.title}>Privacy Policy</h1>
