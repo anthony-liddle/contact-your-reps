@@ -14,10 +14,6 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <a href="#main-content" className="skip-link">
-        Skip to main content
-      </a>
-
       <header className={styles.header}>
         <div className={styles.headerContent}>
           <h1 className={styles.title}>About</h1>
@@ -58,6 +54,38 @@ export default function AboutPage() {
               <li>Get a personalized, editable message draft</li>
               <li>Contact your senators and representative directly through their official forms</li>
             </ul>
+          </section>
+
+          <section className={styles.section}>
+            <h2 className={styles.sectionHeading}>Voteprint</h2>
+            <p>
+              Each representative has a Voteprint — a visual record of their voting history in
+              Congress. Votes are grouped into issue categories and drawn as radial spokes on a
+              donut chart:
+            </p>
+            <ul className={styles.list}>
+              <li>
+                <strong>Outward spokes</strong> — the rep voted in line with the progressive
+                position on that issue
+              </li>
+              <li>
+                <strong>Inward spokes</strong> — the rep voted against the progressive position
+              </li>
+              <li>
+                <strong>Short stubs</strong> — the rep voted but no position data is available
+              </li>
+              <li>
+                <strong>No line</strong> — the rep was absent
+              </li>
+            </ul>
+            <p>
+              Click any wedge or category label to filter the vote list to that issue. Voting
+              records are sourced from{' '}
+              <a href="https://api.congress.gov" target="_blank" rel="noopener noreferrer">
+                Congress.gov
+              </a>{' '}
+              and cached so subsequent page loads are instant.
+            </p>
           </section>
 
           <section className={styles.section}>

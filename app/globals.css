@@ -216,21 +216,6 @@ textarea {
   line-height: inherit;
 }
 
-/* Skip link for accessibility */
-.skip-link {
-  position: absolute;
-  top: -100%;
-  left: 0;
-  padding: 1rem;
-  background: var(--button-bg);
-  color: var(--button-text);
-  z-index: 1000;
-  text-decoration: none;
-}
-
-.skip-link:focus {
-  top: 0;
-}
 
 /* Screen reader only utility */
 .sr-only {
