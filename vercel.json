@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "app/api/votes/[bioguideId]/progress/route.ts": {
+      "maxDuration": 120
+    }
+  }
+}
