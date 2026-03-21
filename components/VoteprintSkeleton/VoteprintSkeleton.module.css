@@ -163,6 +163,37 @@
   }
 }
 
+/* Progress bar — shown below the loading message when progress data is available */
+.progressBar {
+  height: 4px;
+  background: var(--input-readonly-bg);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 8px;
+  width: 220px;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--color-text-info);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Indeterminate animation — used when total is unknown */
+@keyframes indeterminate {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+
+.progressIndeterminate {
+  height: 100%;
+  width: 30%;
+  background: var(--color-text-info);
+  border-radius: 2px;
+  animation: indeterminate 1.4s ease-in-out infinite;
+}
+
 /* Respect user's motion preference — disable all animation */
 @media (prefers-reduced-motion: reduce) {
   .headingBar,
@@ -173,4 +204,7 @@
   .voteBarLong {
     animation: none;
   }
+
+  .progressFill { transition: none; }
+  .progressIndeterminate { animation: none; width: 50%; }
 }
