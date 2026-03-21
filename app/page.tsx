@@ -26,6 +26,26 @@ export default function Home() {
   const [locationInfo, setLocationInfo] = useState<string | null>(null);
   const [voteContext, setVoteContext] = useState<VoteContext | null>(null);
 
+  const warmedReps = useRef(new Set<string>());
+
+  function warmVoteprintCache(reps: Representative[]) {
+    const houseReps = reps
+      .filter((r) => r.area === 'US House')
+      .filter((r) => !warmedReps.current.has(r.id));
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[voteprint] Warming cache for:', houseReps.map((r) => r.id));
+    }
+
+    houseReps.forEach((rep) => {
+      warmedReps.current.add(rep.id);
+      fetch(
+        `/api/votes/${rep.id}?party=${encodeURIComponent(rep.party)}&congress=119`,
+        { priority: 'low' } as RequestInit,
+      ).catch(() => {});
+    });
+  }
+
   // Holds a ?category= param from the voteprint page's contact banner link.
   // Stored in a ref (not state) so it doesn't trigger a premature render —
   // the value is only applied once reps have loaded and the IssueSelector is
@@ -62,6 +82,11 @@ export default function Home() {
     }
 
     setAppState('representatives');
+
+    // Warm the voteprint cache for House reps in the background.
+    // Delayed 2 s so the main UI renders first and the network isn't competing
+    // with page render. Fire-and-forget — errors are intentionally swallowed.
+    setTimeout(() => warmVoteprintCache(result.representatives), 2000);
   }, []);
 
   const handleSelectionChange = useCallback((newIds: Set<string>) => {
