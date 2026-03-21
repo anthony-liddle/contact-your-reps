@@ -139,3 +139,19 @@ export async function writeCache<T>(key: string, data: T): Promise<void> {
     // Silent failure — a failed cache write must never break the data fetch
   }
 }
+
+/**
+ * Returns true if a valid (non-expired) cache entry exists for the given member
+ * and congress, false otherwise. Does not trigger any network fetch.
+ *
+ * @param bioguideId - The member's Bioguide identifier (e.g. "S000344")
+ * @param congress   - The Congress number (e.g. 119)
+ */
+export async function checkVoteCache(
+  bioguideId: string,
+  congress: number,
+): Promise<boolean> {
+  const key = `member-${bioguideId}-congress-${congress}`;
+  const result = await readCache(key);
+  return result !== null;
+}
