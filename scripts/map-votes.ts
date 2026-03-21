@@ -9,10 +9,14 @@
  * Usage:
  *   pnpm run map-votes
  *   pnpm run map-votes -- --reps S000344,W000187,P000197
+ *   pnpm run map-votes -- --reps S000344 --congress 118
  *
  * The --reps flag accepts a comma-separated list of bioguide IDs. Votes for
  * those members are fetched from Congress.gov (and cached) before processing
  * if they are not already in .cache/voteprint/.
+ *
+ * The --congress flag specifies which Congress number to fetch votes from.
+ * Defaults to 119 if omitted.
  */
 
 import { readFileSync, readdirSync, existsSync, writeFileSync, mkdirSync } from 'fs';
@@ -23,7 +27,9 @@ import { join } from 'path';
 // ---------------------------------------------------------------------------
 
 function loadDotEnv(): void {
-  const envPath = join(process.cwd(), '.env');
+  const envPath = existsSync(join(process.cwd(), '.env.local'))
+    ? join(process.cwd(), '.env.local')
+    : join(process.cwd(), '.env');
   if (!existsSync(envPath)) return;
   const lines = readFileSync(envPath, 'utf-8').split('\n');
   for (const line of lines) {
@@ -184,13 +190,13 @@ function writeBillCache(key: string, data: BillDetails): void {
 // e.g. "H.Con.Res." must come before "H.Res." which must come before "H.R."
 const BILL_TYPE_MAP: [string, string][] = [
   ['H.Con.Res.', 'hconres'],
-  ['H.J.Res.',   'hjres'],
-  ['H.Res.',     'hres'],
-  ['H.R.',       'hr'],
+  ['H.J.Res.', 'hjres'],
+  ['H.Res.', 'hres'],
+  ['H.R.', 'hr'],
   ['S.Con.Res.', 'sconres'],
-  ['S.J.Res.',   'sjres'],
-  ['S.Res.',     'sres'],
-  ['S.',         's'],
+  ['S.J.Res.', 'sjres'],
+  ['S.Res.', 'sres'],
+  ['S.', 's'],
 ];
 
 /**
@@ -432,17 +438,29 @@ function buildSystemPrompt(): string {
     .map((i) => `  - ${i.id}: ${i.title} — ${i.description}`)
     .join('\n');
 
-  return `You are categorizing U.S. Congressional roll call votes into issue categories for a civic engagement tool. You will be given a list of votes and must assign each one to the single most relevant category from the provided list, or "none" if no category fits well.
+  return `You are categorizing U.S. Congressional roll call votes into 
+issue categories for a civic engagement tool. You will be given a list 
+of votes and must assign each one to the single most relevant category 
+from the provided list, or "none" if no category fits well.
 
 Categories:
 ${categoryList}
 
 Rules:
 - Assign exactly one category per vote, or "none" if it does not fit
-- Procedural votes (motions to adjourn, quorum calls, rule adoptions with no policy content) should be "none"
+- Procedural votes (motions to adjourn, quorum calls, rule adoptions 
+  with no policy content) should be "none"
 - When a vote touches multiple categories, pick the primary one
 - Base your decision on the question text and description only
-- For "stance": "for" means a YEA vote takes the progressive/protective position on the issue. "against" means a YEA vote opposes or restricts the issue position.
+- "stance" describes the bill itself, not how any member voted.
+  "for" means a YEA vote on this bill advances a progressive or
+  protective position on the issue (expanding rights, protecting
+  the environment, supporting workers, strengthening oversight, etc.).
+  "against" means a YEA vote on this bill opposes or restricts
+  that position (rolling back protections, expanding enforcement,
+  reducing oversight, restricting access, etc.).
+  Do not consider how any member actually voted — only characterize
+  the bill's direction.
 - Return ONLY valid JSON, no other text
 
 Return a JSON array in this exact shape:
@@ -525,6 +543,21 @@ function parseRepsFlag(): string[] {
   return val.split(',').map((s) => s.trim()).filter(Boolean);
 }
 
+function parseCongressFlag(): number {
+  // Support both --congress 118 and --congress=118
+  const spaceIdx = process.argv.indexOf('--congress');
+  if (spaceIdx >= 0) {
+    const val = parseInt(process.argv[spaceIdx + 1], 10);
+    if (!isNaN(val)) return val;
+  }
+  const eqArg = process.argv.find((a) => a.startsWith('--congress='));
+  if (eqArg) {
+    const val = parseInt(eqArg.split('=')[1], 10);
+    if (!isNaN(val)) return val;
+  }
+  return 119;
+}
+
 function memberCachePath(bioguideId: string, congress: number): string {
   return join(CACHE_DIR, `member-${bioguideId}-congress-${congress}.json`);
 }
@@ -545,7 +578,7 @@ async function main(): Promise<void> {
 
   const congressApiKey = process.env.CONGRESS_GOV_API_KEY ?? '';
   const repIds = parseRepsFlag();
-  const congress = 119;
+  const congress = parseCongressFlag();
 
   // ── Step 1: Fetch uncached reps (if --reps provided) ─────────────────────
 
@@ -629,6 +662,7 @@ async function main(): Promise<void> {
   if (toProcess.length === 0) {
     console.log('\nNothing to do — all votes are already mapped.');
     printSummary({
+      congress,
       totalInCache: allVotes.size,
       alreadyMapped: skippedMapped,
       processed: 0,
@@ -728,6 +762,7 @@ async function main(): Promise<void> {
   // ── Step 7: Print summary ─────────────────────────────────────────────────
 
   printSummary({
+    congress,
     totalInCache: allVotes.size,
     alreadyMapped: skippedMapped,
     processed: toProcess.length,
@@ -747,6 +782,7 @@ async function main(): Promise<void> {
 // ---------------------------------------------------------------------------
 
 interface SummaryArgs {
+  congress: number;
   totalInCache: number;
   alreadyMapped: number;
   processed: number;
@@ -762,7 +798,7 @@ interface SummaryArgs {
 
 function printSummary(args: SummaryArgs): void {
   const {
-    totalInCache, alreadyMapped, processed, highCount, reviewCount,
+    congress, totalInCache, alreadyMapped, processed, highCount, reviewCount,
     skippedNoContent, repsFetched, repsAlreadyCached,
     billsFromApi, billsFromCache, billsNotFound,
   } = args;
@@ -770,6 +806,7 @@ function printSummary(args: SummaryArgs): void {
   console.log('\n─────────────────────────────────────────');
   console.log('  Summary');
   console.log('─────────────────────────────────────────');
+  console.log(`  Congress:                       ${congress}`);
   if (repsFetched > 0 || repsAlreadyCached > 0) {
     console.log(`  Reps fetched this run:          ${repsFetched}`);
     console.log(`  Reps already in cache:          ${repsAlreadyCached}`);
