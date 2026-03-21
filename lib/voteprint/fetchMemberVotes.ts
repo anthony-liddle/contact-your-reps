@@ -274,10 +274,10 @@ export async function fetchMemberVotes(
 ): Promise<RawCongressVote[]> {
   const cacheKey = `member-${bioguideId}-congress-${congress}`;
   const bypassCache = process.env.VOTEPRINT_BYPASS_CACHE === 'true';
-  const isProduction = process.env.NODE_ENV === 'production';
 
-  // Layer 2: file-based cache (development only)
-  if (!bypassCache && !isProduction) {
+  // Layer 2: persistent cache (file-based in development, Vercel Blob in production).
+  // readCache/writeCache handle the environment branching internally.
+  if (!bypassCache) {
     const cached = await readCache<RawCongressVote[]>(cacheKey);
     if (cached) return cached;
   }
@@ -366,8 +366,8 @@ export async function fetchMemberVotes(
     if (totalChecked > 0) lastTotalChecked = totalChecked;
   }
 
-  // Layer 2: write result to file cache (development only)
-  if (!bypassCache && !isProduction) {
+  // Layer 2: write to persistent cache
+  if (!bypassCache) {
     await writeCache(cacheKey, allVotes);
   }
 

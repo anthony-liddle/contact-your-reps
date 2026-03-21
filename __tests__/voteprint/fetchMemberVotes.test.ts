@@ -85,18 +85,39 @@ describe('fetchMemberVotes — cache integration', () => {
     expect(mockWriteCache).not.toHaveBeenCalled();
   });
 
-  it('skips the file cache in production (NODE_ENV === "production")', async () => {
+  it('reads from cache in production (NODE_ENV === "production") and short-circuits on hit', async () => {
     Object.defineProperty(process.env, 'NODE_ENV', {
       value: 'production',
       writable: true,
       configurable: true,
     });
-    (global.fetch as jest.Mock).mockRejectedValue(new Error('network'));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    mockReadCache.mockReturnValue(bradShermanFixture as any);
 
-    await fetchMemberVotes('S000344', 119).catch(() => {});
+    const result = await fetchMemberVotes('S000344', 119);
 
-    expect(mockReadCache).not.toHaveBeenCalled();
-    expect(mockWriteCache).not.toHaveBeenCalled();
+    expect(mockReadCache).toHaveBeenCalledWith('member-S000344-congress-119');
+    expect(global.fetch).not.toHaveBeenCalled();
+    expect(result).toEqual(bradShermanFixture);
+  });
+
+  it('writes to cache in production after a full fetch', async () => {
+    Object.defineProperty(process.env, 'NODE_ENV', {
+      value: 'production',
+      writable: true,
+      configurable: true,
+    });
+    mockReadCache.mockReturnValue(null);
+    (global.fetch as jest.Mock).mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: () =>
+        Promise.resolve({ houseRollCallVotes: [], pagination: { count: 0 } }),
+    });
+
+    await fetchMemberVotes('S000344', 119);
+
+    expect(mockWriteCache).toHaveBeenCalledWith('member-S000344-congress-119', []);
   });
 });
 
