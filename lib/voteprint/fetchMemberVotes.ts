@@ -249,6 +249,9 @@ function assembleVote(
 // Main export
 // ---------------------------------------------------------------------------
 
+/** Callback invoked after each batch of roll calls is processed and once at completion. */
+export type ProgressCallback = (fetched: number, total: number | null) => void;
+
 /**
  * Fetches all House roll call votes for a member from the Congress.gov API.
  *
@@ -267,6 +270,7 @@ function assembleVote(
 export async function fetchMemberVotes(
   bioguideId: string,
   congress: number = DEFAULT_CONGRESS,
+  onProgress?: ProgressCallback,
 ): Promise<RawCongressVote[]> {
   const cacheKey = `member-${bioguideId}-congress-${congress}`;
   const bypassCache = process.env.VOTEPRINT_BYPASS_CACHE === 'true';
@@ -280,6 +284,7 @@ export async function fetchMemberVotes(
 
   const fetchLimit = parseInt(process.env.VOTE_FETCH_LIMIT ?? '100', 10);
   const allVotes: RawCongressVote[] = [];
+  let totalChecked = 0; // roll calls examined across all sessions
 
   for (const session of SESSIONS) {
     let offset = 0;
@@ -345,6 +350,9 @@ export async function fetchMemberVotes(
 
           if (vote) allVotes.push(vote);
         }
+
+        totalChecked += chunk.length;
+        onProgress?.(totalChecked, totalInSession);
       }
 
       checkedThisSession += batch.length;
@@ -359,6 +367,8 @@ export async function fetchMemberVotes(
   if (!bypassCache && !isProduction) {
     await writeCache(cacheKey, allVotes);
   }
+
+  onProgress?.(totalChecked, totalChecked); // final completion signal
 
   return allVotes;
 }
