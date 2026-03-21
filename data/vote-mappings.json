@@ -418,5 +418,315 @@
     "category": "climate-justice",
     "stance": "against",
     "note": "Home Appliance Protection and Affordability Act restricts energy conservation standards, opposing climate-focused regulations."
+  },
+  "119-house-59": {
+    "category": "climate-justice",
+    "note": "Congressional disapproval of DOE appliance efficiency standards rule, undermining energy conservation measures.",
+    "stance": "against"
+  },
+  "119-house-58": {
+    "category": "climate-justice",
+    "note": "Congressional disapproval of EPA's hazardous air pollutant standards for rubber tire manufacturing, weakening environmental protections.",
+    "stance": "against"
+  },
+  "119-house-161": {
+    "category": "voting-rights-democracy",
+    "note": "Rule allowing consideration of bills including H.R. 884 which restricts voting rights in DC and repeals local resident voting rights.",
+    "stance": "against"
+  },
+  "119-house-261": {
+    "category": "foreign-policy",
+    "note": "Motion to recommit National Defense Authorization Act, potential opportunity to reduce military spending or refocus priorities.",
+    "stance": "for"
+  },
+  "119-house-262": {
+    "category": "foreign-policy",
+    "note": "Passage of defense authorization act focused on procurement streamlining, typically supporting military spending.",
+    "stance": "against"
+  },
+  "119-house-37": {
+    "category": "reproductive-justice",
+    "note": "Passage of H.R. 6945 supporting pregnancy centers, which restricts abortion information and access.",
+    "stance": "against"
+  },
+  "119-house-220": {
+    "category": "drug-decriminalization",
+    "note": "Stop Chinese Fentanyl Act addresses drug policy through international enforcement and criminalization rather than public health approaches.",
+    "stance": "against"
+  },
+  "119-house-358": {
+    "category": "climate-justice",
+    "note": "Mining Regulatory Clarity Act likely reduces environmental protections and regulatory oversight for mining operations.",
+    "stance": "against"
+  },
+  "119-house-52": {
+    "category": "climate-justice",
+    "note": "Congressional disapproval of EPA pollution charge rule for oil and gas systems, weakening environmental regulations.",
+    "stance": "against"
+  },
+  "119-house-53": {
+    "category": "climate-justice",
+    "note": "Congressional disapproval of DOE water heater efficiency standards rule, opposing energy conservation measures.",
+    "stance": "against"
+  },
+  "119-house-8": {
+    "category": "indigenous-sovereignty",
+    "note": "Passage of Miccosukee Reserved Area Amendments Act affecting Native American reserved lands.",
+    "stance": "for"
+  },
+  "119-house-48": {
+    "category": "foreign-policy",
+    "note": "This resolution directs removal of unauthorized U.S. Armed Forces from Venezuela, aligning with ending endless war.",
+    "stance": "for"
+  },
+  "119-house-61": {
+    "category": "climate-justice",
+    "note": "This resolution disapproves EPA rules on heavy-duty vehicle emissions standards, opposing climate regulations.",
+    "stance": "against"
+  },
+  "119-house-14": {
+    "category": "workers-rights",
+    "note": "The Adjusting Davis-Bacon for Inflation Act updates prevailing wage requirements, protecting worker wages.",
+    "stance": "for"
+  },
+  "119-house-38": {
+    "category": "universal-healthcare",
+    "note": "This resolution supports Medicaid expansion under the Affordable Care Act to close the coverage gap, expanding healthcare access.",
+    "stance": "for"
+  },
+  "119-house-83": {
+    "category": "climate-justice",
+    "note": "Aviation Noise and Emissions Mitigation Act addresses aviation emissions reduction.",
+    "stance": "for"
+  },
+  "119-house-71": {
+    "category": "queer-rights",
+    "note": "Removing deadline for Equal Rights Amendment ratification supports gender equality and protected rights.",
+    "stance": "for"
+  },
+  "119-house-99": {
+    "category": "racial-justice",
+    "note": "Bill aims to combat racist training in the military, addressing structural racism in armed forces.",
+    "stance": "for"
+  },
+  "119-house-46": {
+    "category": "workers-rights",
+    "note": "Motion to recommit on bill guaranteeing overtime protections for truckers; supports worker labor rights.",
+    "stance": "for"
+  },
+  "119-house-47": {
+    "category": "workers-rights",
+    "note": "Passage of Guaranteeing Overtime for Truckers Act expands worker protections and labor standards.",
+    "stance": "for"
+  },
+  "119-house-49": {
+    "category": "voting-rights-democracy",
+    "note": "H.R. 980 grants voting rights to Washington, D.C. residents in federal elections.",
+    "stance": "for"
+  },
+  "119-house-265": {
+    "category": "climate-justice",
+    "note": "Motion to table disapproval of EPA's particulate matter air quality standards, opposing environmental protection.",
+    "stance": "against"
+  },
+  "119-house-318": {
+    "category": "racial-justice",
+    "note": "Commemorative resolution honoring the repeal of the Chinese Exclusion Act, acknowledging historical racial injustice.",
+    "stance": "for"
+  },
+  "119-house-323": {
+    "category": "disability-rights",
+    "note": "Supporting disabled National Guardsmen through benefits and protections.",
+    "stance": "for"
+  },
+  "119-house-123": {
+    "category": "foreign-policy",
+    "note": "Directive to remove U.S. armed forces from Somalia under War Powers Resolution; ending endless military deployments.",
+    "stance": "for"
+  },
+  "119-house-274": {
+    "category": "workers-rights",
+    "note": "Legislation ending forced arbitration for servicemembers, protecting workers' rights to legal recourse and collective action.",
+    "stance": "for"
+  },
+  "119-house-277": {
+    "category": "indigenous-sovereignty",
+    "note": "Legislation protecting the Chaco Cultural Heritage Area honors Indigenous sovereignty and protects sacred lands from exploitation.",
+    "stance": "for"
+  },
+  "119-house-144": {
+    "category": "climate-justice",
+    "note": "Motion to recommit on the Lower Energy Costs Act, which prioritizes fossil fuel expansion over climate action.",
+    "stance": "against"
+  },
+  "119-house-145": {
+    "category": "climate-justice",
+    "note": "The Lower Energy Costs Act expands fossil fuel development and prioritizes energy industry interests over climate justice.",
+    "stance": "against"
+  },
+  "119-house-300": {
+    "category": "food-sovereignty",
+    "note": "Healthy SNAP Act promotes nutritious food access through the food assistance program, supporting food as a right.",
+    "stance": "for"
+  },
+  "119-house-357": {
+    "category": "housing-as-a-right",
+    "note": "Motion to recommit on bill addressing lead hazards in housing, a public health and housing safety issue.",
+    "stance": "for"
+  },
+  "119-house-347": {
+    "category": "drug-decriminalization",
+    "note": "Passage vote on bill to include opioid overdose emergency medication (naloxone) in aircraft emergency medical kits.",
+    "stance": "for"
+  },
+  "119-house-154": {
+    "category": "voting-rights-democracy",
+    "note": "Motion to recommit on Election Mail Act addressing mail voting access and administration.",
+    "stance": "for"
+  },
+  "119-house-155": {
+    "category": "voting-rights-democracy",
+    "note": "Passage vote on Election Mail Act to improve mail voting processes and accessibility.",
+    "stance": "for"
+  },
+  "119-house-179": {
+    "category": "racial-justice",
+    "note": "Resolution affirming moral obligation to guarantee justice for all addresses foundational commitment to equal justice.",
+    "stance": "for"
+  },
+  "119-house-193": {
+    "category": "surveillance-digital-rights",
+    "note": "REAL Political Advertisements Act requires transparency in political advertising, addressing corporate power and digital rights.",
+    "stance": "for"
+  },
+  "119-house-199": {
+    "category": "reproductive-justice",
+    "note": "HPV vaccine promotion to prevent cancers represents preventive healthcare access and reproductive health protection.",
+    "stance": "for"
+  },
+  "119-house-198": {
+    "category": "workers-rights",
+    "note": "Recognition of journeyman lineworkers supports skilled trade workers and labor dignity.",
+    "stance": "for"
+  },
+  "119-house-226": {
+    "category": "foreign-policy",
+    "note": "H.J.Res. 105 seeks congressional disapproval of a foreign military sale to UAE, advancing diplomatic oversight over military expansion.",
+    "stance": "for"
+  },
+  "119-house-225": {
+    "category": "foreign-policy",
+    "note": "H.J.Res. 106 seeks congressional disapproval of a foreign military sale to Saudi Arabia, advancing diplomatic oversight over military expansion.",
+    "stance": "for"
+  },
+  "119-house-105": {
+    "category": "police-violence",
+    "note": "H.Res. 354 expresses condemnation of police brutality, advancing accountability and ending police violence.",
+    "stance": "for"
+  },
+  "119-house-56": {
+    "category": "workers-rights",
+    "note": "Congressional disapproval of Department of Labor retirement security fiduciary rule that protects workers' retirement investments.",
+    "stance": "against"
+  },
+  "119-house-67": {
+    "category": "corporate-power",
+    "note": "Article I Regulatory Budget Act would restrict regulatory authority and oversight, limiting government's ability to regulate corporate behavior.",
+    "stance": "against"
+  },
+  "119-house-120": {
+    "category": "trans-rights",
+    "note": "Safeguarding the U.S. Armed Forces and Service Academies Act likely restricts transgender military service and academy participation.",
+    "stance": "against"
+  },
+  "119-house-125": {
+    "category": "climate-justice",
+    "note": "Limiting availability of funds for Council on Environmental Quality and Office of Environmental Quality; restricts environmental protection.",
+    "stance": "against"
+  },
+  "119-house-313": {
+    "category": "climate-justice",
+    "note": "Clean Energy Demonstration Transparency Act promotes transparency in clean energy projects, supporting climate action.",
+    "stance": "for"
+  },
+  "119-house-314": {
+    "category": "climate-justice",
+    "note": "Protecting Airport Communities from Particle Emissions Act addresses environmental pollution from airports, supporting climate justice.",
+    "stance": "for"
+  },
+  "119-house-54": {
+    "category": "workers-rights",
+    "note": "The Comprehensive Paid Leave for Federal Employees Act expands worker benefits and labor protections for federal workers.",
+    "stance": "for"
+  },
+  "119-house-190": {
+    "category": "climate-justice",
+    "note": "Lower Energy Costs Act typically prioritizes fossil fuel expansion and market-based approaches over climate justice.",
+    "stance": "against"
+  },
+  "119-house-65": {
+    "category": "corporate-power",
+    "note": "The No Tax Subsidies for Stadiums Act opposes corporate subsidies and tax breaks for sports facilities.",
+    "stance": "for"
+  },
+  "119-house-192": {
+    "category": "universal-healthcare",
+    "note": "Pharmacist services expansion improves healthcare access and community health infrastructure.",
+    "stance": "for"
+  },
+  "119-house-213": {
+    "category": "foreign-policy",
+    "note": "Measures against Iran typically involve sanctions and military posturing rather than diplomacy-centered foreign policy.",
+    "stance": "against"
+  },
+  "119-house-324": {
+    "category": "immigration-abolish-ice",
+    "note": "Protecting federal funds from human trafficking and smuggling involves enforcement and restriction, opposing immigration-friendly policies.",
+    "stance": "against"
+  },
+  "119-house-310": {
+    "category": "disability-rights",
+    "note": "Autism Family Caregivers Act provides support for caregivers of people with autism, advancing disability rights and accessibility.",
+    "stance": "for"
+  },
+  "119-house-107": {
+    "category": "disability-rights",
+    "note": "Boxing Therapy for Parkinson's Access Act expands therapeutic access for people with Parkinson's disease, advancing disability rights.",
+    "stance": "for"
+  },
+  "119-house-280": {
+    "category": "disability-rights",
+    "note": "Choices for Increased Mobility Act likely expands transportation or mobility access for disabled individuals.",
+    "stance": "for"
+  },
+  "119-house-222": {
+    "category": "racial-justice",
+    "note": "Sickle cell research and public education addresses health disparities affecting African American communities.",
+    "stance": "for"
+  },
+  "119-house-200": {
+    "category": "food-sovereignty",
+    "note": "Opportunities in Organic Act expands organic agriculture which supports food sovereignty and sustainable food systems.",
+    "stance": "for"
+  },
+  "119-house-32": {
+    "category": "food-sovereignty",
+    "note": "Establishes permanent organic market development grant program supporting sustainable agriculture.",
+    "stance": "for"
+  },
+  "119-house-203": {
+    "category": "foreign-policy",
+    "note": "Resolution calling for international justice mechanism to investigate Syria war crimes promotes accountability and rule of law.",
+    "stance": "for"
+  },
+  "119-house-315": {
+    "category": "immigration-abolish-ice",
+    "note": "Syria Detainee and Displaced Persons Act addresses protection of displaced persons and detainees, supporting immigrant and human rights advocacy.",
+    "stance": "for"
+  },
+  "119-house-269": {
+    "category": "foreign-policy",
+    "note": "Ukraine Lend-Lease Accountability Act provides oversight and accountability for military aid to Ukraine.",
+    "stance": "for"
   }
 }
