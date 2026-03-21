@@ -22,6 +22,8 @@ import VoteprintPanel from '@/components/VoteprintPanel/VoteprintPanel';
 import VoteprintUnavailable from '@/components/VoteprintUnavailable/VoteprintUnavailable';
 import VoteprintSkeleton from '@/components/VoteprintSkeleton/VoteprintSkeleton';
 import ReloadButton from './ReloadButton';
+import { checkVoteCache } from '@/lib/voteprint/cache';
+import VoteprintLoader from './VoteprintLoader';
 import styles from './page.module.css';
 
 // ---------------------------------------------------------------------------
@@ -56,7 +58,14 @@ export default async function RepPage({ params, searchParams }: PageProps) {
   const party = normalizeParty(sp.party);
   const chamber: 'House' | 'Senate' = sp.chamber === 'Senate' ? 'Senate' : 'House';
 
+  const CONGRESS = 119;
   const rep = { bioguideId, party, chamber };
+
+  // Check cache for House members so we can choose cold vs warm render path
+  const isCached =
+    rep.chamber === 'House'
+      ? await checkVoteCache(rep.bioguideId, CONGRESS)
+      : false;
 
   return (
     <>
@@ -92,14 +101,22 @@ export default async function RepPage({ params, searchParams }: PageProps) {
 
         <div className={styles.content}>
           {rep.chamber === 'House' ? (
-            <Suspense fallback={<VoteprintSkeleton />}>
-              <VoteprintContent
+            isCached ? (
+              <Suspense fallback={<VoteprintSkeleton />}>
+                <VoteprintContent
+                  bioguideId={rep.bioguideId}
+                  party={rep.party}
+                  repName={rep.bioguideId}
+                  repBioguideId={rep.bioguideId}
+                />
+              </Suspense>
+            ) : (
+              <VoteprintLoader
                 bioguideId={rep.bioguideId}
                 party={rep.party}
-                repName={rep.bioguideId}
-                repBioguideId={rep.bioguideId}
+                congress={CONGRESS}
               />
-            </Suspense>
+            )
           ) : (
             <VoteprintUnavailable />
           )}
