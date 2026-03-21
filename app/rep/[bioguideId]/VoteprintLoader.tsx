@@ -2,22 +2,23 @@
  * VoteprintLoader — client component for cold-cache voteprint loading.
  *
  * Opens an EventSource to /api/votes/[bioguideId]/progress and renders
- * VoteprintSkeleton with live progress updates. On "complete", calls
- * router.refresh() which causes the server to re-render VoteprintContent
- * from the now-warm cache.
+ * VoteprintSkeleton with live progress updates. On "complete", fetches the
+ * Vote[] directly from /api/votes/[bioguideId] and renders VoteprintPanel
+ * without needing a router.refresh() round-trip.
  *
  * State machine:
  *   streaming  — SSE active; skeleton shows live progress
- *   completing — "complete" received; skeleton shows 100% bar; refresh in-flight
- *   error      — SSE failed; error UI with reload button
+ *   completing — "complete" received; fetching Vote[] from data endpoint
+ *   error      — SSE or data fetch failed; error UI with reload button
  */
 
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import VoteprintSkeleton from '@/components/VoteprintSkeleton/VoteprintSkeleton';
+import VoteprintPanel from '@/components/VoteprintPanel/VoteprintPanel';
+import type { Vote } from '@/lib/voteprint';
 import styles from './page.module.css';
 
 interface VoteprintLoaderProps {
@@ -38,9 +39,9 @@ export default function VoteprintLoader({
   party,
   congress,
 }: VoteprintLoaderProps) {
-  const router = useRouter();
   const [state, setState] = useState<LoaderState>('streaming');
   const [progress, setProgress] = useState<ProgressData | null>(null);
+  const [votes, setVotes] = useState<Vote[] | null>(null);
 
   useEffect(() => {
     const url = `/api/votes/${bioguideId}/progress?party=${encodeURIComponent(party)}&congress=${congress}`;
@@ -59,7 +60,18 @@ export default function VoteprintLoader({
       } else if (data.type === 'complete') {
         es.close();
         setState('completing');
-        router.refresh();
+
+        // Fetch the processed votes directly — no router.refresh() needed.
+        // The SSE route already warmed the cache, so this returns immediately.
+        fetch(
+          `/api/votes/${bioguideId}?party=${encodeURIComponent(party)}&congress=${congress}`,
+        )
+          .then((res) => {
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.json() as Promise<Vote[]>;
+          })
+          .then((data) => setVotes(data))
+          .catch(() => setState('error'));
       } else if (data.type === 'error') {
         es.close();
         setState('error');
@@ -74,7 +86,17 @@ export default function VoteprintLoader({
     return () => {
       es.close();
     };
-  }, [bioguideId, party, congress, router]);
+  }, [bioguideId, party, congress]);
+
+  if (votes) {
+    return (
+      <VoteprintPanel
+        votes={votes}
+        repName={bioguideId}
+        repBioguideId={bioguideId}
+      />
+    );
+  }
 
   if (state === 'error') {
     return (

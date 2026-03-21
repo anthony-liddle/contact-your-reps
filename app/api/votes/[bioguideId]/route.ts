@@ -1,13 +1,12 @@
 /**
  * GET /api/votes/[bioguideId]?party=...&congress=119
  *
- * Cache-warming endpoint for the voteprint feature. Fetching this route
- * triggers getMemberVotes server-side, which populates the Vercel Blob cache
- * (production) or local file cache (development) so the /rep/[bioguideId]
- * page loads faster on the next navigation.
- *
- * Called in the background from the main page after reps load — the response
- * body is intentionally discarded by the caller.
+ * Dual-purpose endpoint for the voteprint feature:
+ *  1. Cache-warming: called in the background from the main page after reps
+ *     load to pre-populate the cache; the response body is discarded.
+ *  2. Data fetch: called by VoteprintLoader after the SSE progress stream
+ *     completes to retrieve the Vote[] and render VoteprintPanel client-side,
+ *     eliminating the need for a router.refresh() round-trip.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -31,10 +30,9 @@ export async function GET(
   const congress = parseInt(sp.get('congress') ?? '119', 10);
 
   try {
-    await getMemberVotes(bioguideId, party, congress);
-    return NextResponse.json({ ok: true });
+    const votes = await getMemberVotes(bioguideId, party, congress);
+    return NextResponse.json(votes);
   } catch {
-    // Return 500 silently — the caller ignores errors by design
-    return NextResponse.json({ ok: false }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch votes' }, { status: 500 });
   }
 }
