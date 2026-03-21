@@ -3,7 +3,7 @@
  *
  * Mirrors the visual structure of VoteprintPanel so the page layout is stable
  * during the fetch. The loading message below the canvas sets honest expectations:
- * a first-time fetch can take up to 30 s; subsequent visits hit the local cache.
+ * a first-time fetch can take up to 60 s; subsequent visits hit the local cache.
  */
 
 import styles from './VoteprintSkeleton.module.css';
