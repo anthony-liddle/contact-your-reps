@@ -284,10 +284,11 @@ export async function fetchMemberVotes(
 
   const fetchLimit = parseInt(process.env.VOTE_FETCH_LIMIT ?? '100', 10);
   const allVotes: RawCongressVote[] = [];
-  let totalChecked = 0; // roll calls examined across all sessions
+  let lastTotalChecked = 0; // totalChecked from the final processed session
 
   for (const session of SESSIONS) {
     let offset = 0;
+    let totalChecked = 0; // roll calls examined in this session
     let totalInSession: number | null = null;
     let checkedThisSession = 0;
 
@@ -361,6 +362,8 @@ export async function fetchMemberVotes(
       checkedThisSession < fetchLimit &&
       offset < (totalInSession ?? 0)
     );
+
+    if (totalChecked > 0) lastTotalChecked = totalChecked;
   }
 
   // Layer 2: write result to file cache (development only)
@@ -368,7 +371,7 @@ export async function fetchMemberVotes(
     await writeCache(cacheKey, allVotes);
   }
 
-  onProgress?.(totalChecked, totalChecked); // final completion signal
+  onProgress?.(lastTotalChecked, lastTotalChecked); // final completion signal
 
   return allVotes;
 }
