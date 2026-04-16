@@ -25,7 +25,7 @@
     "*.{ts,tsx}": "eslint --fix"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild", "sharp", "unrs-resolver"]
+    "neverBuiltDependencies": ["esbuild", "sharp", "unrs-resolver"]
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
