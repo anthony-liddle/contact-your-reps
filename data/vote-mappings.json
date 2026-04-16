@@ -57,7 +57,7 @@
   "119-house-259": {
     "category": "climate-justice",
     "stance": "against",
-    "note": "Amendment to defund EPA's climate enforcement division; failed on bipartisan opposition"
+    "note": "Biggs amendment to the NDAA exempting military lands from EPA/ESA critical habitat designations and environmental review, weakening environmental protections; failed on bipartisan opposition"
   },
   "119-house-81": {
     "category": "indigenous-sovereignty",
@@ -495,18 +495,18 @@
     "stance": "for"
   },
   "119-house-83": {
-    "category": "climate-justice",
-    "note": "Aviation Noise and Emissions Mitigation Act addresses aviation emissions reduction.",
-    "stance": "for"
+    "category": "surveillance-digital-rights",
+    "note": "DETERRANT Act expands disclosure requirements for foreign funding and contracts at universities; critics argue it chills academic freedom and disproportionately targets students and faculty with ties to China; passed 241-169 on Republican votes.",
+    "stance": "against"
   },
   "119-house-71": {
-    "category": "queer-rights",
-    "note": "Removing deadline for Equal Rights Amendment ratification supports gender equality and protected rights.",
-    "stance": "for"
+    "category": "corporate-power",
+    "note": "H.J.Res. 25 nullifies IRS rule requiring crypto brokers to report digital asset transactions; eliminates financial transparency and reporting obligations, benefiting the crypto industry at the expense of tax accountability; signed into law (P.L. 119-5).",
+    "stance": "against"
   },
   "119-house-99": {
-    "category": "racial-justice",
-    "note": "Bill aims to combat racist training in the military, addressing structural racism in armed forces.",
+    "category": "disability-rights",
+    "note": "H.R. 1228 reorganizes the VA Office of Survivors Assistance to report directly to the Secretary of Veterans Affairs, improving support for veterans' survivors; passed 424-0.",
     "stance": "for"
   },
   "119-house-46": {
@@ -526,8 +526,8 @@
   },
   "119-house-265": {
     "category": "climate-justice",
-    "note": "Motion to table disapproval of EPA's particulate matter air quality standards, opposing environmental protection.",
-    "stance": "against"
+    "note": "Motion to table congressional disapproval of EPA's particulate matter air quality standards; tabling the CRA disapproval blocks the rollback and protects the EPA standard.",
+    "stance": "for"
   },
   "119-house-318": {
     "category": "racial-justice",
@@ -556,13 +556,8 @@
   },
   "119-house-144": {
     "category": "climate-justice",
-    "note": "Motion to recommit on the Lower Energy Costs Act, which prioritizes fossil fuel expansion over climate action.",
-    "stance": "against"
-  },
-  "119-house-145": {
-    "category": "climate-justice",
-    "note": "The Lower Energy Costs Act expands fossil fuel development and prioritizes energy industry interests over climate justice.",
-    "stance": "against"
+    "note": "Democratic motion to recommit on H.R. 1 (119th Congress), the reconciliation bill that repeals clean energy tax credits and expands fossil fuel extraction; a yes vote supports the minority challenge to the bill.",
+    "stance": "for"
   },
   "119-house-300": {
     "category": "food-sovereignty",
@@ -592,11 +587,6 @@
   "119-house-179": {
     "category": "racial-justice",
     "note": "Resolution affirming moral obligation to guarantee justice for all addresses foundational commitment to equal justice.",
-    "stance": "for"
-  },
-  "119-house-193": {
-    "category": "surveillance-digital-rights",
-    "note": "REAL Political Advertisements Act requires transparency in political advertising, addressing corporate power and digital rights.",
     "stance": "for"
   },
   "119-house-199": {
@@ -658,11 +648,6 @@
     "category": "workers-rights",
     "note": "The Comprehensive Paid Leave for Federal Employees Act expands worker benefits and labor protections for federal workers.",
     "stance": "for"
-  },
-  "119-house-190": {
-    "category": "climate-justice",
-    "note": "Lower Energy Costs Act typically prioritizes fossil fuel expansion and market-based approaches over climate justice.",
-    "stance": "against"
   },
   "119-house-65": {
     "category": "corporate-power",
